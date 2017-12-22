@@ -1,0 +1,30 @@
+<style>
+  div#menu {
+    display: inline-block;
+    position: relative;
+    bottom: 1.25em;
+  }
+  div#menu ul {
+    display: inline-block;
+  }
+  div#menu li {
+    display: inline-block;
+  }
+  div#menu a {
+    display: inline-block;
+    font-size: 0.5em;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: inherit;
+    letter-spacing: 0px;
+    padding-left: 2em;
+  }
+</style>      
+
+<div id=menu>
+  <ul>
+  {% for item in menu %}
+    <li><a href="{{ item.url }}">{{ item.title }}</a></li>
+  {% endfor %}
+  </ul>
+</div>
