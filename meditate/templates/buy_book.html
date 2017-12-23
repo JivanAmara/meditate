@@ -1,6 +1,50 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block extrahead %}
+    <title>Buy Book</title>
+    <script type='text/javascript'>
+        function AddToCart(saleItemName) {
+            addItemUrl = "{% url 'add_order_item' 'saleItemName' %}"
+            addItemUrl = addItemUrl.replace('saleItemName', saleItemName)
+
+        	$.ajax({
+        	   type: 'GET',
+        	   url: addItemUrl,
+        	   success: function(responsedata) {
+        	       updateOrderCount()
+        	   },
+        	   failure: function(XMLHttpRequest, textStatus, errorThrown) {
+        	       var msg = `Unable to add "${saleItemName}" to cart` 
+
+        	       alert(msg); // TODO: Remove this.
+
+                   var logUrl = '{% url "log_javascript" "msgPlaceholder" %}'
+                   logUrl = logUrl.replace('msgPlaceholder', msg)
+        	       $.ajax({
+        	           type: 'GET',
+        	           url: logUrl,
+        	       });
+        	   }
+        	})
+        }
+    </script>
+{% endblock %}
+
 
 {% block content %}
 <hr>
-Buy Book goes here
+
+<div id='item-container' style='text-align: center;'>
+{% for item in items %}
+    <div style='display: inline-block; width: 30%; text-align: center;'>
+        Img: <img src="{% static item.img %}" width='20%'>
+        Name: {{ item.name }}<br>
+        Description: {{ item.desc }}<br>
+        Price: {{item.price}}
+        <input type='button' onclick='AddToCart("{{item.name}}")' value='Add to Cart'>
+    </div>
+{% endfor %}
+</div>
+
 {% endblock %}

@@ -3,6 +3,7 @@
     display: inline-block;
     position: relative;
     bottom: 1.25em;
+    width: 90%;
   }
   div#menu ul {
     display: inline-block;
@@ -19,12 +20,32 @@
     letter-spacing: 0px;
     padding-left: 2em;
   }
-</style>      
+</style>
+
+<script type='text/javascript'>
+    function updateOrderCount() {
+        $.ajax({
+            type: "GET",
+            url: "{% url 'get_order_count' %}",
+            success: function(data) {
+                text = `Cart(${data.count})`;
+                document.getElementById('OrderCount').innerHTML = text;
+            },
+        });
+    }
+</script>
+
 
 <div id=menu>
   <ul>
   {% for item in menu %}
     <li><a href="{{ item.url }}">{{ item.title }}</a></li>
   {% endfor %}
+  
   </ul>
+  <div id='OrderCount' style='float: right; display: inline;'>Cart(0)</span>
 </div>
+
+<script type='text/javascript'>
+  updateOrderCount();
+</script>
