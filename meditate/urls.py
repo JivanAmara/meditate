@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from meditate.views import (homepage, why_meditate, about_author, sample, buy_book,
-                            subscribe_mentoring, add_order_item, log_javascript, get_order_count)
+from meditate.views import (
+    homepage, why_meditate, about_author, sample, buy_book, subscribe_mentoring,
+    add_order_item, remove_order_item, log_javascript, get_order_count, order_summary)
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -29,7 +30,10 @@ urlpatterns = [
     path('buy_book', buy_book),
     path('subscribe', subscribe_mentoring),
     path('add_order_item/<str:saleItemName>', add_order_item, name='add_order_item'),
-    path('get_order_count', get_order_count, name='get_order_count'),
+    path('remove_order_item/<str:saleItemName>', remove_order_item, name='remove_order_item'),
+    path('get_order_count/<str:saleItemName>', get_order_count, name='single_item_count'),
+    path('get_order_count', get_order_count, name='all_item_count'),
     path('log_javascript/<str:msg>', log_javascript, name='log_javascript'),
+    path('order_summary', order_summary, name='order_summary'),
     path('admin/', admin.site.urls),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -22,20 +22,6 @@
   }
 </style>
 
-<script type='text/javascript'>
-    function updateOrderCount() {
-        $.ajax({
-            type: "GET",
-            url: "{% url 'get_order_count' %}",
-            success: function(data) {
-                text = `Cart(${data.count})`;
-                document.getElementById('OrderCount').innerHTML = text;
-            },
-        });
-    }
-</script>
-
-
 <div id=menu>
   <ul>
   {% for item in menu %}
@@ -43,7 +29,9 @@
   {% endfor %}
   
   </ul>
-  <div id='OrderCount' style='float: right; display: inline;'>Cart(0)</span>
+  <div style='float: right; display: inline;'>
+    <a href='{% url 'order_summary' %}'>Cart(<span id='OrderCount'>0</span>)</a>
+  </div>
 </div>
 
 <script type='text/javascript'>

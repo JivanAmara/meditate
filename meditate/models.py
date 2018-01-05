@@ -1,7 +1,8 @@
 from django.db import models
 
 class OrderItem(models.Model):
-    order = models.ForeignKey('Order', on_delete='cascade')
+    order = models.ForeignKey('Order', on_delete=models.PROTECT)
+    count = models.IntegerField(default=0)
     saleItem = models.ForeignKey('SaleItem', on_delete=models.PROTECT)
     coupons = models.ManyToManyField('Coupon')
 

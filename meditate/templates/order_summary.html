@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% load static %}
+<!-- Expects context params: "order", base.html expects "request" -->
+
+{% block extrahead %}
+    <title>Your Order</title>
+    <style>
+        table {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .order_item {
+            text-align: center;
+        }
+
+        input.button-add > img, input.button-remove > img {
+            height: 1em;
+        }
+
+        input.button-add {
+          background: url({% static "img/up-arrow.png" %});
+        }
+        input.button-remove {
+          background: url({% static "img/down-arrow.png" %});
+        }
+        input.button-add, input.button-remove {
+          background-size: cover;
+          background-color: transparent; /* make the button transparent */
+          background-repeat: no-repeat;  /* make the background image appear only once */
+          background-position: 0px 0px;  /* equivalent to 'top left' */
+          border: none;           /* assuming we don't want any borders */
+          cursor: pointer;        /* make the cursor like hovering over an <a> element */
+        }
+    </style>
+
+    {% include "order_functions.html" %}
+
+    <script type="text/javascript">
+        function AddToCartLocal(saleItemName, saleItemId) {
+           // Adds an item to the cart & updates the count displayed in the order summary
+           //  as well as the cart total items.
+
+           function afterAddToCart() {
+             // This is to replace the displayed count for this item with the current value.
+             urlTemplate = '{% url "single_item_count" "saleItemNamePlaceholder" %}';
+             singleItemCountUrl = urlTemplate.replace('saleItemNamePlaceholder', saleItemName);
+
+             $.ajax({
+                type: 'GET',
+                url: singleItemCountUrl,
+                success: function(responsedata) {
+                    updateOrderCount();
+                    countId = 'sale_item_' + saleItemId;
+                    el = document.getElementById(countId);
+                    el.innerHTML = responsedata.count;
+                },
+                failure: function(XMLHttpRequest, textStatus, errorThrown) {
+                    var msg = `Unable to add "${saleItemName}" to cart` 
+                    alert(msg); // TODO: Remove this.
+
+                    var logUrl = '{% url "log_javascript" "msgPlaceholder" %}'
+                    logUrl = logUrl.replace('msgPlaceholder', msg)
+                    $.ajax({
+                        type: 'GET',
+                        url: logUrl,
+                    });
+                }
+             });
+           }
+
+            // This adds an item to the cart & updates the cart total.
+            AddToCart(saleItemName, callback=afterAddToCart);
+        }
+        
+        function RemoveFromCartLocal(saleItemName, saleItemId) {
+           // Removes an item from the cart & updates the count displayed in the order summary
+           //  as well as the cart total items.
+
+           function afterRemoveFromCart() {
+             // This is to replace the displayed count for this item with the current value.
+             urlTemplate = '{% url "single_item_count" "saleItemNamePlaceholder" %}';
+             singleItemCountUrl = urlTemplate.replace('saleItemNamePlaceholder', saleItemName);
+
+             $.ajax({
+                type: 'GET',
+                url: singleItemCountUrl,
+                success: function(responsedata) {
+                    updateOrderCount();
+                    countId = 'sale_item_' + saleItemId;
+                    el = document.getElementById(countId);
+                    el.innerHTML = responsedata.count;
+                },
+                failure: function(XMLHttpRequest, textStatus, errorThrown) {
+                    var msg = `Unable to add "${saleItemName}" to cart` 
+                    alert(msg); // TODO: Remove this.
+
+                    var logUrl = '{% url "log_javascript" "msgPlaceholder" %}'
+                    logUrl = logUrl.replace('msgPlaceholder', msg)
+                    $.ajax({
+                        type: 'GET',
+                        url: logUrl,
+                    });
+                }
+             });
+           }
+
+            // This adds an item to the cart & updates the cart total.
+            RemoveFromCart(saleItemName, callback=afterRemoveFromCart);
+        }
+
+    </script>
+{% endblock %}
+
+
+{% block content %}
+    <hr>
+    {% for item in order.orderitem_set.all %}
+        <div class='order_item'>
+            <div><b>{{item.saleItem.name}}</b></div>
+            <div>${{item.saleItem.price}}</div>
+            <div>
+              <span>Item Total: ${{item.saleItem.price}} * </span>
+              <span id="sale_item_{{item.saleItem.id}}">{{item.count}}</span>
+            </div>
+            <input type='button' class='button-add b'
+                onclick='AddToCartLocal("{{item.saleItem.name}}", {{item.saleItem.id}})'>
+
+            <input type='button' class='b button-remove'
+                onclick='RemoveFromCartLocal("{{item.saleItem.name}}", {{item.saleItem.id}})'>
+
+            <table>
+              <tr>
+                <tc>
+                  <td>
+                    widget here
+                  </td>
+                </tc>
+                <tc>
+                  <td>
+                      <img src='{% static item.saleItem.img %}'></img>
+                  </td>
+                </tc>
+              </tr>
+            </table>
+        </div>
+    {% endfor %}    
+{% endblock %}

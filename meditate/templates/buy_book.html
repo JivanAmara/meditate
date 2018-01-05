@@ -3,32 +3,7 @@
 
 {% block extrahead %}
     <title>Buy Book</title>
-    <script type='text/javascript'>
-        function AddToCart(saleItemName) {
-            addItemUrl = "{% url 'add_order_item' 'saleItemName' %}"
-            addItemUrl = addItemUrl.replace('saleItemName', saleItemName)
-
-        	$.ajax({
-        	   type: 'GET',
-        	   url: addItemUrl,
-        	   success: function(responsedata) {
-        	       updateOrderCount()
-        	   },
-        	   failure: function(XMLHttpRequest, textStatus, errorThrown) {
-        	       var msg = `Unable to add "${saleItemName}" to cart` 
-
-        	       alert(msg); // TODO: Remove this.
-
-                   var logUrl = '{% url "log_javascript" "msgPlaceholder" %}'
-                   logUrl = logUrl.replace('msgPlaceholder', msg)
-        	       $.ajax({
-        	           type: 'GET',
-        	           url: logUrl,
-        	       });
-        	   }
-        	})
-        }
-    </script>
+    {% include "order_functions.html" %}
 {% endblock %}
 
 
