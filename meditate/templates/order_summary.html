@@ -36,6 +36,16 @@
     {% include "order_functions.html" %}
 
     <script type="text/javascript">
+        var itemTotals = {};
+        
+        $(function() {
+            {% for item in order.orderitem_set.all %}
+            itemTotals[{{item.saleItem.id}}] = {{item.saleItem.price}} * {{item.count}};
+            {% endfor %}
+            
+            UpdateOrderTotal();
+        });
+        
         function AddToCartLocal(saleItemName, saleItemId) {
            // Adds an item to the cart & updates the count displayed in the order summary
            //  as well as the cart total items.
@@ -53,6 +63,8 @@
                     countId = 'sale_item_' + saleItemId;
                     el = document.getElementById(countId);
                     el.innerHTML = responsedata.count;
+                    itemTotals[saleItemId] = responsedata.count * responsedata.price;
+                    UpdateOrderTotal();
                 },
                 failure: function(XMLHttpRequest, textStatus, errorThrown) {
                     var msg = `Unable to add "${saleItemName}" to cart` 
@@ -89,6 +101,8 @@
                     countId = 'sale_item_' + saleItemId;
                     el = document.getElementById(countId);
                     el.innerHTML = responsedata.count;
+                    itemTotals[saleItemId] = responsedata.count * responsedata.price;
+                    UpdateOrderTotal();
                 },
                 failure: function(XMLHttpRequest, textStatus, errorThrown) {
                     var msg = `Unable to add "${saleItemName}" to cart` 
@@ -108,12 +122,24 @@
             RemoveFromCart(saleItemName, callback=afterRemoveFromCart);
         }
 
+        function UpdateOrderTotal() {
+            // Returns the total price of the entire cart. 
+            var total = 0;
+            Object.keys(itemTotals).forEach(function(key) {
+              total += itemTotals[key];
+            });
+
+            var el = document.getElementById('total');
+            totalText = '$' + total + ' (USD)';
+            el.innerHTML = totalText;
+        }
     </script>
 {% endblock %}
 
 
 {% block content %}
     <hr>
+    <div id='items'>
     {% for item in order.orderitem_set.all %}
         <div class='order_item'>
             <div><b>{{item.saleItem.name}}</b></div>
@@ -143,5 +169,11 @@
               </tr>
             </table>
         </div>
-    {% endfor %}    
+    {% endfor %}
+    </div>
+    
+    <div id='payment'>
+        Your total: <span id='total'>$0.00</span>
+    </div>    
+    
 {% endblock %}

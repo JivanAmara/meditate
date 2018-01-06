@@ -3,6 +3,7 @@ Created on Dec 9, 2017
 
 @author: jivan
 '''
+import decimal
 import json
 import logging
 
@@ -10,7 +11,6 @@ from django.http.response import HttpResponse
 from django.shortcuts import render, render_to_response
 
 from meditate.models import SaleItem, Order, OrderItem
-from django.core.handlers.exception import response_for_exception
 
 
 logger = logging.getLogger(__name__)
@@ -50,6 +50,12 @@ def subscribe_mentoring(request):
     return resp
 
 
+class DecimalEncoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, decimal.Decimal):
+            return str(o)
+        return super(DecimalEncoder, self).default(o)
+
 def add_order_item(request, saleItemName):
     try:
         sessionId = request.session.session_key
@@ -58,7 +64,8 @@ def add_order_item(request, saleItemName):
         item, _ = OrderItem.objects.get_or_create(order=order, saleItem=saleItem)
         item.count = item.count + 1
         item.save()
-        resp = HttpResponse(status=200)
+        jsonText = json.dumps({'count': item.count, 'price': saleItem.price}, cls=DecimalEncoder)
+        resp = HttpResponse(jsonText, content_type="application/json")
     except Exception as ex:
         logger.error('Problem adding item to order: {0}'.format(ex))
         resp = HttpResponse(status=500)
@@ -74,7 +81,8 @@ def remove_order_item(request, saleItemName):
         item, _ = OrderItem.objects.get_or_create(order=order, saleItem=saleItem)
         item.count = item.count - 1 if item.count > 0 else 0
         item.save()
-        resp = HttpResponse(status=200)
+        jsonText = json.dumps({'count': item.count, 'price': saleItem.price}, cls=DecimalEncoder)
+        resp = HttpResponse(jsonText, content_type="application/json")
     except Exception as ex:
         logger.error('Problem adding item to order: {0}'.format(ex))
         resp = HttpResponse(status=500)
@@ -84,9 +92,12 @@ def remove_order_item(request, saleItemName):
 
 def get_order_count(request, saleItemName=None):
     try:
+        while request.session.session_key is None:
+            request.session.save()
         sessionId = request.session.session_key
         order, _ = Order.objects.get_or_create(sessionId=sessionId)
         orderCount = 0
+        itemPrice = None
 
         # Count total of all items in order  
         if saleItemName is None:
@@ -94,13 +105,11 @@ def get_order_count(request, saleItemName=None):
                 orderCount += item.count
         # Just count the named item
         else:
-            try:
-                orderCount = OrderItem.objects.get(
-                    order__sessionId=sessionId, saleItem__name=saleItemName).count
-            except:
-                pass
-        
-        jsonText = json.dumps({'count': orderCount})
+            oi = OrderItem.objects.get(order__sessionId=sessionId, saleItem__name=saleItemName)
+            orderCount = oi.count
+            itemPrice = oi.saleItem.price
+
+        jsonText = json.dumps({'count': orderCount, 'price': itemPrice}, cls=DecimalEncoder)
         resp = HttpResponse(jsonText, content_type="application/json")
     except Exception as ex:
         logger.error('get_order_count() problem: {0}'.format(ex))
