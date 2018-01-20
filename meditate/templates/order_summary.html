@@ -122,12 +122,17 @@
             RemoveFromCart(saleItemName, callback=afterRemoveFromCart);
         }
 
+        function getOrderTotal() {
+            var orderTotal = 0;
+            Object.keys(itemTotals).forEach(function(key) {
+                orderTotal += itemTotals[key]; // itemTotals is in dollars, convert to cents.
+            });
+            return orderTotal;
+        }
+
         function UpdateOrderTotal() {
             // Returns the total price of the entire cart. 
-            var total = 0;
-            Object.keys(itemTotals).forEach(function(key) {
-              total += itemTotals[key];
-            });
+            total = getOrderTotal();
 
             var el = document.getElementById('total');
             totalText = '$' + total + ' (USD)';
@@ -174,6 +179,78 @@
     
     <div id='payment'>
         Your total: <span id='total'>$0.00</span>
-    </div>    
+        <input type='button' value='Check Out w/ PayPal'>
+        <input type='button' value='Check Out w/ Stripe'>
+
+        <div>I take your privacy very seriously.  Using these two highly-secure payment services,
+        my website never sees your payment details, only a notification that you've paid.  Even
+        if someone was able to hack my website, your financial details would not be compromised.
+        </div>
+    </div>
+
+<script src="https://checkout.stripe.com/checkout.js"></script>
+
+<button id="customButton">Purchase</button>
+
+<script type="text/javascript">
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+var handler = StripeCheckout.configure({
+  key: 'pk_test_AnHLc2bnR0joVD20uza73MI5',
+  image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+  locale: 'auto',
+  token: function(token) {
+    // You can access the token ID with `token.id`.
+    // Get the token ID to your server-side code for use.
+    var orderTotal = getOrderTotal() * 100; // Total in USD cents.
     
+    var url = '{% url "stripe_charge" %}';
+    var csrftoken = getCookie('csrftoken');
+    $.ajax({
+        type: 'POST',
+        url: url,
+        data: {'csrfmiddlewaretoken': csrftoken, 'stripeToken': token.id, 'amount': orderTotal},
+        success: function(responseData){
+            window.location = '{% url "order_complete" %}';
+        },
+        failure: function(responseData){
+            window.alert("Something went wrong: " + responseData);
+        }
+    });
+  }
+});
+
+document.getElementById('customButton').addEventListener('click', function(e) {
+  // Open Checkout with further options:
+  handler.open({
+    name: 'JivanAmara.net',
+    description: 'Your Order',
+    zipCode: true,
+    amount: getOrderTotal() * 100
+  });
+  e.preventDefault();
+});
+
+// Close Checkout on page navigation:
+window.addEventListener('popstate', function() {
+  handler.close();
+});
+</script>
+
+
+
 {% endblock %}

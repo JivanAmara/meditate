@@ -1,1 +1,1 @@
-django-cc
+stripe==1.77
