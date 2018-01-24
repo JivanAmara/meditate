@@ -10,6 +10,7 @@ class OrderItem(models.Model):
 
 class Order(models.Model):
     sessionId = models.CharField(max_length=100)
+    paymentProvider = models.CharField(max_length=6, default='')
     paymentId = models.CharField(max_length=100, null=True, default=None)
     total = models.DecimalField(decimal_places=2, max_digits=5, default=0)
 

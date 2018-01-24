@@ -190,6 +190,7 @@ def stripe_charge(request):
         msg = pformat(charge, indent=4)
         order.paymentId = charge.id
         order.total = decimal.Decimal(amount) / decimal.Decimal(100)
+        order.paymentProvider = 'stripe'
         order.save()
         logger.info('Stripe Charge object:\n{}'.format(msg))
     except stripe.error.CardError as e:
@@ -213,6 +214,17 @@ def stripe_charge(request):
         status_code = 402
 
     return JsonResponse(resp, status=status_code)
+
+
+def paypal_charge(request):
+    sessionId = get_session_id(request)
+    order, _ = Order.objects.get_or_create(sessionId=sessionId)
+    order.paymentId = request.POST['paymentId']
+    order.total = request.POST['amount']
+    order.paymentProvider = 'paypal'
+    order.save()
+    logger.info('PayPal Charge Recorded: {} - {}'.format(order.total, order.paymentId))
+    return JsonResponse({}, status=200)
 
 
 def order_complete(request):

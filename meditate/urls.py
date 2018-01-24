@@ -18,7 +18,7 @@ from django.urls import path
 from meditate.views import (
     homepage, why_meditate, about_author, sample, buy_book, subscribe_mentoring,
     add_order_item, remove_order_item, log_javascript, get_order_count, order_summary,
-    stripe_charge, order_complete
+    stripe_charge, paypal_charge, order_complete
 )
 
 from django.conf import settings
@@ -38,6 +38,7 @@ urlpatterns = [
     path('log_javascript/<str:msg>', log_javascript, name='log_javascript'),
     path('order_summary', order_summary, name='order_summary'),
     path('stripe_charge', stripe_charge, name='stripe_charge'),
+    path('paypal_charge', paypal_charge, name='paypal_charge'),
     path('order_complete', order_complete, name='order_complete'),
     path('admin/', admin.site.urls),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
