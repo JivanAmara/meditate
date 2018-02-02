@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block extrahead %}
+    {% include "order_functions.html" %}
+{% endblock %}
+
 {% block content %}
     <hr>
     Thanks for your payment, your order number is: {{order_number}}.
