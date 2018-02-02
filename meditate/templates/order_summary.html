@@ -33,8 +33,6 @@
         }
     </style>
 
-    {% include "order_functions.html" %}
-
     <script type="text/javascript">
         var itemTotals = {};
         
@@ -280,7 +278,7 @@ window.addEventListener('popstate', function() {
         paypal.Button.render({
             env: 'sandbox', // sandbox | production
 
-            // PayPal Client IDs - replace with your own
+            // PayPal Client IDs
             // Create a PayPal app: https://developer.paypal.com/developer/applications/create
             client: {
                 sandbox: 'AUMc2uxkRjLdFPlZGRkOIKI_D3TINTeQF6sncwR-tXZKF2gyUHsEFsjdJ74iWvkLO0ia4FOu4REEj1ky',

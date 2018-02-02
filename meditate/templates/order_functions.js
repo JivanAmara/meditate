@@ -1,3 +1,7 @@
+<!--
+    This is a javascript library which makes use of django template tags to set the URLs
+    for API endpoints instead of hard-coding them.
+-->
 <script type='text/javascript'>
 
     function updateOrderCount() {
