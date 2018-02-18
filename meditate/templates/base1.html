@@ -11,15 +11,20 @@
   {% include "order_functions.js" %} {% block extrahead %}
   <!-- Put at least the page title here in derived templates: <title>here</title> -->
   {% endblock %}
+  <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+  <link href="{% static 'bootstrap/js/bootstrap.min.js' %}" rel="stylesheet">
 </head>
 
 <body>
   {% block shared_content %}
-  <nav class="head">
-  <div id="header" class="wrapper header-main">
+  <div id="header" class="wrapper ">
+      <div class="container navbar-grad">
+          <div class="custom-nav">
     {% include "logo.html" %} {% load menu %} {% generate_menu %} {% with menu=menus.main %}{% include "menu1.html" %}{% endwith %}
+          </div>
+    </div>
   </div>
-  </nav>
   {% endblock %}
 
 

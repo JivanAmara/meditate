@@ -1,0 +1,148 @@
+body{
+    width: 100%;
+    height: 100%;
+    color: #525252;
+    background-color: #eceef2;
+    margin: 0px;
+}
+
+.container {
+     /*padding: 0px;*/
+ }
+
+.head {
+    position: fixed;
+    width: 100%;
+}
+
+.header-main {
+   -webkit-transition: all 0.4s ease;
+   transition: all 0.4s ease;
+}
+.wrapper{
+    margin:0 auto;
+    background-color: #fff;
+}
+
+.header-main {
+    box-shadow: 0px 2px 3px -1px rgb(207, 207, 207);
+    height: 8em;
+}
+
+.header-main-cond{
+    height: 4em;
+}
+
+#page-wrapper {
+      font-family: "Lato", Arial, sans-serif;
+      font-weight: 400;
+}
+
+#local-header {
+      background-image: url(img/homepage_background.jpg);
+      background-size: cover;
+      background-repeat: no-repeat;
+      height: 220px;
+      color: white;
+      background-position: 50.00% 45.56%;
+      background-color: transparent;
+}
+
+
+.inner-header {
+     padding-top: 2em;
+}
+
+.header-head{
+    text-align:center;
+}
+
+.header-content{
+text-align:center;
+}
+
+.wsite-not-footer{
+    border: 0; 
+    width: 100%; 
+    table-layout: fixed;
+}
+
+.blog-body{
+    float: left;
+}
+
+.columnlist-blog{
+    margin:0; 
+    padding: 0;
+}
+
+.wsite-form-container{
+    margin-top:0px;
+}
+
+.wsite-form-field{
+    margin:5px 0px 5px 0px;
+}
+
+.wsite-form-instructions{
+    display:none;
+}
+
+
+@media (min-width: 320px){
+    #local-header{
+        height: 265px;
+    }
+}
+
+@media (min-width: 375px){
+    #local-header{
+        height: 290px;
+    }
+}
+
+@media (min-width: 414px){
+    #local-header{
+        height: 350px;
+    }
+}
+
+@media (min-width: 480px){
+
+}
+
+@media (min-width: 568px){
+    #local-header{
+        height: 360px;
+    }
+}
+
+@media (min-width: 640px){
+    #local-header{
+        height: 380px;
+    }
+}
+
+@media (min-width: 667px){
+    #local-header{
+        height: 440px;
+    }
+}
+
+@media (min-width: 768px){
+    #local-header{
+            height: 500px;
+    }
+}
+
+@media (min-width: 992px){
+    #local-header{
+        height: 550px;
+    }
+}
+
+@media (min-width: 1024px){
+    .wrapper{
+        width: 94%;;
+    }
+}

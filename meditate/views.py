@@ -18,7 +18,7 @@ from meditate.models import SaleItem, Order, OrderItem
 
 
 # See your keys here: https://dashboard.stripe.com/account/apikeys
-stripe.api_key = os.environ.get('STRIPE_SECRET_KEY', '')
+stripe.api_key = os.environ.get('STRIPE_SECRET_KEY', 'asa')
 if stripe.api_key == '':
     raise Exception('Environment variable STRIPE_SECRET_KEY not set.')
 
@@ -34,7 +34,7 @@ def get_session_id(request):
 
 
 def homepage(request):
-    resp = render(request, 'home.html')
+    resp = render(request, 'home1.html')
     return resp
 
 
