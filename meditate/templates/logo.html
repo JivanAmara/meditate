@@ -1,27 +1,30 @@
 {% load static %}
 
 <style>
+  .header-logo {
+    float: left;
+    width: 8%;
+  }
+
   .header-logo img {
-    /*height: 3em;*/
     padding: 0;
     display: inline-block;
     max-width: 350px;
     max-height: 75px;
-    
-   -webkit-transition: all 0.2s ease;
-   transition: all 0.2s ease;
-     margin: 26px 16px;
+
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    margin: 26px 16px;
   }
+
   .header-logo-cond img {
     margin: 0px 16px;
     margin-left: 25px;
-        height: 50px;
+    height: 50px;
   }
-  .header-logo{
-    float: left;
-  }
-  @media (max-width: 940px){
-    .header-logo{
+
+  @media (max-width: 940px) {
+    .header-logo {
       display: none;
     }
   }

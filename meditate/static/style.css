@@ -6,10 +6,6 @@ body{
     margin: 0px;
 }
 
-.container {
-     /*padding: 0px;*/
- }
-
 #page-wrapper{
     padding-top: 125px;
 }
@@ -20,8 +16,11 @@ body{
 }
 
 .header-main {
-   -webkit-transition: all 0.4s ease;
-   transition: all 0.4s ease;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+    -ms-transition: all 0.3s linear;
+    transition: all 0.3s linear;
 }
 .wrapper{
     margin:0 auto;

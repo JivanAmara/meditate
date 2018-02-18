@@ -8,6 +8,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'style.css' %}">
+  <link rel="stylesheet" href="{% static 'menu.css' %}">
   <script src="{% static 'jquery.min_3.2.1.js' %}"></script>
   {% include "order_functions.js" %} {% block extrahead %}
   <!-- Put at least the page title here in derived templates: <title>here</title> -->
@@ -17,9 +18,9 @@
 <body>
   {% block shared_content %}
   <nav class="head">
-  <div id="header" class="wrapper header-main">
-    {% include "logo.html" %} {% load menu %} {% generate_menu %} {% with menu=menus.main %}{% include "menu1.html" %}{% endwith %}
-  </div>
+    <div id="header" class="wrapper header-main">
+      {% include "logo.html" %} {% load menu %} {% generate_menu %} {% with menu=menus.main %}{% include "menu.html" %}{% endwith %}
+    </div>
   </nav>
   {% endblock %}
 
@@ -30,5 +31,4 @@
   </div>
 
 </body>
-
 </html>

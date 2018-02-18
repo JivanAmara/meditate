@@ -21622,3 +21622,586 @@ Not Found: /home/
 (0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
 (0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
 "GET /get_order_count HTTP/1.1" 200 27
+(0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+(0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+"GET / HTTP/1.1" 200 10128
+"GET /static/style.css HTTP/1.1" 304 0
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 27
+"GET / HTTP/1.1" 200 10128
+(0.002) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 27
+(0.014) SELECT "meditate_saleitem"."id", "meditate_saleitem"."deleted", "meditate_saleitem"."name", "meditate_saleitem"."desc", "meditate_saleitem"."img", "meditate_saleitem"."price" FROM "meditate_saleitem" WHERE "meditate_saleitem"."name" = 'eBook, PDF'; args=('eBook, PDF',)
+(0.000) SELECT "meditate_saleitem"."id", "meditate_saleitem"."deleted", "meditate_saleitem"."name", "meditate_saleitem"."desc", "meditate_saleitem"."img", "meditate_saleitem"."price" FROM "meditate_saleitem" WHERE "meditate_saleitem"."name" = 'Paperback'; args=('Paperback',)
+"GET /buy_book HTTP/1.1" 200 10534
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.001) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 27
+"GET /static/img/Meditation_Sculpture_20pct.jpg HTTP/1.1" 200 6675
+(0.001) SELECT "meditate_saleitem"."id", "meditate_saleitem"."deleted", "meditate_saleitem"."name", "meditate_saleitem"."desc", "meditate_saleitem"."img", "meditate_saleitem"."price" FROM "meditate_saleitem" WHERE "meditate_saleitem"."name" = 'eBook, PDF'; args=('eBook, PDF',)
+(0.000) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE ("meditate_orderitem"."order_id" = 6 AND "meditate_orderitem"."saleItem_id" = 1); args=(6, 1)
+(0.000) BEGIN; args=None
+(0.029) INSERT INTO "meditate_orderitem" ("order_id", "count", "saleItem_id") VALUES (6, 0, 1); args=[6, 0, 1]
+(0.000) BEGIN; args=None
+(0.001) UPDATE "meditate_orderitem" SET "order_id" = 6, "count" = 1, "saleItem_id" = 1 WHERE "meditate_orderitem"."id" = 3; args=(6, 1, 1, 3)
+"GET /add_order_item/eBook,%20PDF HTTP/1.1" 200 29
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 27
+(0.001) SELECT "meditate_saleitem"."id", "meditate_saleitem"."deleted", "meditate_saleitem"."name", "meditate_saleitem"."desc", "meditate_saleitem"."img", "meditate_saleitem"."price" FROM "meditate_saleitem" WHERE "meditate_saleitem"."name" = 'eBook, PDF'; args=('eBook, PDF',)
+(0.000) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE ("meditate_orderitem"."order_id" = 6 AND "meditate_orderitem"."saleItem_id" = 1); args=(6, 1)
+(0.000) BEGIN; args=None
+(0.001) UPDATE "meditate_orderitem" SET "order_id" = 6, "count" = 2, "saleItem_id" = 1 WHERE "meditate_orderitem"."id" = 3; args=(6, 2, 1, 3)
+"GET /add_order_item/eBook,%20PDF HTTP/1.1" 200 29
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 27
+(0.000) SELECT "meditate_saleitem"."id", "meditate_saleitem"."deleted", "meditate_saleitem"."name", "meditate_saleitem"."desc", "meditate_saleitem"."img", "meditate_saleitem"."price" FROM "meditate_saleitem" WHERE "meditate_saleitem"."name" = 'eBook, PDF'; args=('eBook, PDF',)
+(0.000) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE ("meditate_orderitem"."order_id" = 6 AND "meditate_orderitem"."saleItem_id" = 1); args=(6, 1)
+(0.000) BEGIN; args=None
+(0.044) UPDATE "meditate_orderitem" SET "order_id" = 6, "count" = 3, "saleItem_id" = 1 WHERE "meditate_orderitem"."id" = 3; args=(6, 3, 1, 3)
+"GET /add_order_item/eBook,%20PDF HTTP/1.1" 200 29
+(0.000) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 27
+(0.001) SELECT "meditate_saleitem"."id", "meditate_saleitem"."deleted", "meditate_saleitem"."name", "meditate_saleitem"."desc", "meditate_saleitem"."img", "meditate_saleitem"."price" FROM "meditate_saleitem" WHERE "meditate_saleitem"."name" = 'eBook, PDF'; args=('eBook, PDF',)
+(0.000) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE ("meditate_orderitem"."order_id" = 6 AND "meditate_orderitem"."saleItem_id" = 1); args=(6, 1)
+(0.000) BEGIN; args=None
+(0.001) UPDATE "meditate_orderitem" SET "order_id" = 6, "count" = 4, "saleItem_id" = 1 WHERE "meditate_orderitem"."id" = 3; args=(6, 4, 1, 3)
+"GET /add_order_item/eBook,%20PDF HTTP/1.1" 200 29
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 27
+(0.002) SELECT "meditate_saleitem"."id", "meditate_saleitem"."deleted", "meditate_saleitem"."name", "meditate_saleitem"."desc", "meditate_saleitem"."img", "meditate_saleitem"."price" FROM "meditate_saleitem" WHERE "meditate_saleitem"."name" = 'eBook, PDF'; args=('eBook, PDF',)
+(0.000) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.001) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE ("meditate_orderitem"."order_id" = 6 AND "meditate_orderitem"."saleItem_id" = 1); args=(6, 1)
+(0.000) BEGIN; args=None
+(0.070) UPDATE "meditate_orderitem" SET "order_id" = 6, "count" = 5, "saleItem_id" = 1 WHERE "meditate_orderitem"."id" = 3; args=(6, 5, 1, 3)
+"GET /add_order_item/eBook,%20PDF HTTP/1.1" 200 29
+(0.003) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 27
+(0.001) SELECT "meditate_saleitem"."id", "meditate_saleitem"."deleted", "meditate_saleitem"."name", "meditate_saleitem"."desc", "meditate_saleitem"."img", "meditate_saleitem"."price" FROM "meditate_saleitem" WHERE "meditate_saleitem"."name" = 'eBook, PDF'; args=('eBook, PDF',)
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE ("meditate_orderitem"."order_id" = 6 AND "meditate_orderitem"."saleItem_id" = 1); args=(6, 1)
+(0.000) BEGIN; args=None
+(0.002) UPDATE "meditate_orderitem" SET "order_id" = 6, "count" = 6, "saleItem_id" = 1 WHERE "meditate_orderitem"."id" = 3; args=(6, 6, 1, 3)
+"GET /add_order_item/eBook,%20PDF HTTP/1.1" 200 29
+(0.002) SELECT "meditate_saleitem"."id", "meditate_saleitem"."deleted", "meditate_saleitem"."name", "meditate_saleitem"."desc", "meditate_saleitem"."img", "meditate_saleitem"."price" FROM "meditate_saleitem" WHERE "meditate_saleitem"."name" = 'eBook, PDF'; args=('eBook, PDF',)
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.001) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+(0.001) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE ("meditate_orderitem"."order_id" = 6 AND "meditate_orderitem"."saleItem_id" = 1); args=(6, 1)
+(0.000) BEGIN; args=None
+"GET /get_order_count HTTP/1.1" 200 27
+(0.002) UPDATE "meditate_orderitem" SET "order_id" = 6, "count" = 7, "saleItem_id" = 1 WHERE "meditate_orderitem"."id" = 3; args=(6, 7, 1, 3)
+"GET /add_order_item/eBook,%20PDF HTTP/1.1" 200 29
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 27
+(0.001) SELECT "meditate_saleitem"."id", "meditate_saleitem"."deleted", "meditate_saleitem"."name", "meditate_saleitem"."desc", "meditate_saleitem"."img", "meditate_saleitem"."price" FROM "meditate_saleitem" WHERE "meditate_saleitem"."name" = 'eBook, PDF'; args=('eBook, PDF',)
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE ("meditate_orderitem"."order_id" = 6 AND "meditate_orderitem"."saleItem_id" = 1); args=(6, 1)
+(0.000) BEGIN; args=None
+(0.001) UPDATE "meditate_orderitem" SET "order_id" = 6, "count" = 8, "saleItem_id" = 1 WHERE "meditate_orderitem"."id" = 3; args=(6, 8, 1, 3)
+"GET /add_order_item/eBook,%20PDF HTTP/1.1" 200 29
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 27
+(0.000) SELECT "meditate_saleitem"."id", "meditate_saleitem"."deleted", "meditate_saleitem"."name", "meditate_saleitem"."desc", "meditate_saleitem"."img", "meditate_saleitem"."price" FROM "meditate_saleitem" WHERE "meditate_saleitem"."name" = 'eBook, PDF'; args=('eBook, PDF',)
+(0.000) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE ("meditate_orderitem"."order_id" = 6 AND "meditate_orderitem"."saleItem_id" = 1); args=(6, 1)
+(0.000) BEGIN; args=None
+(0.001) UPDATE "meditate_orderitem" SET "order_id" = 6, "count" = 9, "saleItem_id" = 1 WHERE "meditate_orderitem"."id" = 3; args=(6, 9, 1, 3)
+"GET /add_order_item/eBook,%20PDF HTTP/1.1" 200 29
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 27
+(0.001) SELECT "meditate_saleitem"."id", "meditate_saleitem"."deleted", "meditate_saleitem"."name", "meditate_saleitem"."desc", "meditate_saleitem"."img", "meditate_saleitem"."price" FROM "meditate_saleitem" WHERE "meditate_saleitem"."name" = 'eBook, PDF'; args=('eBook, PDF',)
+(0.000) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE ("meditate_orderitem"."order_id" = 6 AND "meditate_orderitem"."saleItem_id" = 1); args=(6, 1)
+(0.000) BEGIN; args=None
+(0.001) UPDATE "meditate_orderitem" SET "order_id" = 6, "count" = 10, "saleItem_id" = 1 WHERE "meditate_orderitem"."id" = 3; args=(6, 10, 1, 3)
+"GET /add_order_item/eBook,%20PDF HTTP/1.1" 200 30
+(0.000) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 28
+(0.001) SELECT "meditate_saleitem"."id", "meditate_saleitem"."deleted", "meditate_saleitem"."name", "meditate_saleitem"."desc", "meditate_saleitem"."img", "meditate_saleitem"."price" FROM "meditate_saleitem" WHERE "meditate_saleitem"."name" = 'eBook, PDF'; args=('eBook, PDF',)
+(0.000) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE ("meditate_orderitem"."order_id" = 6 AND "meditate_orderitem"."saleItem_id" = 1); args=(6, 1)
+(0.000) BEGIN; args=None
+(0.001) UPDATE "meditate_orderitem" SET "order_id" = 6, "count" = 11, "saleItem_id" = 1 WHERE "meditate_orderitem"."id" = 3; args=(6, 11, 1, 3)
+"GET /add_order_item/eBook,%20PDF HTTP/1.1" 200 30
+(0.003) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.001) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+(0.006) SELECT "meditate_saleitem"."id", "meditate_saleitem"."deleted", "meditate_saleitem"."name", "meditate_saleitem"."desc", "meditate_saleitem"."img", "meditate_saleitem"."price" FROM "meditate_saleitem" WHERE "meditate_saleitem"."name" = 'eBook, PDF'; args=('eBook, PDF',)
+"GET /get_order_count HTTP/1.1" 200 28
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE ("meditate_orderitem"."order_id" = 6 AND "meditate_orderitem"."saleItem_id" = 1); args=(6, 1)
+(0.000) BEGIN; args=None
+(0.001) UPDATE "meditate_orderitem" SET "order_id" = 6, "count" = 12, "saleItem_id" = 1 WHERE "meditate_orderitem"."id" = 3; args=(6, 12, 1, 3)
+"GET /add_order_item/eBook,%20PDF HTTP/1.1" 200 30
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 28
+(0.001) SELECT "meditate_saleitem"."id", "meditate_saleitem"."deleted", "meditate_saleitem"."name", "meditate_saleitem"."desc", "meditate_saleitem"."img", "meditate_saleitem"."price" FROM "meditate_saleitem" WHERE "meditate_saleitem"."name" = 'Paperback'; args=('Paperback',)
+(0.000) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE ("meditate_orderitem"."order_id" = 6 AND "meditate_orderitem"."saleItem_id" = 2); args=(6, 2)
+(0.000) BEGIN; args=None
+(0.001) INSERT INTO "meditate_orderitem" ("order_id", "count", "saleItem_id") VALUES (6, 0, 2); args=[6, 0, 2]
+(0.000) BEGIN; args=None
+(0.000) UPDATE "meditate_orderitem" SET "order_id" = 6, "count" = 1, "saleItem_id" = 2 WHERE "meditate_orderitem"."id" = 4; args=(6, 1, 2, 4)
+"GET /add_order_item/Paperback HTTP/1.1" 200 29
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET / HTTP/1.1" 200 10128
+(0.000) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET / HTTP/1.1" 200 10128
+"GET /static/style.css HTTP/1.1" 304 0
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET / HTTP/1.1" 200 10001
+"GET /static/style.css HTTP/1.1" 304 0
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+"GET /static/img/menu1.png HTTP/1.1" 304 0
+(0.001) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET / HTTP/1.1" 200 10001
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET /static/img/cart.png HTTP/1.1" 304 0
+"GET / HTTP/1.1" 200 10001
+"GET /static/style.css HTTP/1.1" 304 0
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.001) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET / HTTP/1.1" 200 10001
+"GET /static/bootstrap/css/bootstrap.css HTTP/1.1" 304 0
+"GET /static/jquery.min_3.2.1.js HTTP/1.1" 304 0
+"GET /static/style.css HTTP/1.1" 304 0
+"GET /static/img/Meditation_Sculpture.jpg HTTP/1.1" 304 0
+"GET /static/img/menu1.png HTTP/1.1" 304 0
+"GET /static/img/cart.png HTTP/1.1" 304 0
+(0.000) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = 'vbbcuge3ve9k0v2ywq3ul935nj9z6x1r'; args=('vbbcuge3ve9k0v2ywq3ul935nj9z6x1r',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 1; args=(1,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET /static/img/homepage_background.jpg HTTP/1.1" 304 0
+"GET /static/bootstrap/css/bootstrap.css.map HTTP/1.1" 304 0
+"GET / HTTP/1.1" 200 10001
+"GET /static/bootstrap/css/bootstrap.css HTTP/1.1" 304 0
+"GET /static/jquery.min_3.2.1.js HTTP/1.1" 304 0
+"GET /static/style.css HTTP/1.1" 304 0
+"GET /static/img/Meditation_Sculpture.jpg HTTP/1.1" 304 0
+"GET /static/img/menu1.png HTTP/1.1" 304 0
+"GET /static/img/cart.png HTTP/1.1" 304 0
+(0.000) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = 'vbbcuge3ve9k0v2ywq3ul935nj9z6x1r'; args=('vbbcuge3ve9k0v2ywq3ul935nj9z6x1r',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 1; args=(1,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET /static/img/homepage_background.jpg HTTP/1.1" 304 0
+"GET /static/bootstrap/css/bootstrap.css.map HTTP/1.1" 304 0
+Exception while resolving variable 'name' in template 'unknown'.
+Traceback (most recent call last):
+  File "C:\Users\anura\AppData\Local\Programs\Python\Python36-32\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Users\anura\AppData\Local\Programs\Python\Python36-32\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    resolver_match = resolver.resolve(request.path_info)
+  File "C:\Users\anura\AppData\Local\Programs\Python\Python36-32\lib\site-packages\django\urls\resolvers.py", line 523, in resolve
+    raise Resolver404({'tried': tried, 'path': new_path})
+django.urls.exceptions.Resolver404: {'tried': [[<URLPattern ''>], [<URLPattern 'why_meditate'>], [<URLPattern 'sample/'>], [<URLPattern 'about_author/'>], [<URLPattern 'buy_book'>], [<URLPattern 'subscribe'>], [<URLPattern 'add_order_item/<str:saleItemName>' [name='add_order_item']>], [<URLPattern 'remove_order_item/<str:saleItemName>' [name='remove_order_item']>], [<URLPattern 'get_order_count/<str:saleItemName>' [name='single_item_count']>], [<URLPattern 'get_order_count' [name='all_item_count']>], [<URLPattern 'log_javascript/<str:msg>' [name='log_javascript']>], [<URLPattern 'order_summary' [name='order_summary']>], [<URLPattern 'stripe_charge' [name='stripe_charge']>], [<URLPattern 'paypal_charge' [name='paypal_charge']>], [<URLPattern 'order_complete' [name='order_complete']>], [<URLResolver <URLPattern list> (admin:admin) 'admin/'>], [<URLPattern '^static\/(?P<path>.*)$'>]], 'path': "{% static 'img/Meditation_Sculpture.jpg' %}"}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\anura\AppData\Local\Programs\Python\Python36-32\lib\site-packages\django\template\base.py", line 835, in _resolve_lookup
+    current = current[bit]
+TypeError: 'URLResolver' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\anura\AppData\Local\Programs\Python\Python36-32\lib\site-packages\django\template\base.py", line 843, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'URLResolver' object has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\anura\AppData\Local\Programs\Python\Python36-32\lib\site-packages\django\template\base.py", line 849, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\anura\AppData\Local\Programs\Python\Python36-32\lib\site-packages\django\template\base.py", line 856, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [name] in <URLResolver <URLPattern list> (admin:admin) 'admin/'>
+Not Found: /{% static 'img/Meditation_Sculpture.jpg' %}
+"GET /%7B%%20static%20'img/Meditation_Sculpture.jpg'%20%%7D HTTP/1.1" 404 4214
+"GET / HTTP/1.1" 200 10001
+"GET /static/style.css HTTP/1.1" 304 0
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.001) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET / HTTP/1.1" 200 10189
+(0.002) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET /static/img/menu1.png HTTP/1.1" 304 0
+"GET / HTTP/1.1" 200 10194
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET / HTTP/1.1" 200 10194
+"GET /static/style.css HTTP/1.1" 304 0
+(0.000) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET /static/img/cart.png HTTP/1.1" 304 0
+"GET /static/img/homepage_background.jpg HTTP/1.1" 304 0
+"GET / HTTP/1.1" 200 10194
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.001) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET / HTTP/1.1" 200 10056
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET / HTTP/1.1" 200 10276
+"GET /static/bootstrap/css/bootstrap.css HTTP/1.1" 304 0
+"GET /static/jquery.min_3.2.1.js HTTP/1.1" 304 0
+"GET /static/style.css HTTP/1.1" 304 0
+"GET /static/img/Meditation_Sculpture.jpg HTTP/1.1" 304 0
+"GET /static/img/menu1.png HTTP/1.1" 304 0
+"GET /static/img/cart.png HTTP/1.1" 304 0
+"GET /static/img/homepage_background.jpg HTTP/1.1" 304 0
+(0.000) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = 'vbbcuge3ve9k0v2ywq3ul935nj9z6x1r'; args=('vbbcuge3ve9k0v2ywq3ul935nj9z6x1r',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 1; args=(1,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET /static/bootstrap/css/bootstrap.css.map HTTP/1.1" 304 0
+"GET / HTTP/1.1" 200 10276
+"GET /static/bootstrap/css/bootstrap.css HTTP/1.1" 304 0
+"GET /static/jquery.min_3.2.1.js HTTP/1.1" 304 0
+"GET /static/style.css HTTP/1.1" 304 0
+"GET /static/img/Meditation_Sculpture.jpg HTTP/1.1" 304 0
+"GET /static/img/menu1.png HTTP/1.1" 304 0
+"GET /static/img/cart.png HTTP/1.1" 304 0
+(0.000) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = 'vbbcuge3ve9k0v2ywq3ul935nj9z6x1r'; args=('vbbcuge3ve9k0v2ywq3ul935nj9z6x1r',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 1; args=(1,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET /static/img/homepage_background.jpg HTTP/1.1" 304 0
+"GET /static/bootstrap/css/bootstrap.css.map HTTP/1.1" 304 0
+"GET /static/bootstrap/css/bootstrap.css.map HTTP/1.1" 304 0
+"GET /static/bootstrap/css/bootstrap.css.map HTTP/1.1" 304 0
+"GET / HTTP/1.1" 200 9854
+"GET /static/style.css HTTP/1.1" 304 0
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET / HTTP/1.1" 200 9854
+"GET /static/bootstrap/css/bootstrap.css HTTP/1.1" 304 0
+"GET /static/style.css HTTP/1.1" 304 0
+"GET /static/jquery.min_3.2.1.js HTTP/1.1" 304 0
+"GET /static/img/Meditation_Sculpture.jpg HTTP/1.1" 304 0
+"GET /static/img/menu1.png HTTP/1.1" 304 0
+"GET /static/img/cart.png HTTP/1.1" 304 0
+(0.000) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = 'vbbcuge3ve9k0v2ywq3ul935nj9z6x1r'; args=('vbbcuge3ve9k0v2ywq3ul935nj9z6x1r',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 1; args=(1,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET /static/img/homepage_background.jpg HTTP/1.1" 304 0
+"GET /static/bootstrap/css/bootstrap.css.map HTTP/1.1" 304 0
+"GET / HTTP/1.1" 200 6865
+"GET /static/menu.css HTTP/1.1" 200 3213
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET / HTTP/1.1" 200 6865
+(0.000) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET /static/menu.css HTTP/1.1" 304 0
+Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\anura\AppData\Local\Programs\Python\Python36-32\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "C:\Users\anura\AppData\Local\Programs\Python\Python36-32\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Users\anura\AppData\Local\Programs\Python\Python36-32\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\anura\Documents\django\meditate\meditate\meditate\views.py", line 37, in homepage
+    resp = render(request, 'home1.html')
+  File "C:\Users\anura\AppData\Local\Programs\Python\Python36-32\lib\site-packages\django\shortcuts.py", line 36, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\anura\AppData\Local\Programs\Python\Python36-32\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\anura\AppData\Local\Programs\Python\Python36-32\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\anura\AppData\Local\Programs\Python\Python36-32\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\anura\AppData\Local\Programs\Python\Python36-32\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\anura\AppData\Local\Programs\Python\Python36-32\lib\site-packages\django\template\base.py", line 943, in render
+    bit = node.render_annotated(context)
+  File "C:\Users\anura\AppData\Local\Programs\Python\Python36-32\lib\site-packages\django\template\base.py", line 910, in render_annotated
+    return self.render(context)
+  File "C:\Users\anura\AppData\Local\Programs\Python\Python36-32\lib\site-packages\django\template\loader_tags.py", line 155, in render
+    return compiled_parent._render(context)
+  File "C:\Users\anura\AppData\Local\Programs\Python\Python36-32\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\anura\AppData\Local\Programs\Python\Python36-32\lib\site-packages\django\template\base.py", line 943, in render
+    bit = node.render_annotated(context)
+  File "C:\Users\anura\AppData\Local\Programs\Python\Python36-32\lib\site-packages\django\template\base.py", line 910, in render_annotated
+    return self.render(context)
+  File "C:\Users\anura\AppData\Local\Programs\Python\Python36-32\lib\site-packages\django\template\loader_tags.py", line 67, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\anura\AppData\Local\Programs\Python\Python36-32\lib\site-packages\django\template\base.py", line 943, in render
+    bit = node.render_annotated(context)
+  File "C:\Users\anura\AppData\Local\Programs\Python\Python36-32\lib\site-packages\django\template\base.py", line 910, in render_annotated
+    return self.render(context)
+  File "C:\Users\anura\AppData\Local\Programs\Python\Python36-32\lib\site-packages\django\template\defaulttags.py", line 517, in render
+    return self.nodelist.render(context)
+  File "C:\Users\anura\AppData\Local\Programs\Python\Python36-32\lib\site-packages\django\template\base.py", line 943, in render
+    bit = node.render_annotated(context)
+  File "C:\Users\anura\AppData\Local\Programs\Python\Python36-32\lib\site-packages\django\template\base.py", line 910, in render_annotated
+    return self.render(context)
+  File "C:\Users\anura\AppData\Local\Programs\Python\Python36-32\lib\site-packages\django\template\loader_tags.py", line 194, in render
+    return template.render(context)
+  File "C:\Users\anura\AppData\Local\Programs\Python\Python36-32\lib\site-packages\django\template\base.py", line 177, in render
+    return self._render(context)
+  File "C:\Users\anura\AppData\Local\Programs\Python\Python36-32\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\anura\AppData\Local\Programs\Python\Python36-32\lib\site-packages\django\template\base.py", line 943, in render
+    bit = node.render_annotated(context)
+  File "C:\Users\anura\AppData\Local\Programs\Python\Python36-32\lib\site-packages\django\template\base.py", line 910, in render_annotated
+    return self.render(context)
+  File "C:\Users\anura\AppData\Local\Programs\Python\Python36-32\lib\site-packages\django\template\defaulttags.py", line 447, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\anura\AppData\Local\Programs\Python\Python36-32\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs))
+  File "C:\Users\anura\AppData\Local\Programs\Python\Python36-32\lib\site-packages\django\urls\resolvers.py", line 632, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for ' order_summary ' not found. ' order_summary ' is not a valid view function or pattern name.
+(0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."session_key" = 'vbbcuge3ve9k0v2ywq3ul935nj9z6x1r' AND "django_session"."expire_date" > '2018-02-18 18:32:42.220681'); args=('vbbcuge3ve9k0v2ywq3ul935nj9z6x1r', '2018-02-18 18:32:42.220681')
+"GET / HTTP/1.1" 500 190953
+"GET / HTTP/1.1" 200 6827
+"GET /static/menu.css HTTP/1.1" 304 0
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET / HTTP/1.1" 200 6827
+"GET /static/bootstrap/css/bootstrap.css HTTP/1.1" 304 0
+"GET /static/style.css HTTP/1.1" 304 0
+"GET /static/jquery.min_3.2.1.js HTTP/1.1" 304 0
+"GET /static/menu.css HTTP/1.1" 200 3213
+"GET /static/img/Meditation_Sculpture.jpg HTTP/1.1" 304 0
+"GET /static/img/menu1.png HTTP/1.1" 304 0
+"GET /static/img/cart.png HTTP/1.1" 304 0
+(0.000) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = 'vbbcuge3ve9k0v2ywq3ul935nj9z6x1r'; args=('vbbcuge3ve9k0v2ywq3ul935nj9z6x1r',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 1; args=(1,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET /static/img/homepage_background.jpg HTTP/1.1" 304 0
+"GET /static/bootstrap/css/bootstrap.css.map HTTP/1.1" 304 0
+"GET / HTTP/1.1" 200 6826
+"GET /static/bootstrap/css/bootstrap.css HTTP/1.1" 304 0
+"GET /static/menu.css HTTP/1.1" 304 0
+"GET /static/jquery.min_3.2.1.js HTTP/1.1" 304 0
+"GET /static/style.css HTTP/1.1" 304 0
+"GET /static/img/menu1.png HTTP/1.1" 304 0
+"GET /static/img/Meditation_Sculpture.jpg HTTP/1.1" 304 0
+"GET /static/img/cart.png HTTP/1.1" 304 0
+(0.000) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = 'vbbcuge3ve9k0v2ywq3ul935nj9z6x1r'; args=('vbbcuge3ve9k0v2ywq3ul935nj9z6x1r',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 1; args=(1,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET /static/img/homepage_background.jpg HTTP/1.1" 304 0
+"GET /static/bootstrap/css/bootstrap.css.map HTTP/1.1" 304 0
+"GET / HTTP/1.1" 200 6826
+"GET /static/menu.css HTTP/1.1" 304 0
+(0.002) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET / HTTP/1.1" 200 6831
+"GET /static/menu.css HTTP/1.1" 304 0
+"GET /static/bootstrap/css/bootstrap.css HTTP/1.1" 304 0
+"GET /static/style.css HTTP/1.1" 304 0
+"GET /static/jquery.min_3.2.1.js HTTP/1.1" 304 0
+"GET /static/img/Meditation_Sculpture.jpg HTTP/1.1" 304 0
+"GET /static/img/menu1.png HTTP/1.1" 304 0
+"GET /static/img/cart.png HTTP/1.1" 304 0
+"GET /static/img/homepage_background.jpg HTTP/1.1" 304 0
+(0.000) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = 'vbbcuge3ve9k0v2ywq3ul935nj9z6x1r'; args=('vbbcuge3ve9k0v2ywq3ul935nj9z6x1r',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 1; args=(1,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET /static/bootstrap/css/bootstrap.css.map HTTP/1.1" 304 0
+(0.001) SELECT "meditate_saleitem"."id", "meditate_saleitem"."deleted", "meditate_saleitem"."name", "meditate_saleitem"."desc", "meditate_saleitem"."img", "meditate_saleitem"."price" FROM "meditate_saleitem" WHERE "meditate_saleitem"."name" = 'eBook, PDF'; args=('eBook, PDF',)
+(0.000) SELECT "meditate_saleitem"."id", "meditate_saleitem"."deleted", "meditate_saleitem"."name", "meditate_saleitem"."desc", "meditate_saleitem"."img", "meditate_saleitem"."price" FROM "meditate_saleitem" WHERE "meditate_saleitem"."name" = 'Paperback'; args=('Paperback',)
+"GET /buy_book HTTP/1.1" 200 7237
+"GET /static/menu.css HTTP/1.1" 304 0
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.001) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET /subscribe HTTP/1.1" 200 6588
+(0.016) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET /about_author/ HTTP/1.1" 200 8409
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET /static/img/Selfie.jpg HTTP/1.1" 200 1579786
+"GET / HTTP/1.1" 200 6831
+(0.002) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.001) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET /sample/ HTTP/1.1" 200 10167
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET /static/img/lighting_a_candle_960_720.jpg HTTP/1.1" 200 44080
+"GET / HTTP/1.1" 200 6831
+"GET /static/style.css HTTP/1.1" 304 0
+"GET /static/bootstrap/css/bootstrap.css HTTP/1.1" 304 0
+"GET /static/menu.css HTTP/1.1" 200 3459
+"GET /static/jquery.min_3.2.1.js HTTP/1.1" 304 0
+"GET /static/img/Meditation_Sculpture.jpg HTTP/1.1" 304 0
+"GET /static/img/menu1.png HTTP/1.1" 304 0
+"GET /static/img/cart.png HTTP/1.1" 304 0
+(0.000) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = 'vbbcuge3ve9k0v2ywq3ul935nj9z6x1r'; args=('vbbcuge3ve9k0v2ywq3ul935nj9z6x1r',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 1; args=(1,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET /static/img/homepage_background.jpg HTTP/1.1" 304 0
+"GET /static/bootstrap/css/bootstrap.css.map HTTP/1.1" 304 0
+"GET / HTTP/1.1" 200 6831
+"GET /static/bootstrap/css/bootstrap.css HTTP/1.1" 304 0
+"GET /static/style.css HTTP/1.1" 200 2384
+"GET /static/menu.css HTTP/1.1" 200 3461
+"GET /static/jquery.min_3.2.1.js HTTP/1.1" 304 0
+"GET /static/img/Meditation_Sculpture.jpg HTTP/1.1" 304 0
+"GET /static/img/menu1.png HTTP/1.1" 304 0
+"GET /static/img/cart.png HTTP/1.1" 304 0
+(0.000) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = 'vbbcuge3ve9k0v2ywq3ul935nj9z6x1r'; args=('vbbcuge3ve9k0v2ywq3ul935nj9z6x1r',)
+(0.016) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 1; args=(1,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET /static/img/homepage_background.jpg HTTP/1.1" 304 0
+"GET /static/bootstrap/css/bootstrap.css.map HTTP/1.1" 304 0
+"GET / HTTP/1.1" 200 6831
+"GET /static/style.css HTTP/1.1" 304 0
+"GET /static/bootstrap/css/bootstrap.css HTTP/1.1" 304 0
+"GET /static/menu.css HTTP/1.1" 304 0
+"GET /static/jquery.min_3.2.1.js HTTP/1.1" 304 0
+"GET /static/img/Meditation_Sculpture.jpg HTTP/1.1" 304 0
+"GET /static/img/menu1.png HTTP/1.1" 304 0
+"GET /static/img/cart.png HTTP/1.1" 304 0
+(0.000) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = 'vbbcuge3ve9k0v2ywq3ul935nj9z6x1r'; args=('vbbcuge3ve9k0v2ywq3ul935nj9z6x1r',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 1; args=(1,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET /static/img/homepage_background.jpg HTTP/1.1" 304 0
+"GET /static/bootstrap/css/bootstrap.css.map HTTP/1.1" 304 0
+"GET / HTTP/1.1" 200 6831
+"GET /static/bootstrap/css/bootstrap.css HTTP/1.1" 304 0
+"GET /static/jquery.min_3.2.1.js HTTP/1.1" 304 0
+"GET /static/style.css HTTP/1.1" 200 2379
+"GET /static/menu.css HTTP/1.1" 200 3451
+"GET /static/img/Meditation_Sculpture.jpg HTTP/1.1" 304 0
+"GET /static/img/cart.png HTTP/1.1" 304 0
+"GET /static/img/menu1.png HTTP/1.1" 304 0
+(0.000) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = 'vbbcuge3ve9k0v2ywq3ul935nj9z6x1r'; args=('vbbcuge3ve9k0v2ywq3ul935nj9z6x1r',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 1; args=(1,)
+"GET /static/img/homepage_background.jpg HTTP/1.1" 304 0
+"GET /get_order_count HTTP/1.1" 200 28
+"GET /static/bootstrap/css/bootstrap.css.map HTTP/1.1" 304 0
+"GET / HTTP/1.1" 200 6831
+"GET /static/menu.css HTTP/1.1" 200 3666
+"GET /static/bootstrap/css/bootstrap.css HTTP/1.1" 304 0
+"GET /static/style.css HTTP/1.1" 304 0
+"GET /static/jquery.min_3.2.1.js HTTP/1.1" 304 0
+"GET /static/img/Meditation_Sculpture.jpg HTTP/1.1" 304 0
+"GET /static/img/cart.png HTTP/1.1" 304 0
+"GET /static/img/menu1.png HTTP/1.1" 304 0
+(0.000) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = 'vbbcuge3ve9k0v2ywq3ul935nj9z6x1r'; args=('vbbcuge3ve9k0v2ywq3ul935nj9z6x1r',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 1; args=(1,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET /static/img/homepage_background.jpg HTTP/1.1" 304 0
+"GET /static/bootstrap/css/bootstrap.css.map HTTP/1.1" 304 0
+"GET / HTTP/1.1" 200 6831
+"GET /static/bootstrap/css/bootstrap.css HTTP/1.1" 304 0
+"GET /static/style.css HTTP/1.1" 200 2379
+"GET /static/menu.css HTTP/1.1" 200 3661
+"GET /static/jquery.min_3.2.1.js HTTP/1.1" 304 0
+"GET /static/img/cart.png HTTP/1.1" 304 0
+"GET /static/img/Meditation_Sculpture.jpg HTTP/1.1" 304 0
+"GET /static/img/menu1.png HTTP/1.1" 304 0
+(0.000) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = 'vbbcuge3ve9k0v2ywq3ul935nj9z6x1r'; args=('vbbcuge3ve9k0v2ywq3ul935nj9z6x1r',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 1; args=(1,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET /static/img/homepage_background.jpg HTTP/1.1" 304 0
+"GET /static/bootstrap/css/bootstrap.css.map HTTP/1.1" 304 0
+"GET / HTTP/1.1" 200 6831
+"GET /static/style.css HTTP/1.1" 200 2379
+"GET /static/menu.css HTTP/1.1" 200 3661
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET / HTTP/1.1" 200 6831
+"GET /static/style.css HTTP/1.1" 304 0
+"GET /static/menu.css HTTP/1.1" 304 0
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET /static/style.css HTTP/1.1" 304 0
+"GET /static/menu.css HTTP/1.1" 304 0
+"GET / HTTP/1.1" 200 6831
+"GET /static/style.css HTTP/1.1" 304 0
+"GET /static/menu.css HTTP/1.1" 200 3711
+"GET /static/img/menu1.png HTTP/1.1" 304 0
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.001) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET / HTTP/1.1" 200 6831
+"GET /static/style.css HTTP/1.1" 304 0
+"GET /static/menu.css HTTP/1.1" 304 0
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET / HTTP/1.1" 200 6831
+"GET /static/style.css HTTP/1.1" 304 0
+"GET /static/menu.css HTTP/1.1" 304 0
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.000) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET / HTTP/1.1" 200 6831
+"GET /static/bootstrap/css/bootstrap.css HTTP/1.1" 304 0
+"GET /static/menu.css HTTP/1.1" 200 3901
+"GET /static/jquery.min_3.2.1.js HTTP/1.1" 304 0
+"GET /static/style.css HTTP/1.1" 304 0
+"GET /static/img/Meditation_Sculpture.jpg HTTP/1.1" 304 0
+"GET /static/img/menu1.png HTTP/1.1" 304 0
+"GET /static/img/cart.png HTTP/1.1" 304 0
+(0.004) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = 'vbbcuge3ve9k0v2ywq3ul935nj9z6x1r'; args=('vbbcuge3ve9k0v2ywq3ul935nj9z6x1r',)
+"GET /static/img/homepage_background.jpg HTTP/1.1" 304 0
+(0.005) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 1; args=(1,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET /static/bootstrap/css/bootstrap.css.map HTTP/1.1" 304 0
+"GET / HTTP/1.1" 200 6808
+"GET /static/style.css HTTP/1.1" 200 2335
+"GET /static/menu.css HTTP/1.1" 200 3896
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.001) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 28
+"GET / HTTP/1.1" 200 6808
+(0.001) SELECT "meditate_order"."id", "meditate_order"."sessionId", "meditate_order"."paymentProvider", "meditate_order"."paymentId", "meditate_order"."total" FROM "meditate_order" WHERE "meditate_order"."sessionId" = '460ah2j3gpbynva8rrg2rmj1u8bqcvjj'; args=('460ah2j3gpbynva8rrg2rmj1u8bqcvjj',)
+(0.008) SELECT "meditate_orderitem"."id", "meditate_orderitem"."order_id", "meditate_orderitem"."count", "meditate_orderitem"."saleItem_id" FROM "meditate_orderitem" WHERE "meditate_orderitem"."order_id" = 6; args=(6,)
+"GET /get_order_count HTTP/1.1" 200 28
