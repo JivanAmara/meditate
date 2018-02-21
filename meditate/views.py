@@ -34,7 +34,7 @@ def get_session_id(request):
 
 
 def homepage(request):
-    resp = render(request, 'home1.html')
+    resp = render(request, 'home.html')
     return resp
 
 
