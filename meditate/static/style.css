@@ -43,11 +43,10 @@ body {
       font-weight: 400;
 }
 
-.local-header {
+.local-header, .local-header-meditate {
       background-image: url(img/homepage_background.jpg);
       background-size: cover;
       background-repeat: no-repeat;
-      height: 220px;
       color: white;
       background-position: 50.00% 45.56%;
       background-color: transparent;
@@ -55,12 +54,20 @@ body {
       width: 100%;
 }
 
+.local-header {
+    height: 220px;
+}
+
+.local-header-meditate {
+    height: 190px;
+}
+
 .inner-header {
      display: table-cell;
      vertical-align: middle;
 }
 
-.banner-title {
+.banner-title, .banner-title-meditate {
     font-family: 'Oswald', sans-serif;
     text-transform: uppercase;
     font-size: 2.0rem;
@@ -68,6 +75,7 @@ body {
     text-shadow: 1px 0px 2px rgba(23, 17, 17, 0.3);
     font-weight: bold;
 }
+
 .header-head {
     text-align:center;
 }
@@ -238,15 +246,22 @@ textarea {
     padding: 3px;
 }
 
-.wrapper-banner-sample {
+.wrapper-banner-sample, .wrapper-banner-meditate {
     font-family: 'Crimson Text', serif;
-    text-align: center;
     line-height: 28px !important;
     font-size: 0.9em;
 }
 
+.wrapper-banner-sample {
+    text-align: center;
+}
+
+.wrapper-banner-meditate {
+    text-align: left;
+}
+
 @supports (-webkit-appearance:none) {
-	.wrapper-banner-sample {
+	.wrapper-banner-sample, .wrapper-banner-meditate {
 		font-size: 1.1em;
 	}
 }
@@ -276,6 +291,14 @@ textarea {
 
 /* sample from book */
 
+.meditate-post-link {
+    text-decoration: underline;
+    color: #0275d8;
+}
+
+.emphasize {
+    color: #000;
+}
 @media (max-width: 320px) {
     .author-image, .sample-image {
         width: 190px;
@@ -295,6 +318,9 @@ textarea {
     .local-header{ 
         height: 265px;
     }
+    .local-header-meditate {
+        height: 220px;
+    }
     .author-image, .sample-image {
         display: block;
         width: 200px;
@@ -309,8 +335,14 @@ textarea {
     .local-header{
         height: 290px;
     }
+    .local-header-meditate {
+        height: 260px;
+    }
     .banner-title {
         font-size: 2.5rem;
+    }
+    .banner-title-meditate {
+        font-size: 3.0rem;
     }
     .author-image, .sample-image {
         width: 250px;
@@ -320,6 +352,9 @@ textarea {
 @media (min-width: 414px) {
     .local-header{
         height: 350px;
+    }
+    .local-header-meditate {
+        height: 300px;
     }
     .author-image, .sample-image {
         width: 300px;
@@ -342,6 +377,12 @@ textarea {
     .local-header{
         height: 360px;
     }
+    .local-header-meditate {
+        height: 325px;
+    }
+    .banner-title-meditate {
+        font-size: 3.5rem;
+    }
     .author-image, .sample-image {
         width: 250px;
         float: right;
@@ -352,11 +393,11 @@ textarea {
         float: left;
         margin: 10px 10px 10px 0px;
     }
-    .wrapper-banner-sample {
+    .wrapper-banner-sample, .wrapper-banner-meditate {
         font-size: 1.0em;
     }
     @supports (-webkit-appearance:none) {
-	.wrapper-banner-sample {
+	.wrapper-banner-sample, .wrapper-banner-meditate {
 		font-size: 1.2em;
 	}
 }
@@ -365,6 +406,9 @@ textarea {
 @media (min-width: 640px) {
     .local-header{
         height: 380px;
+    }
+    .local-header-meditate {
+        height: 330px;
     }
     .author-image, .sample-image {
         width: 300px;
@@ -378,11 +422,20 @@ textarea {
     .local-header{
         height: 440px;
     }
+    .local-header-meditate {
+        height: 400px;
+    }
 }
 
 @media (min-width: 768px) {
     .local-header{
-            height: 500px;
+         height: 500px;
+    }
+    .local-header-meditate {
+        height: 450px;
+    }
+    .banner-title-meditate {
+        font-size: 4.0rem;
     }
     .author-image, .sample-image {
         width: 350px;
@@ -390,22 +443,25 @@ textarea {
     .wrapper-banner-content {
         font-size: 1.3em;
     }
-    .wrapper-banner-sample {
+    .wrapper-banner-sample, .wrapper-banner-meditate {
         font-size: 1.1em;
     }
     @supports (-webkit-appearance:none) {
-        .wrapper-banner-sample {
+        .wrapper-banner-sample, .wrapper-banner-meditate {
             font-size: 1.3em;
         }
     }
 }
 
 @media (min-width: 992px) {
-    .local-header{
+    .local-header, .local-header-meditate {
         height: 550px;
     }
     .wrapper-banner-content {
         font-size: 1.4em;
+    }
+    .banner-title-meditate {
+        font-size: 4.5rem;
     }
 }
 
