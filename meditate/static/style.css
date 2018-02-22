@@ -238,8 +238,46 @@ textarea {
     padding: 3px;
 }
 
+.wrapper-banner-sample {
+    font-family: 'Crimson Text', serif;
+    text-align: center;
+    line-height: 28px !important;
+    font-size: 0.9em;
+}
+
+@supports (-webkit-appearance:none) {
+	.wrapper-banner-sample {
+		font-size: 1.1em;
+	}
+}
+
+/* about author page */
+
+/* sample from book */
+
+.sample-title {
+    font-size: 1.1em;
+}
+
+.sample-inner-title {
+    margin: 30px 0;
+    text-decoration: underline;
+    font-family: 'Crimson Text', serif;
+    font-size: 1.5em;
+    letter-spacing: 0px !important;
+}
+
+.sample-image {
+    width: 300px;
+    border-radius: 5px;
+    border: 1px solid rgb(204, 196, 196);
+    padding: 3px;
+}
+
+/* sample from book */
+
 @media (max-width: 320px) {
-    .author-image {
+    .author-image, .sample-image {
         width: 190px;
         float: none;
         display: block;
@@ -257,7 +295,7 @@ textarea {
     .local-header{ 
         height: 265px;
     }
-    .author-image {
+    .author-image, .sample-image {
         display: block;
         width: 200px;
         float: none;
@@ -267,7 +305,6 @@ textarea {
         font-size: 1em;
     }
 }
-
 @media (min-width: 375px) {
     .local-header{
         height: 290px;
@@ -275,7 +312,7 @@ textarea {
     .banner-title {
         font-size: 2.5rem;
     }
-    .author-image {
+    .author-image, .sample-image {
         width: 250px;
     }
 }
@@ -284,13 +321,13 @@ textarea {
     .local-header{
         height: 350px;
     }
-    .author-image {
+    .author-image, .sample-image {
         width: 300px;
     }
 }
 
 @media (min-width: 480px) {
-    .author-image {
+    .author-image, .sample-image {
         width: 350px;
     }
     .wrapper-banner-content {
@@ -305,19 +342,31 @@ textarea {
     .local-header{
         height: 360px;
     }
-    .author-image {
+    .author-image, .sample-image {
         width: 250px;
         float: right;
         margin-left: 10px;
         margin-bottom: 10px;
     }
+    .sample-image {
+        float: left;
+        margin: 10px 10px 10px 0px;
+    }
+    .wrapper-banner-sample {
+        font-size: 1.0em;
+    }
+    @supports (-webkit-appearance:none) {
+	.wrapper-banner-sample {
+		font-size: 1.2em;
+	}
+}
 }
 
 @media (min-width: 640px) {
     .local-header{
         height: 380px;
     }
-    .author-image {
+    .author-image, .sample-image {
         width: 300px;
     }
     .wrapper-banner-content {
@@ -335,11 +384,19 @@ textarea {
     .local-header{
             height: 500px;
     }
-    .author-image {
+    .author-image, .sample-image {
         width: 350px;
     }
     .wrapper-banner-content {
         font-size: 1.3em;
+    }
+    .wrapper-banner-sample {
+        font-size: 1.1em;
+    }
+    @supports (-webkit-appearance:none) {
+        .wrapper-banner-sample {
+            font-size: 1.3em;
+        }
     }
 }
 
