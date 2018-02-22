@@ -1,49 +1,55 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends "base.html" %} {% load static %} {% block extrahead %}
+<title>About the Author</title>
+{% endblock %} {% block content %}
+<div class="wrapper-banner">
+    <h2>
+        <font class="wrapper-banner-title">About The author</font>
+    </h2>
 
-{% block extrahead %}
-    <title>About the Author</title>
-{% endblock %}
+    <div class="wrapper-banner-content">
+        <div class="col-xs-12 position">
+            <img class="author-image" src='{% static "img/Selfie.jpg" %}' alt="Author's Picture" />
+        </div>
 
-{% block content %}
+        <p>Jivan Amara has been meditating for more than 25 years with instruction from a number of highly experienced teachers
+            primarily from Asian traditions.
+        </p>
 
-<h2><font size="6" color="#2a2a2a">About The author</font></h2>
+        <p>Jivan was born with the name Mathew Douglas Wiggett. Strong willed, and interested in exploring, Mathew began meditating
+            when he was 17 in the tiny town of 2500 where he grew up.
+        </p>
 
-<div>
-    <div>
-        <img align='right' width='30%' src='{% static "img/Selfie.jpg" %}' alt="Author's Picture"/>
+        <p>His interest in spirituality led him to pursue a minor in comparative religious studies, where he met Professor Robert
+            Gussner (Jina) whose approach focused on the experiential element of spiritual practices in contrast to the intellectual
+            investigation of different religions. This element of experiencing first hand is fundamental to the book offered
+            here.
+        </p>
+
+        <p>After graduating from college, Mathew traveled to India for four months, his first of many journeys around the world
+            to learn from various traditions. There he took part in a variation of the Indian tradition of Sanyas (renunciation)
+            in which he was given the name Jivan Amara, meaning immortal spirit or immortal life. On returning to the US
+            he legally took on the new name.
+        </p>
+
+        <p>Jivan has lived and studied spiritual traditions in a number of places around the world; most recently Beijing &
+            Shanghai where he furthered his study of qigong, San Diego close to Advaita teacher Francis Lucille, and at the
+            time of this publishing is currently residing in Crestone, CO. Jivan supports himself financially through software
+            development. In addition to meditation, Jivan enjoys hiking, snowboarding, and playing guitar.
+        </p>
     </div>
-
-    <p>Jivan Amara has been meditating for more than 25 years with instruction from a
-        number of highly experienced teachers primarily from Asian traditions.
-    </p>
-
-    <p>Jivan was born with the name Mathew Douglas Wiggett. Strong willed, and 
-        interested in exploring, Mathew began meditating when he was 17 in the tiny
-        town of 2500 where he grew up.
-    </p>
-
-    <p>His interest in spirituality led him to pursue a minor in comparative religious
-        studies, where he met Professor Robert Gussner (Jina) whose approach focused on
-        the experiential element of spiritual practices in contrast to the intellectual
-        investigation of different religions. This element of experiencing first hand is
-        fundamental to the book offered here.
-    </p>
-
-    <p>After graduating from college, Mathew traveled to India for four months, his 
-        first of many journeys around the world to learn from various traditions.  
-        There he took part in a variation of the Indian tradition of Sanyas (renunciation)
-        in which he was given the name Jivan Amara, meaning immortal spirit or immortal
-        life. On returning to the US he legally took on the new name.
-    </p>
-
-    <p>Jivan has lived and studied spiritual traditions in a number of places around
-        the world; most recently Beijing & Shanghai where he furthered his study of qigong,
-        San Diego close to Advaita teacher Francis Lucille, and at the time of this publishing
-        is currently residing in Crestone, CO. Jivan supports himself financially through
-        software development.  In addition to meditation, Jivan enjoys hiking, snowboarding,
-        and playing guitar.
-    </p>
 </div>
+
+<!-- footer-wrap -->
+<div id="footer-wrap">
+    <div class="row footer">
+        <div class="col-md-6 col-sm-6">
+            <div style="height:50px;"></div>
+        </div>
+        <div class="col-md-6 col-sm-6">
+            <div style="height:50px;"></div>
+        </div>
+    </div>
+</div>
+<!-- end footer-wrap -->
 
 {% endblock %}
