@@ -2,24 +2,27 @@
 
 <div id="topmenu" class="top-menu">
     <span class="menu" id="menu">
-            <img src="{% static 'img/menu1.png' %}" alt="">
-        </span>
+        <img src="{% static 'img/menu1.png' %}" alt="">
+    </span>
     <ul id="nav1" class="nav1">
         {% for item in menu %}
-        <li class="navbar-grad"><a href="{{ item.url }}">{{ item.title }}</a></li>
+            <li class="navbar-grad"><a href="{{ item.url }}">{{ item.title }}</a></li>
         {% endfor %}
-
     </ul>
 </div>
+
 <div id="logoinmenu" class="logo-in-menu">
     <img src="{% static 'img/Meditation_Sculpture.jpg' %}">
 </div>
+
 <div id="cart" class="cart">
     <div id="cartin" class="cart-in">
-        <a href='{% url 'order_summary' %}'> <img class="cart-icon" src="{% static 'img/cart.png' %}"> <div class="order-count" id='OrderCount'>0</div></a>
+        <a href="{% url 'order_summary' %}"> 
+            <img class="cart-icon" src="{% static 'img/cart.png' %}"> 
+            <div class="order-count" id='OrderCount'>0</div>
+        </a>
     </div>
 </div>
-
 <div class="clearfix"></div>
 
 <script>
@@ -28,12 +31,9 @@
             // Animation complete.
         });
     });
-
 </script>
-
 <script>
     window.onscroll = function () {
-
         var headermain = document.getElementById('header');
         var nav = document.getElementById('nav1');
         var headerlogo = document.getElementById('logo');
@@ -64,7 +64,6 @@
             cartin.classList.remove("cart-in-cont");
         }
     }
-
 </script>
 
 <script type='text/javascript'>

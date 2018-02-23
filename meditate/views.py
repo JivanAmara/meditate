@@ -18,7 +18,7 @@ from meditate.models import SaleItem, Order, OrderItem
 
 
 # See your keys here: https://dashboard.stripe.com/account/apikeys
-stripe.api_key = os.environ.get('STRIPE_SECRET_KEY', 'asa')
+stripe.api_key = os.environ.get('STRIPE_SECRET_KEY', '')
 if stripe.api_key == '':
     raise Exception('Environment variable STRIPE_SECRET_KEY not set.')
 

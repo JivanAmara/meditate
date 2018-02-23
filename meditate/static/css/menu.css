@@ -24,7 +24,6 @@ li a:hover, li a:active{
 .nav1{
     margin-bottom: 0px;
     padding-top: 28px;
-
 }
 .nav1-cond{
     padding-top: 0px;
@@ -67,11 +66,13 @@ span.menu {
        margin-left: 0%;
    }
 }
+
 @media (min-width: 1240px){
     .nav1{
         margin-left: 4%;
     }
 }
+
 @media (min-width: 1300px){
     .nav1{
         margin-left: 7%;
@@ -79,11 +80,12 @@ span.menu {
 }
 
 @media (max-width: 768px){
-.top-menu ul li a {
-  padding: 0.7em 1.5em;
-  font-size: 0.95em;
+    .top-menu ul li a {
+    padding: 0.7em 1.5em;
+    font-size: 0.95em;
+    }
 }
-}
+
 @media (max-width: 940px){
     h2{
         font-size: 1.4rem;
@@ -211,14 +213,13 @@ a{
       text-decoration: none;
       color: #525252;
 }
- .cart a:hover, .cart a:active{
+.cart a:hover, .cart a:active{
      text-decoration: none;
       color: #a6a6a6;
  }
 .cart-in{
     width: 35px;
     height: 35px;
-
 }
 .cart-icon{
     position: absolute;
