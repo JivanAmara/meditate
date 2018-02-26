@@ -2,38 +2,50 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-    <script src="{% static 'jquery.min_3.2.1.js' %}"></script>
-    {% include "order_functions.js" %}
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/menu.css' %}">
+    <script src="{% static 'js/base/jquery.min_3.2.1.js' %}"></script>
+    <link href="https://fonts.googleapis.com/css?family=Karla|Lato|Oswald|Crimson+Text" rel="stylesheet">  
+    {% include "order_functions.js" %} 
     {% block extrahead %}
     <!-- Put at least the page title here in derived templates: <title>here</title> -->
     {% endblock %}
   </head>
 
   <body>
-  {% block shared_content %}
-    <div id=header style='height: 3em;'>
-    {% include "logo.html" %}
-    {% load menu %}
-    {% generate_menu %}
-    {% with menu=menus.main %}{% include "menu.html" %}{% endwith %}
-    </div>
-  {% endblock %}
-
-  <style>
-    div#page-wrapper {
-      font-family: "Lato", Arial, sans-serif;
-      font-weight: 400;
-    }
-  </style>
-  
-
-  <div id=page-wrapper>
-    {% block content %}
+    {% block shared_content %}
+    <nav class="head">
+      <div id="header" class="wrapper header-main">
+        {% include "logo.html" %} 
+        {% load menu %} {% generate_menu %} 
+        {% with menu=menus.main %}
+          {% include "menu.html" %}
+        {% endwith %}
+      </div>
+    </nav>
     {% endblock %}
-  </div>
 
+    <div id="page-wrapper" class="wrapper">
+      {% block content %} 
+        <!-- Encloses the main contents of the webpage -->
+      {% endblock %}
+      <!-- footer-wrap -->
+      <div id="footer-wrap">
+        <div class="row footer">
+          <div class="col-md-6 col-sm-6">
+            <div class="content-footer"></div>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <div class="content-footer"></div>
+          </div>
+        </div>
+      </div>
+      <!-- end footer-wrap -->
+    </div>
   </body>
 </html>

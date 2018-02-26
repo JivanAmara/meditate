@@ -1,0 +1,445 @@
+body {
+    width: 100%;
+    height: 100%;
+    color: #525252;
+    background-color: #eceef2;
+    margin: 0px;
+    font-family: 'Lato', Arial, sans-serif;
+}
+#page-wrapper {
+    padding-top: 125px;
+}
+.head {
+    position: fixed;
+    width: 100%;
+}
+.header-main {
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+    -ms-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+}
+.wrapper {
+    margin:0 auto;
+    background-color: #fff;
+}
+.header-main {
+    box-shadow: 0px 2px 3px -1px rgb(207, 207, 207);
+    height: 8em;
+}
+.header-main-cond {
+    height: 4em;
+}
+#page-wrapper {
+      font-family: "Lato", Arial, sans-serif;
+      font-weight: 400;
+}
+.local-header, .local-header-meditate {
+      background-image: url(../img/homepage_background.jpg);
+      background-size: cover;
+      background-repeat: no-repeat;
+      color: white;
+      background-position: 50.00% 45.56%;
+      background-color: transparent;
+      display: table;
+      width: 100%;
+}
+.local-header {
+    height: 220px;
+}
+.local-header-meditate {
+    height: 190px;
+}
+.inner-header {
+     display: table-cell;
+     vertical-align: middle;
+}
+.banner-title, .banner-title-meditate {
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    font-size: 2.0rem;
+    letter-spacing: 1px;
+    text-shadow: 1px 0px 2px rgba(23, 17, 17, 0.3);
+    font-weight: bold;
+}
+.header-head {
+    text-align:center;
+}
+.header-content {
+    text-align:center;
+    text-shadow: 1px 0px 2px rgba(23, 17, 17, 0.3);
+    /*font-weight: bold;*/
+    margin-top: 15px;
+    letter-spacing: 1px;
+}
+.content-wrap {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+.position {
+    position: static;
+}
+.wsite-not-footer {
+    border: 0; 
+    width: 100%; 
+    table-layout: fixed;
+}
+.blog-body {
+    float: left;
+}
+.blog-title {
+    line-height: 1.5;
+    font-weight: bold;
+}
+.blog-link {
+    text-decoration: underline;
+    color: #a6a6a6;
+}
+.blog-link:hover {
+    text-decoration: none;
+    color: #a6a6a6;
+}
+.blog-title-link {
+    color: #000;
+    text-decoration: none;
+}
+.blog-title-link:hover {
+    color: #544f4f;
+}
+.blog-content {
+    font-family: 'Karla', sans-serif;
+    font-size: 17px;
+    text-align: justify;
+    margin-bottom: 15px;
+}
+.blog-comments-bottom {
+    font-size: 0.8rem;
+}
+.content-home {
+    padding-right: 0px;
+}
+.blog-feed-link {
+    margin-top: 15px;
+}
+.blog-link img {
+    padding-bottom: 10px;
+    margin-right: 5px;
+}
+.rss-feed {
+    font-size: 0.9rem;
+}
+.contact-form {
+    padding-left: 30px;
+    padding-right: 0px;
+}
+ul.formlist {
+    padding-left: 0px;
+}
+.columnlist-blog {
+    margin:0; 
+    padding: 0;
+}
+.wsite-form-container {
+    margin-top:0px;
+}
+.wsite-form-field {
+    margin:5px 0px 5px 0px;
+}
+.wsite-form-instructions {
+    display:none;
+}
+.wsite-content-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.form-required {
+    color: #cc0000 !important;
+}
+label {
+    color: #000;
+}
+textarea {
+    height: 200px;
+}
+.custom-label {
+    margin-top: 15px;
+    margin-bottom: 0;
+    font-size: 0.8rem;
+}
+.footer{
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* about author page */
+.wrapper-banner {
+    padding: 3.5em;
+}
+.wrapper-banner-title {
+    margin-top: 50px;
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    font-size: 1.3em;
+    color: #2a2a2a;
+    text-shadow: 1px 0px 2px rgba(23, 17, 17, 0.3);
+}
+.wrapper-banner-content {
+    margin-top: 50px;
+    font-size: 1.5em;
+    /*text-align: justify;*/
+}
+.author-image {
+    width: 400px;
+    border-radius: 5px;
+    border: 1px solid rgb(204, 196, 196);
+    padding: 3px;
+}
+.wrapper-banner-sample, .wrapper-banner-meditate {
+    font-family: 'Crimson Text', serif;
+    line-height: 28px !important;
+    font-size: 0.9em;
+}
+.wrapper-banner-sample {
+    text-align: center;
+}
+.wrapper-banner-meditate {
+    text-align: left;
+}
+
+@supports (-webkit-appearance:none) {
+	.wrapper-banner-sample, .wrapper-banner-meditate {
+		font-size: 1.1em;
+	}
+}
+
+/* sample from book */
+.sample-title {
+    font-size: 1.1em;
+}
+.sample-inner-title {
+    margin: 30px 0;
+    text-decoration: underline;
+    font-family: 'Crimson Text', serif;
+    font-size: 1.5em;
+    letter-spacing: 0px !important;
+}
+.sample-image {
+    width: 300px;
+    border-radius: 5px;
+    border: 1px solid rgb(204, 196, 196);
+    padding: 3px;
+}
+
+/* sample from book */
+.meditate-post-link {
+    text-decoration: underline;
+    color: #0275d8;
+}
+.content-footer {
+    height: 50px;
+}
+.emphasize {
+    color: #000;
+}
+.buy-book-content {
+    margin-top: 30px;
+    margin-bottom: 40px;
+    font-size: 1em;
+    /*font-family: 'Crimson Text', serif;*/
+    font-family: 'Poppins', sans-serif;
+    line-height: 2;
+}
+.card {
+    width: 18rem;
+}
+.card-img-top {
+    height: 300px
+}
+.book-list {
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: space-evenly;
+}
+
+@media (max-width: 320px) {
+    .author-image, .sample-image {
+        width: 190px;
+        float: none;
+        display: block;
+        margin: 0px auto 20px auto;
+    }
+    .wrapper-banner-content {
+        font-size: 1em;
+    }
+    .wrapper-banner {
+        padding: 2.8em;
+    }
+}
+
+@media (min-width: 320px) {
+    .local-header{ 
+        height: 265px;
+    }
+    .local-header-meditate {
+        height: 220px;
+    }
+    .author-image, .sample-image {
+        display: block;
+        width: 200px;
+        float: none;
+        margin: 0px auto 20px auto;
+    }
+    .wrapper-banner-content {
+        font-size: 1em;
+    }
+}
+
+@media (min-width: 375px) {
+    .local-header{
+        height: 290px;
+    }
+    .local-header-meditate {
+        height: 260px;
+    }
+    .banner-title {
+        font-size: 2.5rem;
+    }
+    .banner-title-meditate {
+        font-size: 3.0rem;
+    }
+    .author-image, .sample-image {
+        width: 250px;
+    }
+}
+
+@media (min-width: 414px) {
+    .local-header{
+        height: 350px;
+    }
+    .local-header-meditate {
+        height: 300px;
+    }
+    .author-image, .sample-image {
+        width: 300px;
+    }
+}
+
+@media (min-width: 480px) {
+    .author-image, .sample-image {
+        width: 350px;
+    }
+    .wrapper-banner-content {
+        font-size: 1.1em;
+    }
+    .wrapper-banner {
+        padding: 3.5em;
+    }
+}
+
+@media (min-width: 568px) {
+    .local-header{
+        height: 360px;
+    }
+    .local-header-meditate {
+        height: 325px;
+    }
+    .banner-title-meditate {
+        font-size: 3.5rem;
+    }
+    .author-image, .sample-image {
+        width: 250px;
+        float: right;
+        margin-left: 10px;
+        margin-bottom: 10px;
+    }
+    .sample-image {
+        float: left;
+        margin: 10px 10px 10px 0px;
+    }
+    .wrapper-banner-sample, .wrapper-banner-meditate {
+        font-size: 1.0em;
+    }
+    @supports (-webkit-appearance:none) {
+        .wrapper-banner-sample, .wrapper-banner-meditate {
+            font-size: 1.2em;
+        }
+    }
+}
+
+@media (min-width: 640px) {
+    .local-header{
+        height: 380px;
+    }
+    .local-header-meditate {
+        height: 330px;
+    }
+    .author-image, .sample-image {
+        width: 300px;
+    }
+    .wrapper-banner-content {
+        font-size: 1.2em;
+    }
+}
+
+@media (min-width: 667px) {
+    .local-header{
+        height: 440px;
+    }
+    .local-header-meditate {
+        height: 400px;
+    }
+}
+
+@media (min-width: 768px) {
+    .local-header{
+         height: 500px;
+    }
+    .local-header-meditate {
+        height: 450px;
+    }
+    .banner-title-meditate {
+        font-size: 4.0rem;
+    }
+    .author-image, .sample-image {
+        width: 350px;
+    }
+    .wrapper-banner-content {
+        font-size: 1.3em;
+    }
+    .wrapper-banner-sample, .wrapper-banner-meditate {
+        font-size: 1.1em;
+    }
+    .content-home {
+        padding-right: 15px;
+    }
+    @supports (-webkit-appearance:none) {
+        .wrapper-banner-sample, .wrapper-banner-meditate {
+            font-size: 1.3em;
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    .local-header, .local-header-meditate {
+        height: 550px;
+    }
+    .wrapper-banner-content {
+        font-size: 1.4em;
+    }
+    .banner-title-meditate {
+        font-size: 4.5rem;
+    }
+}
+
+@media (min-width: 1100px) {
+    .wrapper{
+        width: 91%;                     /*sets the width of the webpage for bigger size screens*/    
+    }
+    .author-image {
+        width: 400px;
+    }
+    .wrapper-banner-content {
+        font-size: 1.5em;
+    }
+}

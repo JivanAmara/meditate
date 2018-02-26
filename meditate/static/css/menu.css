@@ -1,0 +1,233 @@
+li a:hover, li a:active{
+    color: #a6a6a6 !important;
+}
+.top-menu{
+    width: 85%;
+    margin: 0 auto;
+    padding-top: 9px;
+}
+.top-menu ul li{
+    display:inline-block;
+	float:left;
+    height: 50px;
+}
+.top-menu ul li a{
+	color:#525252;
+	padding: 1em 0.8em;
+	display:block;
+	font-size: 0.945em;
+    text-transform: uppercase;
+}
+.top-menu ul li.active a,.top-menu ul li a:hover{
+	text-decoration: none;
+}
+.nav1{
+    margin-bottom: 0px;
+    padding-top: 28px;
+}
+.nav1-cond{
+    padding-top: 0px;
+}
+span.menu {
+    display:none;
+}
+.logo-in-menu img{
+    max-width: 50px;
+    display: none;
+}
+.cart{
+    width: 7%;
+    padding-top: 13px;
+    float: right;
+    /*margin-right: 2%;*/
+}
+
+@media (min-width: 940px){
+   .nav1{
+       font-size: 0.845rem;
+       -webkit-transition: all 0.3s linear;
+        -moz-transition: all 0.3s linear;
+        -o-transition: all 0.3s linear;
+        -ms-transition: all 0.3s linear;
+        transition: all 0.3s linear;
+   }
+}
+
+@media (min-width: 1000px){
+   .nav1{
+       font-size: 0.88rem;
+    margin-left: 15px;
+   }
+}
+
+@media (min-width: 1140px){
+   .nav1{
+       font-size: 0.95rem;
+       margin-left: 0%;
+   }
+}
+
+@media (min-width: 1240px){
+    .nav1{
+        margin-left: 4%;
+    }
+}
+
+@media (min-width: 1300px){
+    .nav1{
+        margin-left: 7%;
+    }
+}
+
+@media (max-width: 768px){
+    .top-menu ul li a {
+    padding: 0.7em 1.5em;
+    font-size: 0.95em;
+    }
+}
+
+@media (max-width: 940px){
+    h2{
+        font-size: 1.4rem;
+    }
+    .custom-nav{
+        width: 100%;
+    }
+    .top-menu, .logo-in-menu, .cart{
+    padding-top: 22px;
+    }
+    .header-main-cond{
+        height: 4em;
+    }
+    .top-menu-cond{
+        padding-top: 0;
+    }
+    .menu img{
+        height: 35px;
+    }
+    .top-menu {
+        float: left;
+        width: 20%;
+        -webkit-transition: all 0.3s linear;
+        -moz-transition: all 0.3s linear;
+        -o-transition: all 0.3s linear;
+        -ms-transition: all 0.3s linear;
+        transition: all 0.3s linear;
+    }
+    .logo-in-menu{
+        width: 60%;
+        text-align: center;
+        margin:0 auto;
+        padding-top: 25px;
+        float: left;
+        -webkit-transition: all 0.3s linear;
+        -moz-transition: all 0.3s linear;
+        -o-transition: all 0.3s linear;
+        -ms-transition: all 0.3s linear;
+        transition: all 0.3s linear;
+    }
+    .logo-in-menu-cond{
+        padding-top: 0;
+    }
+    .cart{
+        float: right;
+        width: 20%;
+        margin-right: 0;
+        -webkit-transition: all 0.3s linear;
+        -moz-transition: all 0.3s linear;
+        -o-transition: all 0.3s linear;
+        -ms-transition: all 0.3s linear;
+        transition: all 0.3s linear;
+    }
+    .cart-cond {
+        padding-top: 0;
+    }
+    .cart-in{
+        margin-top: 25px;
+    }
+    .cart-in-cond {
+        margin-top: 20px;
+    }
+    .logo-in-menu img{
+        display: inline-block;
+    }
+    span.menu {
+        display: block;
+        text-align: center;
+        padding: 1.2em 0 1em 0;
+        cursor: pointer;
+        color: #E74C3C;
+        font-weight: 700;
+        position: relative;
+    }
+    span.menu-cond{
+        padding: 0.95em 0 0.85em 0;
+    }
+    .top-menu ul li {
+        float: none;
+    }
+    ul.nav1 {
+        display: none;
+    }
+    .top-menu ul {
+        padding: 0;
+        margin: 0;
+        z-index: 9999;
+        position: absolute;
+        width: 100%;
+        left:0;
+    }
+    .top-menu ul.nav1 li {
+        display: block;
+        text-align: center;
+        /*background:#3c300a;*/
+        border-bottom: 1px dashed #020201;
+        margin: 0;
+        width: 100%;
+    }
+    .top-menu ul li a {
+        padding: 1.5em 0;
+        display: block;
+        float: none;
+    }
+    .top-menu ul li a i {
+        margin-top: .5em;
+    }
+    .top-menu ul li a {
+        padding: 1em 0;
+    }
+    ul.nav1 {
+        display: none;
+    }
+    .top-menu ul.nav1 li {
+        display: block;
+        text-align: center;
+        background-color: #fff;
+        /*background:#3c300a;*/
+        border-bottom: 1px dashed #020201;
+        margin: 0;
+        width: 100%;
+    }
+}
+a{
+      text-decoration: none;
+      color: #525252;
+}
+.cart a:hover, .cart a:active{
+     text-decoration: none;
+      color: #a6a6a6;
+ }
+.cart-in{
+    width: 35px;
+    height: 35px;
+}
+.cart-icon{
+    position: absolute;
+}
+.order-count{
+    position: relative;
+    left: 2px;
+    bottom: 2px;
+    width: 35px;
+    text-align: center;
+}
