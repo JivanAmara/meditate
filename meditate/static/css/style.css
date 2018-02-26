@@ -116,6 +116,9 @@ body {
 .blog-comments-bottom {
     font-size: 0.8rem;
 }
+.content-home {
+    padding-right: 0px;
+}
 .blog-feed-link {
     margin-top: 15px;
 }
@@ -233,13 +236,30 @@ textarea {
     text-decoration: underline;
     color: #0275d8;
 }
-
 .content-footer {
     height: 50px;
 }
-
 .emphasize {
     color: #000;
+}
+.buy-book-content {
+    margin-top: 30px;
+    margin-bottom: 40px;
+    font-size: 1em;
+    /*font-family: 'Crimson Text', serif;*/
+    font-family: 'Poppins', sans-serif;
+    line-height: 2;
+}
+.card {
+    width: 18rem;
+}
+.card-img-top {
+    height: 300px
+}
+.book-list {
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: space-evenly;
 }
 
 @media (max-width: 320px) {
@@ -389,6 +409,9 @@ textarea {
     }
     .wrapper-banner-sample, .wrapper-banner-meditate {
         font-size: 1.1em;
+    }
+    .content-home {
+        padding-right: 15px;
     }
     @supports (-webkit-appearance:none) {
         .wrapper-banner-sample, .wrapper-banner-meditate {

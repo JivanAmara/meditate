@@ -1,4 +1,4 @@
-(function () {
+(function () {              //widget to share on twitter
     function j(src, id) {
         var s = document.createElement('script');
         s.type = 'text/javascript';

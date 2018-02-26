@@ -3,70 +3,49 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet">
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
-  <link rel="stylesheet" href="{% static 'css/menu.css' %}">
-  <script src="{% static 'js/base/jquery.min_3.2.1.js' %}"></script>
-  <link href="https://fonts.googleapis.com/css?family=Karla|Lato|Oswald|Crimson+Text" rel="stylesheet"> 
-  {% include "order_functions.js" %} 
-  {% block extrahead %}
-  <!-- Put at least the page title here in derived templates: <title>here</title> -->
-  {% endblock %}
-</head>
-
-<body>
-  {% block shared_content %}
-  <nav class="head">
-    <div id="header" class="wrapper header-main">
-      {% include "logo.html" %} 
-      {% load menu %} {% generate_menu %} 
-      {% with menu=menus.main %}
-        {% include "menu.html" %}
-      {% endwith %}
-    </div>
-  </nav>
-  {% endblock %}
-
-  <div id="page-wrapper" class="wrapper">
-    {% block content %} 
-      <!-- Encloses the main contents of the webpage -->
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/menu.css' %}">
+    <script src="{% static 'js/base/jquery.min_3.2.1.js' %}"></script>
+    <link href="https://fonts.googleapis.com/css?family=Karla|Lato|Oswald|Crimson+Text" rel="stylesheet">  
+    {% include "order_functions.js" %} 
+    {% block extrahead %}
+    <!-- Put at least the page title here in derived templates: <title>here</title> -->
     {% endblock %}
-    <!-- footer-wrap -->
-    <div id="footer-wrap">
-      <div class="row footer">
-        <div class="col-md-6 col-sm-6">
-          <div class="content-footer"></div>
-        </div>
-        <div class="col-md-6 col-sm-6">
-          <div class="content-footer"></div>
+  </head>
+
+  <body>
+    {% block shared_content %}
+    <nav class="head">
+      <div id="header" class="wrapper header-main">
+        {% include "logo.html" %} 
+        {% load menu %} {% generate_menu %} 
+        {% with menu=menus.main %}
+          {% include "menu.html" %}
+        {% endwith %}
+      </div>
+    </nav>
+    {% endblock %}
+
+    <div id="page-wrapper" class="wrapper">
+      {% block content %} 
+        <!-- Encloses the main contents of the webpage -->
+      {% endblock %}
+      <!-- footer-wrap -->
+      <div id="footer-wrap">
+        <div class="row footer">
+          <div class="col-md-6 col-sm-6">
+            <div class="content-footer"></div>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <div class="content-footer"></div>
+          </div>
         </div>
       </div>
+      <!-- end footer-wrap -->
     </div>
-    <!-- end footer-wrap -->
-  </div>
-  
-  <!-- scripts -->
-  <script type='text/javascript' src="{% static 'js/base/script_1.js' %}"></script>
-  <script type='text/javascript' src="{% static 'js/base/script_2.js' %}" async=1></script>
-  <script type='text/javascript' src="{% static 'js/base/script_3.js' %}"></script>
-  <noscript>
-    <div style="display:none;">
-      <img src="//pixel.quantserve.com/pixel/p-0dYLvhSGGqUWo.gif?labels=l15,u113116883.u113116883s529209629803367381" border="0" height="1" width="1" alt="Quantcast" />
-    </div>
-  </noscript>
-  <script src='https://js.stripe.com/v2/'></script>
-  <script>
-    Stripe.setPublishableKey('pk_live_Rbz3gE7QG7hskhi6EdeCgpd7');
-  </script>
-  <script type='text/javascript' src="{% static 'js/base/script_4.js' %}"></script>
-  <div id="eu-cookie" class="notification" style="display: none;">
-    <span id="eu-cookie-content"></span>
-    <span id="eu-cookie-close">&#10005;</span>
-  </div>
-  <script type='text/javascript' src="{% static 'js/base/script_5.js' %}"></script>
-
-</body>
+  </body>
 </html>
