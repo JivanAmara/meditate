@@ -63,7 +63,12 @@ def buy_book(request):
 
 
 def subscribe_mentoring(request):
-    resp = render(request, 'subscribe_mentoring.html')
+    items = []
+    items.append(SaleItem.objects.get(name='eBook, PDF'))
+    items.append(SaleItem.objects.get(name='Paperback'))
+    context = {'items': items, 'request': request}
+    resp = render_to_response('subscribe_mentoring.html', context=context)
+    # resp = render(request, 'subscribe_mentoring.html')
     return resp
 
 
