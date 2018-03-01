@@ -5,7 +5,13 @@
 {% endblock %}
 
 {% block content %}
-    <hr>
-    Thanks for your payment, your order number is: {{order_number}}.
-    <a href='/'>Return to homepage</a>
+    <div class="wrapper-banner">
+        <h3 class="cart-heading">
+            <font class="wrapper-banner-title sample-title">Meditation, Mind and Body</font>
+        </h3>
+        <div class="blog-content">
+            <h3>Thanks for your payment, your order number is: {{order_number}}.</h3>
+            <h3 class="continue-link"><a href='/'>Return to homepage</a></h3>
+        </div>
+    </div>
 {% endblock %}

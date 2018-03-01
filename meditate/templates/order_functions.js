@@ -1,9 +1,7 @@
-<!--
-    This is a javascript library which makes use of django template tags to set the URLs
-    for API endpoints instead of hard-coding them.
+<!--    This is a javascript library which makes use of django template tags to set the URLs
+        for API endpoints instead of hard-coding them.
 -->
 <script type='text/javascript'>
-
     function updateOrderCount() {
         // Collects the current item total and updates the 'OrderCount' element with that value.
         $.ajax({
@@ -14,7 +12,6 @@
             },
         });
     }
-
 
     function AddToCart(saleItemName, callback=null) {
         // Increases the count of saleItemName by one.
@@ -30,21 +27,20 @@
                  callback();
                }
            },
-       failure: function(XMLHttpRequest, textStatus, errorThrown) {
-               var msg = `Unable to add "${saleItemName}" to cart` 
+            failure: function(XMLHttpRequest, textStatus, errorThrown) {
+                    var msg = `Unable to add "${saleItemName}" to cart` 
+                    alert(msg); // TODO: Remove this.
+                    var logUrl = '{% url "log_javascript" "msgPlaceholder" %}'
+                    logUrl = logUrl.replace('msgPlaceholder', msg)
 
-               alert(msg); // TODO: Remove this.
-
-               var logUrl = '{% url "log_javascript" "msgPlaceholder" %}'
-               logUrl = logUrl.replace('msgPlaceholder', msg)
-               $.ajax({
-                   type: 'GET',
-                   url: logUrl,
-               });
-               if (callback != null) {
-                 callback();
-               }
-           }
+                    $.ajax({
+                        type: 'GET',
+                        url: logUrl,
+                    });
+                    if (callback != null) {
+                        callback();
+                    }
+            }
         })
     }
 
@@ -64,11 +60,10 @@
            },
        failure: function(XMLHttpRequest, textStatus, errorThrown) {
                var msg = `Unable to remove "${saleItemName}" to cart` 
-
                alert(msg); // TODO: Remove this.
-
                var logUrl = '{% url "log_javascript" "msgPlaceholder" %}'
                logUrl = logUrl.replace('msgPlaceholder', msg)
+
                $.ajax({
                    type: 'GET',
                    url: logUrl,
@@ -79,5 +74,4 @@
            }
         })
     }
-
 </script>

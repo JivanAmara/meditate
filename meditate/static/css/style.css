@@ -26,6 +26,7 @@ body {
 .wrapper {
     margin:0 auto;
     background-color: #fff;
+    /*min-height: 100vh !important;*/
 }
 .header-main {
     box-shadow: 0px 2px 3px -1px rgb(207, 207, 207);
@@ -176,8 +177,9 @@ textarea {
 }
 
 /* about author page */
-.wrapper-banner {
+.wrapper-banner, .wrapper-cart {
     padding: 3.5em;
+    min-height: 100vh !important;
 }
 .wrapper-banner-title {
     margin-top: 50px;
@@ -271,6 +273,66 @@ textarea {
 .img-fluid {
     width: 100%;
 }
+.cart-heading {
+    margin-bottom: 50px;
+}
+.table-heading {
+    margin-bottom: 15px;
+}
+.table-contents {
+    margin-bottom: 30px;
+}
+.cart-img {
+    height: 110px;
+}
+.description {
+    font-size: 16px;
+    color: #a9a9a9;
+}
+.custom-button {
+    width: 25px;
+    height: 25px;
+}
+.description .custom-button {
+    margin-top: 10px;
+    display: none;
+}
+.payment {
+    margin-right: 30px;
+    margin-bottom: 40px; 
+}
+.price, .quantity {
+    display: inline-block;
+}
+.checkout {
+    cursor: pointer;
+    background: #d9e0e3 !important;
+}
+.checkout:hover {
+    background: #bcc8ce !important;
+}
+.checkout:active {
+    background: #131619 !important;
+    color: white;
+}
+.continue-link a {
+    font-size: 17px;
+    color: #a9a9a9; !important;
+}
+input.button-add {
+    background: url(../img/up-arrow.png);
+}
+input.button-remove {
+    background: url(../img/down-arrow.png);
+}
+input.button-add, input.button-remove {
+    background-size: cover;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    border: none;
+    cursor: pointer;
+}
 
 @media (max-width: 320px) {
     .author-image, .sample-image {
@@ -284,6 +346,25 @@ textarea {
     }
     .wrapper-banner {
         padding: 2.8em;
+    }
+    .wrapper-cart {
+        padding: 1em;
+        padding-top: 2em;
+    }
+    .checkout {
+        font-size: 0.75em !important;
+    }
+    .custom-margin {
+        margin-top:0.25rem !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .price, .quantity {
+        display: none;
+    }
+    .description .custom-button {
+        display: inline-block;
     }
 }
 
@@ -302,6 +383,10 @@ textarea {
     }
     .wrapper-banner-content {
         font-size: 1em;
+    }
+    .wrapper-cart {
+        padding: 1em;
+        padding-top: 2em;
     }
 }
 
@@ -345,6 +430,9 @@ textarea {
     .wrapper-banner {
         padding: 3.5em;
     }
+    .wrapper-cart {
+        padding: 2em;
+    }
 }
 
 @media (min-width: 568px) {
@@ -366,6 +454,9 @@ textarea {
     .sample-image {
         float: left;
         margin: 10px 10px 10px 0px;
+    }
+    .wrapper-cart {
+        padding: 2.9em;
     }
     .wrapper-banner-sample, .wrapper-banner-meditate {
         font-size: 1.0em;
@@ -389,6 +480,9 @@ textarea {
     }
     .wrapper-banner-content {
         font-size: 1.2em;
+    }
+    .wrapper-cart {
+        padding: 3.5em;
     }
 }
 

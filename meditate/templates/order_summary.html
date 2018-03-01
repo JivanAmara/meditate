@@ -1,121 +1,86 @@
-{% extends "base.html" %}
+{% extends "base.html" %} 
 {% load static %}
 <!-- Expects context params: "order", base.html expects "request" -->
 
 {% block extrahead %}
     <title>Your Order</title>
-    <style>
-        table {
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .order_item {
-            text-align: center;
-        }
-
-        input.button-add > img, input.button-remove > img {
-            height: 1em;
-        }
-
-        input.button-add {
-          background: url({% static "img/up-arrow.png" %});
-        }
-        input.button-remove {
-          background: url({% static "img/down-arrow.png" %});
-        }
-        input.button-add, input.button-remove {
-          background-size: cover;
-          background-color: transparent; /* make the button transparent */
-          background-repeat: no-repeat;  /* make the background image appear only once */
-          background-position: 0px 0px;  /* equivalent to 'top left' */
-          border: none;           /* assuming we don't want any borders */
-          cursor: pointer;        /* make the cursor like hovering over an <a> element */
-        }
-    </style>
-
     <script type="text/javascript">
         var itemTotals = {};
-        
+            
         $(function() {
             {% for item in order.orderitem_set.all %}
-            itemTotals[{{item.saleItem.id}}] = {{item.saleItem.price}} * {{item.count}};
+                itemTotals[{{item.saleItem.id}}] = {{item.saleItem.price}} * {{item.count}};
             {% endfor %}
-            
             UpdateOrderTotal();
         });
-        
+            
         function AddToCartLocal(saleItemName, saleItemId) {
-           // Adds an item to the cart & updates the count displayed in the order summary
-           //  as well as the cart total items.
+            // Adds an item to the cart & updates the count displayed in the order summary
+            //  as well as the cart total items.
+            function afterAddToCart() {
+                // This is to replace the displayed count for this item with the current value.
+                urlTemplate = '{% url "single_item_count" "saleItemNamePlaceholder" %}';
+                singleItemCountUrl = urlTemplate.replace('saleItemNamePlaceholder', saleItemName);
 
-           function afterAddToCart() {
-             // This is to replace the displayed count for this item with the current value.
-             urlTemplate = '{% url "single_item_count" "saleItemNamePlaceholder" %}';
-             singleItemCountUrl = urlTemplate.replace('saleItemNamePlaceholder', saleItemName);
+                $.ajax({
+                    type: 'GET',
+                    url: singleItemCountUrl,
+                    success: function(responsedata) {
+                        updateOrderCount();
+                        countId = 'sale_item_' + saleItemId;
+                        el = document.getElementById(countId);
+                        el.innerHTML = responsedata.count;
+                        itemTotals[saleItemId] = responsedata.count * responsedata.price;
+                        UpdateOrderTotal();
+                    },
+                    failure: function(XMLHttpRequest, textStatus, errorThrown) {
+                        var msg = `Unable to add "${saleItemName}" to cart` 
+                        alert(msg); // TODO: Remove this.
 
-             $.ajax({
-                type: 'GET',
-                url: singleItemCountUrl,
-                success: function(responsedata) {
-                    updateOrderCount();
-                    countId = 'sale_item_' + saleItemId;
-                    el = document.getElementById(countId);
-                    el.innerHTML = responsedata.count;
-                    itemTotals[saleItemId] = responsedata.count * responsedata.price;
-                    UpdateOrderTotal();
-                },
-                failure: function(XMLHttpRequest, textStatus, errorThrown) {
-                    var msg = `Unable to add "${saleItemName}" to cart` 
-                    alert(msg); // TODO: Remove this.
-
-                    var logUrl = '{% url "log_javascript" "msgPlaceholder" %}'
-                    logUrl = logUrl.replace('msgPlaceholder', msg)
-                    $.ajax({
-                        type: 'GET',
-                        url: logUrl,
-                    });
-                }
-             });
-           }
-
+                        var logUrl = '{% url "log_javascript" "msgPlaceholder" %}'
+                        logUrl = logUrl.replace('msgPlaceholder', msg)
+                        $.ajax({
+                            type: 'GET',
+                            url: logUrl,
+                        });
+                    }
+                });
+            }
             // This adds an item to the cart & updates the cart total.
             AddToCart(saleItemName, callback=afterAddToCart);
         }
-        
+            
         function RemoveFromCartLocal(saleItemName, saleItemId) {
-           // Removes an item from the cart & updates the count displayed in the order summary
-           //  as well as the cart total items.
-
-           function afterRemoveFromCart() {
-             // This is to replace the displayed count for this item with the current value.
-             urlTemplate = '{% url "single_item_count" "saleItemNamePlaceholder" %}';
-             singleItemCountUrl = urlTemplate.replace('saleItemNamePlaceholder', saleItemName);
-
-             $.ajax({
-                type: 'GET',
-                url: singleItemCountUrl,
-                success: function(responsedata) {
-                    updateOrderCount();
-                    countId = 'sale_item_' + saleItemId;
-                    el = document.getElementById(countId);
-                    el.innerHTML = responsedata.count;
-                    itemTotals[saleItemId] = responsedata.count * responsedata.price;
-                    UpdateOrderTotal();
-                },
-                failure: function(XMLHttpRequest, textStatus, errorThrown) {
-                    var msg = `Unable to add "${saleItemName}" to cart` 
-                    alert(msg); // TODO: Remove this.
-
-                    var logUrl = '{% url "log_javascript" "msgPlaceholder" %}'
-                    logUrl = logUrl.replace('msgPlaceholder', msg)
-                    $.ajax({
-                        type: 'GET',
-                        url: logUrl,
-                    });
-                }
-             });
-           }
-
+            // Removes an item from the cart & updates the count displayed in the order summary
+            //  as well as the cart total items.
+            function afterRemoveFromCart() {
+                // This is to replace the displayed count for this item with the current value.
+                urlTemplate = '{% url "single_item_count" "saleItemNamePlaceholder" %}';
+                singleItemCountUrl = urlTemplate.replace('saleItemNamePlaceholder', saleItemName);
+                
+                $.ajax({
+                    type: 'GET',
+                    url: singleItemCountUrl,
+                    success: function(responsedata) {
+                        updateOrderCount();
+                        countId = 'sale_item_' + saleItemId;
+                        el = document.getElementById(countId);
+                        el.innerHTML = responsedata.count;
+                        itemTotals[saleItemId] = responsedata.count * responsedata.price;
+                        UpdateOrderTotal();
+                    },
+                    failure: function(XMLHttpRequest, textStatus, errorThrown) {
+                        var msg = `Unable to add "${saleItemName}" to cart` 
+                        alert(msg); // TODO: Remove this.
+                        var logUrl = '{% url "log_javascript" "msgPlaceholder" %}'
+                        logUrl = logUrl.replace('msgPlaceholder', msg)
+                        $.ajax({
+                            type: 'GET',
+                            url: logUrl,
+                        });
+                    }
+                });
+            }
             // This removes an item from the cart on the back end & updates the cart total.
             RemoveFromCart(saleItemName, callback=afterRemoveFromCart);
         }
@@ -131,190 +96,89 @@
         function UpdateOrderTotal() {
             // Returns the total price of the entire cart. 
             total = getOrderTotal();
-
             var el = document.getElementById('total');
             totalText = '$' + total + ' (USD)';
             el.innerHTML = totalText;
         }
     </script>
-{% endblock %}
-
+{% endblock %} 
 
 {% block content %}
-    <hr>
-    <div id='items'>
-    {% for item in order.orderitem_set.all %}
-        <div class='order_item'>
-            <div><b>{{item.saleItem.name}}</b></div>
-            <div>${{item.saleItem.price}}</div>
-            <div>
-              <span>Item Total: ${{item.saleItem.price}} * </span>
-              <span id="sale_item_{{item.saleItem.id}}">{{item.count}}</span>
+    <div class="wrapper-cart">
+        <h3 class="cart-heading">
+            <font class="wrapper-banner-title sample-title">Shopping Cart</font>
+        </h3>
+        {% if order.orderitem_set.count %}
+            <div class="row table-heading">
+                <div class="col-md-2 col-sm-3 col-3 item-image text-center position">
+                    ITEMS
+                </div>
+                <div class="col-md-4 col-sm-6 col-5 description position">
+                </div>
+                <div class="col-md-2 price text-center position">
+                    PRICE
+                </div>
+                <div class="col-md-2 quantity text-center position">
+                    QTY
+                </div>
+                <div class="col-md-2 col-sm-3 col-4 total text-center position">
+                    TOTAL
+                </div>
             </div>
-            <input type='button' class='button-add b'
-                onclick='AddToCartLocal("{{item.saleItem.name}}", {{item.saleItem.id}})'>
+            <hr> 
+            {% for item in order.orderitem_set.all %}
+                <div class="row table-contents">
+                    <div class="col-md-2 col-sm-3 col-3 item-image text-center position">
+                        <img class="cart-img" src='{% static item.saleItem.img %}'></img>
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-5 description position">
+                        <u>Meditation, Mind and Body ({{item.saleItem.name}})</u>
+                        <br>
+                        <input type='button' class='custom-button button-add' onclick='AddToCartLocal("{{item.saleItem.name}}", {{item.saleItem.id}})'>&nbsp;
+                        <input type='button' class='custom-button button-remove' onclick='RemoveFromCartLocal("{{item.saleItem.name}}", {{item.saleItem.id}})'>
+                    </div>
+                    <div class="col-md-2 price text-center position">
+                        ${{item.saleItem.price}}
+                    </div>
+                    <div class="col-md-2 quantity text-center position">
+                        <input type='button' class='custom-button button-add' onclick='AddToCartLocal("{{item.saleItem.name}}", {{item.saleItem.id}})'>&nbsp;
+                        <input type='button' class='custom-button button-remove' onclick='RemoveFromCartLocal("{{item.saleItem.name}}", {{item.saleItem.id}})'>
+                    </div>
+                    <div class="col-md-2 col-sm-3 col-4 total text-center position">
+                        <span>${{item.saleItem.price}} * </span>
+                        <span id="sale_item_{{item.saleItem.id}}">{{item.count}}</span>
+                    </div>
+                </div>
+            {% endfor %}
+            <hr style="border-top: dashed 1.5px; color: #a9a9a9;" />
+            <div id='payment' class="float-right payment">
+                Subtotal &emsp; <span id='total'>$0.00</span>
+            </div>
+            <div class="clearfix"></div>
+            
+            <button id="customButton" class="btn btn-secondary float-right checkout">CHECKOUT</button>
+            <div class="float-right mt-2 custom-margin">
+                <div id="paypal-button-container" class="mr-3"></div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="text mt-4"><em>*I take your privacy very seriously.  Using these two highly-secure payment services,
+                my website never sees your payment details, only a notification that you've paid.  Even
+                if someone was able to hack my website, your financial details would not be compromised.</em>
+            </div>
+        {% else %}
+            <div class="blog-content">
+                <h3>Your Shopping Cart is empty. Go to the buy page and add the books to your cart.</h3>
+                <h3 class="continue-link"><a href="/buy_book">Continue shopping</a></h3>
+            </div>
+        {% endif %}
 
-            <input type='button' class='b button-remove'
-                onclick='RemoveFromCartLocal("{{item.saleItem.name}}", {{item.saleItem.id}})'>
+        <!------------------------------- STRIPE-SPECIFIC CODE --------------------------------------->
+        <script src="https://checkout.stripe.com/checkout.js"></script>
+        <script type='text/javascript' src="{% static 'js/order/stripe.js' %}"></script>
 
-            <table>
-              <tr>
-                <tc>
-                  <td>
-                    widget here
-                  </td>
-                </tc>
-                <tc>
-                  <td>
-                      <img src='{% static item.saleItem.img %}'></img>
-                  </td>
-                </tc>
-              </tr>
-            </table>
-        </div>
-    {% endfor %}
+        <!------------------------------- PAYPAL-SPECIFIC CODE --------------------------------------->
+
+        <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+        <script type='text/javascript' src="{% static 'js/order/paypal.js' %}"></script>
     </div>
-    
-    <div id='payment'>
-        Your total: <span id='total'>$0.00</span>
-        <input type='button' value='Check Out w/ PayPal'>
-        <input type='button' value='Check Out w/ Stripe'>
-
-        <div>I take your privacy very seriously.  Using these two highly-secure payment services,
-        my website never sees your payment details, only a notification that you've paid.  Even
-        if someone was able to hack my website, your financial details would not be compromised.
-        </div>
-    </div>
-
-
-<!------------------------------- STRIPE-SPECIFIC CODE --------------------------------------->
-<script src="https://checkout.stripe.com/checkout.js"></script>
-
-<button id="customButton">Purchase</button>
-
-<script type="text/javascript">
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-
-var handler = StripeCheckout.configure({
-  key: 'pk_test_AnHLc2bnR0joVD20uza73MI5',
-  image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
-  locale: 'auto',
-  token: function(token) {
-    // You can access the token ID with `token.id`.
-    // Get the token ID to your server-side code for use.
-    var orderTotal = getOrderTotal() * 100; // Total in USD cents.
-    
-    var url = '{% url "stripe_charge" %}';
-    var csrftoken = getCookie('csrftoken');
-    $.ajax({
-        type: 'POST',
-        url: url,
-        data: {'csrfmiddlewaretoken': csrftoken, 'stripeToken': token.id, 'amount': orderTotal},
-        success: function(responseData){
-            window.location = '{% url "order_complete" %}';
-        },
-        failure: function(responseData){
-            window.alert("Something went wrong: " + responseData);
-        }
-    });
-  }
-});
-
-document.getElementById('customButton').addEventListener('click', function(e) {
-  // Open Checkout with further options:
-  handler.open({
-    name: 'JivanAmara.net',
-    description: 'Your Order',
-    zipCode: true,
-    amount: getOrderTotal() * 100
-  });
-  e.preventDefault();
-});
-
-// Close Checkout on page navigation:
-window.addEventListener('popstate', function() {
-  handler.close();
-});
-</script>
-
-
-<!------------------------------- PAYPAL-SPECIFIC CODE --------------------------------------->
-    <div id="paypal-button-container">HERE IS PAYPAL!!!</div>
-
-    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
-    <script>
-        function recordPayPalPayment(paymentId, amount) {
-            var url = '{% url "paypal_charge" %}';
-            var csrftoken = getCookie('csrftoken');
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: {'csrfmiddlewaretoken': csrftoken, 'paymentId': paymentId, 'amount': amount},
-                success: function(responseData){
-                    console.log('ajax success');
-                    window.location = '{% url "order_complete" %}';
-                },
-                failure: function(responseData){
-                    console.log('ajax failure');
-                    window.alert("Something went wrong: " + responseData);
-                }
-            });
-        }
-
-        paypal.Button.render({
-            env: 'sandbox', // sandbox | production
-
-            // PayPal Client IDs
-            // Create a PayPal app: https://developer.paypal.com/developer/applications/create
-            client: {
-                sandbox: 'AUMc2uxkRjLdFPlZGRkOIKI_D3TINTeQF6sncwR-tXZKF2gyUHsEFsjdJ74iWvkLO0ia4FOu4REEj1ky',
-                production: 'ARyE8lRZLRbg0XHFMw1EmZwV1b1GtxLzhZYM_H-Q5mXaMuoi-iQn-Cah2iSBwhVBiO6v46g6puH0VVc9'
-            },
-
-            // Show the buyer a 'Pay Now' button in the checkout flow
-            commit: true,
-
-            // payment() is called when the button is clicked
-            payment: function(data, actions) {
-                // Create a payment object with the current order total.
-                var p = {
-                    payment: {
-                        transactions: [
-                            { amount: { total: getOrderTotal(), currency: 'USD' } }
-                        ]
-                    }
-                };
-
-                // Make a call to the REST api to create the payment
-                return actions.payment.create(p)
-            },
-
-            // onAuthorize() is called when the buyer approves the payment
-            onAuthorize: function(data, actions) {
-                // Make a call to the REST api to execute the payment
-                return actions.payment.execute().then(function() {
-                    var amount = getOrderTotal();
-                    var paymentId = data.paymentID;
-                    recordPayPalPayment(paymentId, amount);
-                });
-            }
-
-        }, '#paypal-button-container');
-
-    </script>
-
 {% endblock %}
