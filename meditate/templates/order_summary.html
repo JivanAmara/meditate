@@ -6,7 +6,6 @@
     <title>Your Order</title>
     <script type="text/javascript">
         var itemTotals = {};
-            
         $(function() {
             {% for item in order.orderitem_set.all %}
                 itemTotals[{{item.saleItem.id}}] = {{item.saleItem.price}} * {{item.count}};
@@ -57,7 +56,7 @@
                 // This is to replace the displayed count for this item with the current value.
                 urlTemplate = '{% url "single_item_count" "saleItemNamePlaceholder" %}';
                 singleItemCountUrl = urlTemplate.replace('saleItemNamePlaceholder', saleItemName);
-                
+
                 $.ajax({
                     type: 'GET',
                     url: singleItemCountUrl,
@@ -66,6 +65,12 @@
                         countId = 'sale_item_' + saleItemId;
                         el = document.getElementById(countId);
                         el.innerHTML = responsedata.count;
+                        // console.log(responsedata.count === 0)
+                        if(responsedata.count === 0) {
+                            //console.log('-->')
+                            $(`#si_${saleItemId}`).css("display", "none");
+                        }
+                        
                         itemTotals[saleItemId] = responsedata.count * responsedata.price;
                         UpdateOrderTotal();
                     },
@@ -90,7 +95,8 @@
             Object.keys(itemTotals).forEach(function(key) {
                 orderTotal += itemTotals[key]; // itemTotals is in dollars, convert to cents.
             });
-            return orderTotal;
+            orderTotal = orderTotal.toFixed(2)
+            return parseFloat(orderTotal);
         }
 
         function UpdateOrderTotal() {
@@ -108,7 +114,7 @@
         <h3 class="cart-heading">
             <font class="wrapper-banner-title sample-title">Shopping Cart</font>
         </h3>
-        {% if order.orderitem_set.count %}
+        <div id="orderContent" class="contents">
             <div class="row table-heading">
                 <div class="col-md-2 col-sm-3 col-3 item-image text-center position">
                     ITEMS
@@ -125,60 +131,175 @@
                     TOTAL
                 </div>
             </div>
-            <hr> 
+            <hr>             
             {% for item in order.orderitem_set.all %}
-                <div class="row table-contents">
-                    <div class="col-md-2 col-sm-3 col-3 item-image text-center position">
-                        <img class="cart-img" src='{% static item.saleItem.img %}'></img>
+                {% if item.count %}
+                    <div id="si_{{item.saleItem.id}}" class="row table-contents">
+                        <div class="col-md-2 col-sm-3 col-3 item-image text-center position">
+                            <img class="cart-img" src='{% static item.saleItem.img %}'></img>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-5 description position">
+                            <u>Meditation, Mind and Body ({{item.saleItem.name}})</u>
+                            <br>
+                            <input type='button' id="upButton" class='custom-button button-add' onclick='AddToCartLocal("{{item.saleItem.name}}", {{item.saleItem.id}})'>&nbsp;
+                            <input type='button' id="downButton" class='custom-button button-remove' onclick='RemoveFromCartLocal("{{item.saleItem.name}}", {{item.saleItem.id}})'>
+                        </div>
+                        <div class="col-md-2 price text-center position">
+                            ${{item.saleItem.price}}
+                        </div>
+                        <div class="col-md-2 quantity text-center position">
+                            <input type='button' id="upButton" class='custom-button button-add' onclick='AddToCartLocal("{{item.saleItem.name}}", {{item.saleItem.id}})'>&nbsp;
+                            <input type='button' id="downButton" class='custom-button button-remove' onclick='RemoveFromCartLocal("{{item.saleItem.name}}", {{item.saleItem.id}})'>
+                        </div>
+                        <div class="col-md-2 col-sm-3 col-4 total text-center position">
+                                <span>${{item.saleItem.price}} * </span>
+                                <span id="sale_item_{{item.saleItem.id}}">{{item.count}}</span>
+                        </div>
                     </div>
-                    <div class="col-md-4 col-sm-6 col-5 description position">
-                        <u>Meditation, Mind and Body ({{item.saleItem.name}})</u>
-                        <br>
-                        <input type='button' class='custom-button button-add' onclick='AddToCartLocal("{{item.saleItem.name}}", {{item.saleItem.id}})'>&nbsp;
-                        <input type='button' class='custom-button button-remove' onclick='RemoveFromCartLocal("{{item.saleItem.name}}", {{item.saleItem.id}})'>
-                    </div>
-                    <div class="col-md-2 price text-center position">
-                        ${{item.saleItem.price}}
-                    </div>
-                    <div class="col-md-2 quantity text-center position">
-                        <input type='button' class='custom-button button-add' onclick='AddToCartLocal("{{item.saleItem.name}}", {{item.saleItem.id}})'>&nbsp;
-                        <input type='button' class='custom-button button-remove' onclick='RemoveFromCartLocal("{{item.saleItem.name}}", {{item.saleItem.id}})'>
-                    </div>
-                    <div class="col-md-2 col-sm-3 col-4 total text-center position">
-                        <span>${{item.saleItem.price}} * </span>
-                        <span id="sale_item_{{item.saleItem.id}}">{{item.count}}</span>
-                    </div>
-                </div>
+                {% endif %}
             {% endfor %}
+
             <hr style="border-top: dashed 1.5px; color: #a9a9a9;" />
             <div id='payment' class="float-right payment">
                 Subtotal &emsp; <span id='total'>$0.00</span>
             </div>
             <div class="clearfix"></div>
             
-            <button id="customButton" class="btn btn-secondary float-right checkout">CHECKOUT</button>
-            <div class="float-right mt-2 custom-margin">
+            <button id="customButton" class="btn btn-secondary float-right checkout">CHECKOUT W/ CARD</button>
+            <div class="float-right custom-margin">
                 <div id="paypal-button-container" class="mr-3"></div>
             </div>
+        
             <div class="clearfix"></div>
             <div class="text mt-4"><em>*I take your privacy very seriously.  Using these two highly-secure payment services,
                 my website never sees your payment details, only a notification that you've paid.  Even
                 if someone was able to hack my website, your financial details would not be compromised.</em>
             </div>
-        {% else %}
-            <div class="blog-content">
-                <h3>Your Shopping Cart is empty. Go to the buy page and add the books to your cart.</h3>
-                <h3 class="continue-link"><a href="/buy_book">Continue shopping</a></h3>
-            </div>
-        {% endif %}
-
+        </div>
+        
+        <div id="emptyCart" class="empty-checkout-content">
+            <h3>Your Shopping Cart is empty. Go to the buy page and add the books to your cart.</h3>
+            <h3 class="continue-link"><a href="/buy_book">Continue shopping</a></h3>
+        </div>
+        
         <!------------------------------- STRIPE-SPECIFIC CODE --------------------------------------->
         <script src="https://checkout.stripe.com/checkout.js"></script>
-        <script type='text/javascript' src="{% static 'js/order/stripe.js' %}"></script>
+        <script>
+            function getCookie(name) {
+                var cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = jQuery.trim(cookies[i]);
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+
+            var handler = StripeCheckout.configure({
+            key: 'pk_test_AnHLc2bnR0joVD20uza73MI5',
+            image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+            locale: 'auto',
+            token: function(token) {
+                // You can access the token ID with `token.id`.
+                // Get the token ID to your server-side code for use.
+                var orderTotal = getOrderTotal() * 100; // Total in USD cents.
+                var url = '{% url "stripe_charge" %}';
+                var csrftoken = getCookie('csrftoken');
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: {'csrfmiddlewaretoken': csrftoken, 'stripeToken': token.id, 'amount': orderTotal},
+                    success: function(responseData){
+                        window.location = '{% url "order_complete" %}';
+                    },
+                    failure: function(responseData){
+                        window.alert("Something went wrong: " + responseData);
+                    }
+                });
+              }
+            });
+
+            document.getElementById('customButton').addEventListener('click', function(e) {
+            // Open Checkout with further options:
+            handler.open({
+                name: 'JivanAmara.net',
+                description: 'Your Order',
+                zipCode: true,
+                amount: getOrderTotal() * 100
+            });
+            e.preventDefault();
+            });
+
+            // Close Checkout on page navigation:
+            window.addEventListener('popstate', function() {
+            handler.close();
+            });
+        </script>
 
         <!------------------------------- PAYPAL-SPECIFIC CODE --------------------------------------->
 
         <script src="https://www.paypalobjects.com/api/checkout.js"></script>
-        <script type='text/javascript' src="{% static 'js/order/paypal.js' %}"></script>
+        <script>
+            function recordPayPalPayment(paymentId, amount) {
+                var url = '{% url "paypal_charge" %}';
+                var csrftoken = getCookie('csrftoken');
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: {'csrfmiddlewaretoken': csrftoken, 'paymentId': paymentId, 'amount': amount},
+                    success: function(responseData){
+                        console.log('ajax success');
+                        window.location = '{% url "order_complete" %}';
+                    },
+                    failure: function(responseData){
+                        console.log('ajax failure');
+                        window.alert("Something went wrong: " + responseData);
+                    }
+                });
+            }
+
+            paypal.Button.render({
+                env: 'sandbox', // sandbox | production
+                // PayPal Client IDs
+                // Create a PayPal app: https://developer.paypal.com/developer/applications/create
+                client: {
+                    sandbox: 'AUMc2uxkRjLdFPlZGRkOIKI_D3TINTeQF6sncwR-tXZKF2gyUHsEFsjdJ74iWvkLO0ia4FOu4REEj1ky',
+                    production: 'ARyE8lRZLRbg0XHFMw1EmZwV1b1GtxLzhZYM_H-Q5mXaMuoi-iQn-Cah2iSBwhVBiO6v46g6puH0VVc9'
+                },
+
+                // Show the buyer a 'Pay Now' button in the checkout flow
+                commit: true,
+                // payment() is called when the button is clicked
+                payment: function(data, actions) {
+                    // Create a payment object with the current order total.
+                    var p = {
+                        payment: {
+                            transactions: [
+                                { amount: { total: getOrderTotal(), currency: 'USD' } }
+                            ]
+                        }
+                    };
+
+                    // Make a call to the REST api to create the payment
+                    return actions.payment.create(p)
+                },
+
+                // onAuthorize() is called when the buyer approves the payment
+                onAuthorize: function(data, actions) {
+                    // Make a call to the REST api to execute the payment
+                    return actions.payment.execute().then(function() {
+                        var amount = getOrderTotal();
+                        var paymentId = data.paymentID;
+                        recordPayPalPayment(paymentId, amount);
+                    });
+                }
+            }, '#paypal-button-container');
+        </script>
     </div>
 {% endblock %}

@@ -111,11 +111,14 @@ body {
 .blog-title-link:hover {
     color: #544f4f;
 }
-.blog-content {
+.blog-content, .empty-checkout-content {
     font-family: 'Karla', sans-serif;
     font-size: 17px;
     text-align: justify;
     margin-bottom: 15px;
+}
+.empty-checkout-content {
+    display: none;
 }
 .blog-comments-bottom {
     font-size: 0.8rem;
@@ -333,7 +336,21 @@ input.button-add, input.button-remove {
     border: none;
     cursor: pointer;
 }
-
+.payment-success {
+    font-size: 1rem;
+}
+.active {
+    display: inline-block !important;
+}
+.contents {
+    display: none;
+}
+.xcomponent-outlet {
+    position: static !important;
+}
+.xcomponent-outlet > iframe {
+    position: static !important;
+}
 @media (max-width: 320px) {
     .author-image, .sample-image {
         width: 190px;
@@ -352,10 +369,12 @@ input.button-add, input.button-remove {
         padding-top: 2em;
     }
     .checkout {
-        font-size: 0.75em !important;
+        font-size: 0.65em;
+        margin-right: 20px;
+        margin-bottom: 10px;
     }
     .custom-margin {
-        margin-top:0.25rem !important;
+        margin-top:0.5rem;
     }
 }
 
@@ -387,6 +406,23 @@ input.button-add, input.button-remove {
     .wrapper-cart {
         padding: 1em;
         padding-top: 2em;
+    }
+    .checkout {
+        font-size: 0.65em;
+        margin-right: 20px;
+        margin-bottom: 10px;
+    }
+    .custom-margin {
+        margin-top:0.5rem;
+    }
+}
+
+@media (min-width: 336px) {
+    .checkout {
+        margin-right: 0px;
+    }
+    .custom-margin {
+        margin-top:0.25rem;
     }
 }
 
@@ -516,6 +552,13 @@ input.button-add, input.button-remove {
     }
     .content-home {
         padding-right: 15px;
+    }
+    .checkout {
+        font-size: 1em;
+        margin-right: 0px;
+    }
+    .custom-margin {
+    margin-top: 0.5rem !important;
     }
     @supports (-webkit-appearance:none) {
         .wrapper-banner-sample, .wrapper-banner-meditate {

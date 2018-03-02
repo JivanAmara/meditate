@@ -9,6 +9,14 @@
             url: "{% url 'all_item_count' %}",
             success: function(data) {
                 document.getElementById('OrderCount').innerHTML = data.count;
+                 if(data.count === 0){
+                    $('#emptyCart').addClass('active');
+                    $('#orderContent').removeClass('active');
+                }
+                else{
+                    $('#orderContent').addClass('active');
+                    $('#emptyCart').removeClass('active');
+                }
             },
         });
     }

@@ -180,7 +180,7 @@ def stripe_charge(request):
         amount = POST['amount']
         logger.info('Got amount from POST args')
 
-    stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
+    stripe.api_key = os.environ.get('STRIPE_SECRET_KEY', '')
 
     # Create a charge: this will charge the user's card
     try:
