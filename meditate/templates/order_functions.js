@@ -1,9 +1,7 @@
-<!--
-    This is a javascript library which makes use of django template tags to set the URLs
-    for API endpoints instead of hard-coding them.
+<!--    This is a javascript library which makes use of django template tags to set the URLs
+        for API endpoints instead of hard-coding them.
 -->
 <script type='text/javascript'>
-
     function updateOrderCount() {
         // Collects the current item total and updates the 'OrderCount' element with that value.
         $.ajax({
@@ -11,10 +9,28 @@
             url: "{% url 'all_item_count' %}",
             success: function(data) {
                 document.getElementById('OrderCount').innerHTML = data.count;
+                 if(data.count === 0){
+                    $('#emptyCart').addClass('active');
+                    $('#orderContent').removeClass('active');
+                }
+                else{
+                    $('#orderContent').addClass('active');
+                    $('#emptyCart').removeClass('active');
+                }
+            },
+            error: function( jqXHR, textStatus, errorThrown ) {
+                window.alert(jqXHR, textSTatus, errorThrown);  // TODO: Remove this.
+
+                var logUrl = '{% url "log_javascript" "msgPlaceholder" %}';
+                logUrl = logUrl.replace('msgPlaceholder', msg);
+
+                $.ajax({
+                    type: 'GET',
+                    url: logUrl,
+                });
             },
         });
     }
-
 
     function AddToCart(saleItemName, callback=null) {
         // Increases the count of saleItemName by one.
@@ -30,21 +46,21 @@
                  callback();
                }
            },
-       failure: function(XMLHttpRequest, textStatus, errorThrown) {
-               var msg = `Unable to add "${saleItemName}" to cart` 
+           error: function( jqXHR, textStatus, errorThrown ) {
+                    var msg = `Unable to add "${saleItemName}" to cart: ` + textStatus
+                    window.alert(msg); // TODO: Remove this.
 
-               alert(msg); // TODO: Remove this.
+                    var logUrl = '{% url "log_javascript" "msgPlaceholder" %}';
+                    logUrl = logUrl.replace('msgPlaceholder', msg);
 
-               var logUrl = '{% url "log_javascript" "msgPlaceholder" %}'
-               logUrl = logUrl.replace('msgPlaceholder', msg)
-               $.ajax({
-                   type: 'GET',
-                   url: logUrl,
-               });
-               if (callback != null) {
-                 callback();
-               }
-           }
+                    $.ajax({
+                        type: 'GET',
+                        url: logUrl,
+                    });
+                    if (callback != null) {
+                        callback();
+                    }
+            }
         })
     }
 
@@ -62,13 +78,13 @@
                  callback();
                }
            },
-       failure: function(XMLHttpRequest, textStatus, errorThrown) {
-               var msg = `Unable to remove "${saleItemName}" to cart` 
-
+           error: function( jqXHR, textStatus, errorThrown ) {
+               var msg = `Unable to remove "${saleItemName}" to cart`;
                alert(msg); // TODO: Remove this.
 
-               var logUrl = '{% url "log_javascript" "msgPlaceholder" %}'
-               logUrl = logUrl.replace('msgPlaceholder', msg)
+               var logUrl = '{% url "log_javascript" "msgPlaceholder" %}';
+               logUrl = logUrl.replace('msgPlaceholder', msg);
+
                $.ajax({
                    type: 'GET',
                    url: logUrl,
@@ -79,5 +95,4 @@
            }
         })
     }
-
 </script>

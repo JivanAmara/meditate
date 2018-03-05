@@ -226,8 +226,8 @@ a{
 }
 .order-count{
     position: relative;
-    left: 2px;
-    bottom: 2px;
+    left: 2.5px;
+    bottom: 0.6px;
     width: 35px;
     text-align: center;
 }

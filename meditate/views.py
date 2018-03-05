@@ -15,6 +15,7 @@ from django.template.context import RequestContext
 import stripe
 
 from meditate.models import SaleItem, Order, OrderItem
+from django.views.decorators.csrf import csrf_exempt
 
 
 # See your keys here: https://dashboard.stripe.com/account/apikeys
@@ -63,7 +64,12 @@ def buy_book(request):
 
 
 def subscribe_mentoring(request):
-    resp = render(request, 'subscribe_mentoring.html')
+    items = []
+    items.append(SaleItem.objects.get(name='eBook, PDF'))
+    items.append(SaleItem.objects.get(name='Paperback'))
+    context = {'items': items, 'request': request}
+    resp = render_to_response('subscribe_mentoring.html', context=context)
+    # resp = render(request, 'subscribe_mentoring.html')
     return resp
 
 
@@ -145,6 +151,7 @@ def order_summary(request):
     return resp
 
 
+# TODO: Check if this is still in use.
 def stripe_checkout(request, amount):
     context = RequestContext(request, {'amount': amount})
     resp = render(request, 'stripe_checkout.html', context)
@@ -152,6 +159,7 @@ def stripe_checkout(request, amount):
     return resp
 
 
+@csrf_exempt
 def stripe_charge(request):
     sessionId = get_session_id(request)
     order = Order.objects.get(sessionId=sessionId)
@@ -175,7 +183,7 @@ def stripe_charge(request):
         amount = POST['amount']
         logger.info('Got amount from POST args')
 
-    stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
+    stripe.api_key = os.environ.get('STRIPE_SECRET_KEY', '')
 
     # Create a charge: this will charge the user's card
     try:
@@ -217,6 +225,7 @@ def stripe_charge(request):
     return JsonResponse(resp, status=status_code)
 
 
+@csrf_exempt
 def paypal_charge(request):
     sessionId = get_session_id(request)
     order, _ = Order.objects.get_or_create(sessionId=sessionId)
@@ -228,6 +237,7 @@ def paypal_charge(request):
     return JsonResponse({}, status=200)
 
 
+@csrf_exempt
 def order_complete(request):
     sessionId = get_session_id(request)
     order = Order.objects.get(sessionId=sessionId)

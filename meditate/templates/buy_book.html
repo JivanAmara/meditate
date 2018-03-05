@@ -1,24 +1,42 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends "base.html" %} 
+{% load static %} 
 
 {% block extrahead %}
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+    <link href="{% static 'mdb/css/mdb.min.css' %}" rel="stylesheet">
+    <link href="{% static 'mdb/js/mdb.min.js' %}" rel="stylesheet">
     <title>Buy Book</title>
-{% endblock %}
-
+{% endblock %} 
 
 {% block content %}
-<hr>
+    <div class="wrapper-banner">
+        <h2>
+            <font class="wrapper-banner-title sample-title">Buy the Book Here</font>
+        </h2>
+        <h3 class="buy-book-content">
+            <font>
+                You can buy a pdf or paperback version of the book here.<br> If you prefer <strong>Amazon Kindle</strong> you
+                can <a class="blog-link" href="https://www.amazon.com/Meditation-Mind-Body-Course-Mentored-ebook/dp/B078J11FTM/" target="_blank">click here to view the Kindle version on Amazon.</a>
+            </font>
+        </h3>
 
-<div id='item-container' style='text-align: center;'>
-{% for item in items %}
-    <div style='display: inline-block; width: 30%; text-align: center;'>
-        Img: <img src="{% static item.img %}" width='20%'>
-        Name: {{ item.name }}<br>
-        Description: {{ item.desc }}<br>
-        Price: {{item.price}}
-        <input type='button' onclick='AddToCart("{{item.name}}")' value='Add to Cart'>
+        <div class="book-list">
+            {% for item in items %}
+                <div class="card ovf-hidden position">
+                    <!--Card image-->
+                    <div class="view overlay position">
+                        <img src="{% static item.img %}" class="img-fluid position" alt="Book">
+                    </div>
+                    <!--Card content-->
+                    <div class="card-body position">
+                        <h4 class="card-title">{{ item.name }}</h4>
+                        <h5 class="card-title">${{ item.price }}</h5>
+                        <hr>
+                        <p class="card-text">{{ item.desc }}</p>
+                        <input class="btn btn-primary btn-md" type='button' onclick='AddToCart("{{item.name}}")' value='Add to Cart'>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
-{% endfor %}
-</div>
-
 {% endblock %}

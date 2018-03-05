@@ -9,3 +9,4 @@ This will get you rolling:
 Note that you can assign any text to STRIPE_SECRET_KEY, you just won't be able to complete
 a stripe purchase on the site without a valid one.
 
+
