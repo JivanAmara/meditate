@@ -32,7 +32,7 @@
                         itemTotals[saleItemId] = responsedata.count * responsedata.price;
                         UpdateOrderTotal();
                     },
-                    failure: function(XMLHttpRequest, textStatus, errorThrown) {
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
                         var msg = `Unable to add "${saleItemName}" to cart` 
                         alert(msg); // TODO: Remove this.
 
@@ -74,7 +74,7 @@
                         itemTotals[saleItemId] = responsedata.count * responsedata.price;
                         UpdateOrderTotal();
                     },
-                    failure: function(XMLHttpRequest, textStatus, errorThrown) {
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
                         var msg = `Unable to add "${saleItemName}" to cart` 
                         alert(msg); // TODO: Remove this.
                         var logUrl = '{% url "log_javascript" "msgPlaceholder" %}'
@@ -218,7 +218,7 @@
                     success: function(responseData){
                         window.location = '{% url "order_complete" %}';
                     },
-                    failure: function(responseData){
+                    error: function(responseData){
                         window.alert("Something went wrong: " + responseData);
                     }
                 });
@@ -257,8 +257,8 @@
                         console.log('ajax success');
                         window.location = '{% url "order_complete" %}';
                     },
-                    failure: function(responseData){
-                        console.log('ajax failure');
+                    error: function(responseData){
+                        console.log('ajax error');
                         window.alert("Something went wrong: " + responseData);
                     }
                 });

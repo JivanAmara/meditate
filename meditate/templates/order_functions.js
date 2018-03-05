@@ -35,7 +35,7 @@
                  callback();
                }
            },
-            failure: function(XMLHttpRequest, textStatus, errorThrown) {
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
                     var msg = `Unable to add "${saleItemName}" to cart` 
                     alert(msg); // TODO: Remove this.
                     var logUrl = '{% url "log_javascript" "msgPlaceholder" %}'
@@ -66,7 +66,7 @@
                  callback();
                }
            },
-       failure: function(XMLHttpRequest, textStatus, errorThrown) {
+       error: function(XMLHttpRequest, textStatus, errorThrown) {
                var msg = `Unable to remove "${saleItemName}" to cart` 
                alert(msg); // TODO: Remove this.
                var logUrl = '{% url "log_javascript" "msgPlaceholder" %}'
