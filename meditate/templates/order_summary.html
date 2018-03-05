@@ -32,12 +32,12 @@
                         itemTotals[saleItemId] = responsedata.count * responsedata.price;
                         UpdateOrderTotal();
                     },
-                    error: function(XMLHttpRequest, textStatus, errorThrown) {
-                        var msg = `Unable to add "${saleItemName}" to cart` 
+                    error: function( jqXHR, textStatus, errorThrown ) {
+                        var msg = `Unable to add "${saleItemName}" to cart`; 
                         alert(msg); // TODO: Remove this.
 
-                        var logUrl = '{% url "log_javascript" "msgPlaceholder" %}'
-                        logUrl = logUrl.replace('msgPlaceholder', msg)
+                        var logUrl = '{% url "log_javascript" "msgPlaceholder" %}';
+                        logUrl = logUrl.replace('msgPlaceholder', msg);
                         $.ajax({
                             type: 'GET',
                             url: logUrl,
@@ -74,11 +74,12 @@
                         itemTotals[saleItemId] = responsedata.count * responsedata.price;
                         UpdateOrderTotal();
                     },
-                    error: function(XMLHttpRequest, textStatus, errorThrown) {
-                        var msg = `Unable to add "${saleItemName}" to cart` 
+                    error: function( jqXHR, textStatus, errorThrown ) {
+                        var msg = `Unable to add "${saleItemName}" to cart`;
                         alert(msg); // TODO: Remove this.
-                        var logUrl = '{% url "log_javascript" "msgPlaceholder" %}'
-                        logUrl = logUrl.replace('msgPlaceholder', msg)
+
+                        var logUrl = '{% url "log_javascript" "msgPlaceholder" %}';
+                        logUrl = logUrl.replace('msgPlaceholder', msg);
                         $.ajax({
                             type: 'GET',
                             url: logUrl,
@@ -218,9 +219,17 @@
                     success: function(responseData){
                         window.location = '{% url "order_complete" %}';
                     },
-                    error: function(responseData){
-                        window.alert("Something went wrong: " + responseData);
-                    }
+                    error: function( jqXHR, textStatus, errorThrown ) {
+                        var msg = "Problem w/ Stripe Charge: " + textStatus + "-" + errorThrown;
+                        window.alert(msg); // TODO: Remove
+
+                        var logUrl = '{% url "log_javascript" "msgPlaceholder" %}';
+                        logUrl = logUrl.replace('msgPlaceholder', msg);
+                        $.ajax({
+                            type: 'GET',
+                            url: logUrl,
+                        });
+                    },
                 });
               }
             });
@@ -257,9 +266,16 @@
                         console.log('ajax success');
                         window.location = '{% url "order_complete" %}';
                     },
-                    error: function(responseData){
-                        console.log('ajax error');
-                        window.alert("Something went wrong: " + responseData);
+                    error: function( jqXHR, textStatus, errorThrown ) {
+                        var msg = "Something went wrong: " + textStatus + "-" + errorThrown;
+                        window.alert(msg);  // TODO: Remove
+
+                        var logUrl = '{% url "log_javascript" "msgPlaceholder" %}';
+                        logUrl = logUrl.replace('msgPlaceholder', msg);
+                        $.ajax({
+                            type: 'GET',
+                            url: logUrl,
+                        });
                     }
                 });
             }

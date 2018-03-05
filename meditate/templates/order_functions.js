@@ -18,6 +18,17 @@
                     $('#emptyCart').removeClass('active');
                 }
             },
+            error: function( jqXHR, textStatus, errorThrown ) {
+                window.alert(jqXHR, textSTatus, errorThrown);  // TODO: Remove this.
+
+                var logUrl = '{% url "log_javascript" "msgPlaceholder" %}';
+                logUrl = logUrl.replace('msgPlaceholder', msg);
+
+                $.ajax({
+                    type: 'GET',
+                    url: logUrl,
+                });
+            },
         });
     }
 
@@ -35,11 +46,12 @@
                  callback();
                }
            },
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
-                    var msg = `Unable to add "${saleItemName}" to cart` 
-                    alert(msg); // TODO: Remove this.
-                    var logUrl = '{% url "log_javascript" "msgPlaceholder" %}'
-                    logUrl = logUrl.replace('msgPlaceholder', msg)
+           error: function( jqXHR, textStatus, errorThrown ) {
+                    var msg = `Unable to add "${saleItemName}" to cart: ` + textStatus
+                    window.alert(msg); // TODO: Remove this.
+
+                    var logUrl = '{% url "log_javascript" "msgPlaceholder" %}';
+                    logUrl = logUrl.replace('msgPlaceholder', msg);
 
                     $.ajax({
                         type: 'GET',
@@ -66,11 +78,12 @@
                  callback();
                }
            },
-       error: function(XMLHttpRequest, textStatus, errorThrown) {
-               var msg = `Unable to remove "${saleItemName}" to cart` 
+           error: function( jqXHR, textStatus, errorThrown ) {
+               var msg = `Unable to remove "${saleItemName}" to cart`;
                alert(msg); // TODO: Remove this.
-               var logUrl = '{% url "log_javascript" "msgPlaceholder" %}'
-               logUrl = logUrl.replace('msgPlaceholder', msg)
+
+               var logUrl = '{% url "log_javascript" "msgPlaceholder" %}';
+               logUrl = logUrl.replace('msgPlaceholder', msg);
 
                $.ajax({
                    type: 'GET',
