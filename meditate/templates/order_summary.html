@@ -4,6 +4,7 @@
 
 {% block extrahead %}
     <title>Your Order</title>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
     <script type="text/javascript">
         var itemTotals = {};
         $(function() {
@@ -96,8 +97,8 @@
             Object.keys(itemTotals).forEach(function(key) {
                 orderTotal += itemTotals[key]; // itemTotals is in dollars, convert to cents.
             });
-            orderTotal = orderTotal.toFixed(2)
-            return parseFloat(orderTotal);
+            //console.log(orderTotal)          // sometimes results in value error in javascript
+            return parseFloat(orderTotal.toFixed(2));   //to solve any error with value formatting
         }
 
         function UpdateOrderTotal() {
@@ -153,8 +154,8 @@
                             <input type='button' id="downButton" class='custom-button button-remove' onclick='RemoveFromCartLocal("{{item.saleItem.name}}", {{item.saleItem.id}})'>
                         </div>
                         <div class="col-md-2 col-sm-3 col-4 total text-center position">
-                                <span>${{item.saleItem.price}} * </span>
-                                <span id="sale_item_{{item.saleItem.id}}">{{item.count}}</span>
+                                <span class="item-price">${{item.saleItem.price}}</span> * 
+                                <span id="sale_item_{{item.saleItem.id}}" class="item-count">{{item.count}}</span>
                         </div>
                     </div>
                 {% endif %}
@@ -166,9 +167,9 @@
             </div>
             <div class="clearfix"></div>
             
-            <button id="customButton" class="btn btn-secondary float-right checkout">CHECKOUT W/ CARD</button>
+            <button id="customButton" class="btn btn-secondary float-right checkout"><i class="fa fa-credit-card" aria-hidden="true"></i>&nbsp;CHECKOUT W/ CARD</button>
             <div class="float-right custom-margin">
-                <div id="paypal-button-container" class="mr-3"></div>
+                <div id="paypal-button-container"></div>
             </div>
         
             <div class="clearfix"></div>
@@ -209,7 +210,7 @@
             token: function(token) {
                 // You can access the token ID with `token.id`.
                 // Get the token ID to your server-side code for use.
-                var orderTotal = getOrderTotal() * 100; // Total in USD cents.
+                var orderTotal = parseFloat((getOrderTotal()*100).toFixed(0))       // Total in USD cents and fix any formatting error.
                 var url = '{% url "stripe_charge" %}';
                 var csrftoken = getCookie('csrftoken');
                 $.ajax({
@@ -240,7 +241,7 @@
                 name: 'JivanAmara.net',
                 description: 'Your Order',
                 zipCode: true,
-                amount: getOrderTotal() * 100
+                amount: parseFloat((getOrderTotal()*100).toFixed(0))
             });
             e.preventDefault();
             });

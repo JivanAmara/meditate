@@ -245,7 +245,7 @@ textarea {
     color: #0275d8;
 }
 .content-footer {
-    height: 50px;
+    height: 35px;
 }
 .emphasize {
     color: #000;
@@ -320,7 +320,7 @@ textarea {
 }
 .continue-link a {
     font-size: 17px;
-    color: #a9a9a9; !important;
+    color: #a9a9a9 !important;
 }
 input.button-add {
     background: url(../img/up-arrow.png);
@@ -345,11 +345,19 @@ input.button-add, input.button-remove {
 .contents {
     display: none;
 }
-.xcomponent-outlet {
+.xcomponent-outlet-custom {
     position: static !important;
 }
-.xcomponent-outlet > iframe {
+.xcomponent-outlet-custom > iframe {
     position: static !important;
+}
+.checkout {
+    border-radius: 21px;
+    height: 29px;
+    line-height: 0.25 !important;
+}
+.item-price {
+    color: #aaa5a5;;
 }
 @media (max-width: 320px) {
     .author-image, .sample-image {
@@ -375,6 +383,7 @@ input.button-add, input.button-remove {
     }
     .custom-margin {
         margin-top:0.5rem;
+        margin-right: 1.45rem;
     }
 }
 
@@ -414,15 +423,17 @@ input.button-add, input.button-remove {
     }
     .custom-margin {
         margin-top:0.5rem;
+        margin-right: 1.45rem;
     }
 }
 
-@media (min-width: 336px) {
+@media (min-width: 360px) {
     .checkout {
-        margin-right: 0px;
+        margin-right: 5px;
     }
     .custom-margin {
-        margin-top:0.25rem;
+        margin-top: 0.1rem;
+        margin-right: 0.5rem;
     }
 }
 
@@ -554,11 +565,11 @@ input.button-add, input.button-remove {
         padding-right: 15px;
     }
     .checkout {
-        font-size: 1em;
+        font-size: 0.8em;
         margin-right: 0px;
     }
     .custom-margin {
-    margin-top: 0.5rem !important;
+        margin-right: 1rem;
     }
     @supports (-webkit-appearance:none) {
         .wrapper-banner-sample, .wrapper-banner-meditate {
