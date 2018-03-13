@@ -60,8 +60,6 @@ def buy_book(request):
     items = []
     items.append(SaleItem.objects.get(name='eBook, PDF'))
     items.append(SaleItem.objects.get(name='Paperback'))
-    items.append(SaleItem.objects.get(name='Deleteme Book 1'))
-    items.append(SaleItem.objects.get(name='Deleteme Book 2'))
     context = {'items': items, 'request': request}
     resp = render_to_response('buy_book.html', context=context)
     return resp

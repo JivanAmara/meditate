@@ -186,7 +186,7 @@
 //            alert(msg);
         }
 
-        function canCheckout() {
+        function addressRequired() {
             var addressRequired = false;
                                     
             $(".cart-item").each(function(idx){
@@ -196,7 +196,12 @@
                 }
             });
 
-            if (addressRequired && !haveAddress) {
+            return addressRequired;
+        }
+
+        function canCheckout() {
+            var needAddress = addressRequired();
+            if (needAddress && !haveAddress) {
                 return false;
             } else {
                 return true;
