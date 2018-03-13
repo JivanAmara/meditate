@@ -1,24 +1,26 @@
 [
-    {
-        "model":"meditate.saleitem",
-        "pk":1,
-        "fields":{
-            "deleted":false,
-            "name":"eBook, PDF",
-            "desc":"Blah Blah Blah",
-            "img":"img/Meditation_Sculpture_20pct.jpg",
-            "price":"4.99"
-        }
-    },
-    {
-        "model":"meditate.saleitem",
-        "pk":2,
-        "fields":{
-            "deleted":false,
-            "name":"Paperback",
-            "desc":"this that theother",
-            "img":"img/Meditation_Sculpture_20pct.jpg",
-            "price":"9.99"
-        }
-    }
+   {
+      "model":"meditate.saleitem",
+      "pk":1,
+      "fields":{
+         "needsAddress":false,
+         "deleted":false,
+         "name":"eBook, PDF",
+         "desc":"Blah Blah Blah",
+         "img":"img/Meditation_Sculpture_20pct.jpg",
+         "price":"4.99"
+      }
+   },
+   {
+      "model":"meditate.saleitem",
+      "pk":2,
+      "fields":{
+         "needsAddress":true,
+         "deleted":false,
+         "name":"Paperback",
+         "desc":"this that theother",
+         "img":"img/Meditation_Sculpture_20pct.jpg",
+         "price":"9.99"
+      }
+   }
 ]

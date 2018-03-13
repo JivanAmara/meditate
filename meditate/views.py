@@ -14,8 +14,10 @@ from django.shortcuts import render, render_to_response
 from django.template.context import RequestContext
 import stripe
 
-from meditate.models import SaleItem, Order, OrderItem
+from meditate.models import SaleItem, Order, OrderItem, OrderAddress
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+from pip._vendor.requests.sessions import session
 
 
 # See your keys here: https://dashboard.stripe.com/account/apikeys
@@ -79,6 +81,7 @@ class DecimalEncoder(json.JSONEncoder):
             return str(o)
         return super(DecimalEncoder, self).default(o)
 
+
 def add_order_item(request, saleItemName):
     try:
         sessionId = get_session_id(request)
@@ -139,8 +142,61 @@ def get_order_count(request, saleItemName=None):
     return resp
 
 
+@require_POST
+def set_order_address(request):
+    try:
+        # These should match OrderAddress fields.  Fields email, phone, and addr2 are optional
+        sessionId = get_session_id(request)
+        # Address
+        a = {
+            'name': request.POST.get('name', None),
+            'email': request.POST.get('email', None),
+            'phone': request.POST.get('phone', None),
+            'addr1': request.POST.get('addr1', None),
+            'addr2': request.POST.get('addr2', None),
+            'city': request.POST.get('city', None),
+            'state': request.POST.get('state', None),
+            'country': request.POST.get('country', None),
+            'zip': request.POST.get('zip', None),
+        }
+        
+        required = ['name', 'addr1', 'city', 'state', 'country', 'zip']
+        # map of field ids to a flag with True indicating an invalid value
+        invalid = { field: val == None or val == '' 
+                    for field, val in a.items() if field in required }
+
+        if any(invalid.values()):
+            msg = 'missing required address field(s): {}\n{}'.format(a, invalid)
+            logger.error(msg)
+            jsonText = json.dumps({'detail': msg, 'invalid': invalid})
+            resp = HttpResponse(jsonText, content_type='applicaton/json', status=200)
+            return resp
+
+        oa, _ = OrderAddress.objects.get_or_create(order__sessionId=sessionId)
+
+        oa.name = a['name']
+        oa.email = a['email']
+        oa.phone = a['phone']
+        oa.addr1 = a['addr1']
+        oa.addr2 = a['addr2']
+        oa.city = a['city']
+        oa.state = a['state']
+        oa.country = a['country']
+        oa.zip = a['zip']
+        oa.save()
+
+        jsonText = json.dumps(a)
+        resp = HttpResponse(jsonText, content_type='application/json', status=201)
+        return resp
+    except Exception as ex:
+        logger.error('add_order_address() problem: {0}'.format(ex))
+        resp = HttpResponse(status=500)
+        return resp
+
+
 def log_javascript(request, msg):
     logger.error(msg)
+    return HttpResponse(status=200)
 
 
 def order_summary(request):
