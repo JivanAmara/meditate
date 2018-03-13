@@ -6,6 +6,8 @@
     <title>Your Order</title>
     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
     <script type="text/javascript">
+        var haveAddress = false;
+
         var itemTotals = {};
         $(function() {
             {% for item in order.orderitem_set.all %}
@@ -108,6 +110,99 @@
             totalText = '$' + total + ' (USD)';
             el.innerHTML = totalText;
         }
+
+        function setOrderAddress(callback, async=true) {
+            var addressUrl = '{% url "set_order_address" %}';
+            var csrf = Cookies.get("csrftoken");
+
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+            var phone = document.getElementById('phone').value;
+            var addr1 = document.getElementById('addr1').value;
+            var addr2 = document.getElementById('addr2').value;
+            var city = document.getElementById('city').value;
+            var state = document.getElementById('state').value;
+            var country = document.getElementById('country').value;
+            var zip = document.getElementById('zip').value;
+
+            var addrData = {
+                    'name': name, 'email': email, 'phone': phone, 'addr1': addr1, 'addr2': addr2,
+                    'city': city, 'state': state, 'country': country, 'zip': zip
+            };
+            
+            var addrDataWithCsrf = Object.assign({}, addrData);
+            addrDataWithCsrf.csrfmiddlewaretoken = csrf;
+
+            // Colors address fields red if they're invalid
+            function colorAddressFields(invalidInputs) {
+                $.each(invalidInputs, function(fieldId, invalidFlag) {
+                    console.log(fieldId, invalidFlag);
+                    console.log($(fieldId));
+                    labelId = '#lbl-' + fieldId;
+                    if (invalidFlag) {
+                        $(labelId).css('color', 'red');
+                    } else {
+                        $(labelId).css('color', 'black');
+                    }
+                });
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: addressUrl,
+                data: addrDataWithCsrf,
+                async: async,
+                success: function(respData, textStatus, jqXHR) {
+                    if (jqXHR.status == 201) {
+                        // This will uncolor any previously invalid highlighted
+                        colorAddressFields({});
+                        haveAddress = true;
+                        callback();
+                    } else if (jqXHR.status == 200) {
+                        colorAddressFields(respData.invalid);
+                    } else {
+                        alert('Unexpected result status: ' + textStatus);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    var msg = `Unexpected problem (` + textStatus + `) ` + errorThrown;
+                    alert(msg); // TODO: Remove this.
+
+                    var logUrl = '{% url "log_javascript" "msgPlaceholder" %}';
+                    logUrl = logUrl.replace('msgPlaceholder', msg);
+                    $.ajax({
+                        type: 'GET',
+                        url: logUrl,
+                    });
+                    
+                    callback();
+                }
+            });
+        }
+        
+        function notifyAddressProblem() {
+            var msg = 'You need to provide a valid address before checking out.';
+            console.log(msg);
+//            alert(msg);
+        }
+
+        function canCheckout() {
+            var addressRequired = false;
+                                    
+            $(".cart-item").each(function(idx){
+                if ($(this).hasClass("needsAddress")) {
+                    addressRequired = true;
+                    return false;
+                }
+            });
+
+            if (addressRequired && !haveAddress) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
     </script>
 {% endblock %} 
 
@@ -136,7 +231,7 @@
             <hr>             
             {% for item in order.orderitem_set.all %}
                 {% if item.count %}
-                    <div id="si_{{item.saleItem.id}}" class="row table-contents">
+                    <div id="si_{{item.saleItem.id}}" class="cart-item row table-contents {% if item.saleItem.needsAddress %}needsAddress{% endif %}">
                         <div class="col-md-2 col-sm-3 col-3 item-image text-center position">
                             <img class="cart-img" src='{% static item.saleItem.img %}'></img>
                         </div>
@@ -162,12 +257,37 @@
             {% endfor %}
 
             <hr style="border-top: dashed 1.5px; color: #a9a9a9;" />
+
+            <div id='address'>
+                Please note that your email and phone are optional, but at least one method of
+                contacting you is recommende7d in case of a problem with your order.
+                
+                <label id="lbl-name" for="name">Name:</label>
+                <input id="name" name="name">
+                <label id="lbl-email" for="email">Email:</label>
+                <input id="email" type="email" name="email">
+                <label id="lbl-phone" for="phone">Phone:</label>
+                <input id="phone" type="tel" name="phone">
+                <label id="lbl-addr1" for="addr1">Address 1:</label>
+                <input id="addr1" name="addr1">
+                <label id="lbl-addr2" for="addr2">Address 2:</label>
+                <input id="addr2" name="addr2">
+                <label id="lbl-city" for="city">City:</label>
+                <input id="city" name="city">
+                <label id="lbl-state" for="state">State:</label>
+                <input id="state" name="state">
+                <label id="lbl-country" for="country">Country:</label>
+                <input id="country" name="country">
+                <label id="lbl-zip" for="zip">Zip/Postal Code:</label>
+                <input id="zip" name="zip">
+            </div>
+
             <div id='payment' class="float-right payment">
                 Subtotal &emsp; <span id='total'>$0.00</span>
             </div>
             <div class="clearfix"></div>
             
-            <button id="customButton" class="btn btn-secondary float-right checkout"><i class="fa fa-credit-card" aria-hidden="true"></i>&nbsp;CHECKOUT W/ CARD</button>
+            <button id="customStripeButton" class="btn btn-secondary float-right checkout"><i class="fa fa-credit-card" aria-hidden="true"></i>&nbsp;CHECKOUT W/ CARD</button>
             <div class="float-right custom-margin">
                 <div id="paypal-button-container"></div>
             </div>
@@ -235,15 +355,25 @@
               }
             });
 
-            document.getElementById('customButton').addEventListener('click', function(e) {
-            // Open Checkout with further options:
-            handler.open({
-                name: 'JivanAmara.net',
-                description: 'Your Order',
-                zipCode: true,
-                amount: parseFloat((getOrderTotal()*100).toFixed(0))
-            });
-            e.preventDefault();
+            document.getElementById('customStripeButton').addEventListener('click', function(e) {
+
+                setOrderAddress(function(){
+                    if (!canCheckout()) {
+                        notifyAddressProblem();
+                        return;
+                    }
+
+                    // Open Checkout with further options:
+                    handler.open({
+                        name: 'JivanAmara.net',
+                        description: 'Your Order',
+                        zipCode: true,
+                        amount: parseFloat((getOrderTotal()*100).toFixed(0))
+                    });
+
+                    e.preventDefault();
+                });
+
             });
 
             // Close Checkout on page navigation:
@@ -294,17 +424,28 @@
                 commit: true,
                 // payment() is called when the button is clicked
                 payment: function(data, actions) {
-                    // Create a payment object with the current order total.
-                    var p = {
-                        payment: {
-                            transactions: [
-                                { amount: { total: getOrderTotal(), currency: 'USD' } }
-                            ]
+                    var paymentObject = null;
+                    
+                    setOrderAddress(function(){
+                        if (!canCheckout()) {
+                            notifyAddressProblem();
+                            return;
                         }
-                    };
 
-                    // Make a call to the REST api to create the payment
-                    return actions.payment.create(p)
+                        // Create a payment object with the current order total.
+                        var p = {
+                            payment: {
+                                transactions: [
+                                    { amount: { total: getOrderTotal(), currency: 'USD' } }
+                                ]
+                            }
+                        };
+
+                        // Make a call to the REST api to create the payment
+                        paymentObject = actions.payment.create(p)
+                    }, false);
+                    
+                    return paymentObject
                 },
 
                 // onAuthorize() is called when the buyer approves the payment
