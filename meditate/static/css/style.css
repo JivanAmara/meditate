@@ -9,6 +9,9 @@ body {
     margin: 0px;
     font-family: 'Lato', Arial, sans-serif;
 }
+.display-none{
+    display: none !important;
+}
 #page-wrapper {
     padding-top: 125px;
 }
@@ -139,6 +142,9 @@ body {
 .contact-form {
     padding-left: 30px;
     padding-right: 0px;
+}
+.form-group {
+    position: static !important;
 }
 ul.formlist {
     padding-left: 0px;
@@ -271,7 +277,7 @@ textarea {
 .book-list {
     display: flex; 
     flex-wrap: wrap; 
-    justify-content: space-evenly;
+    justify-content: space-around;
 }
 .img-fluid {
     width: 100%;
@@ -359,6 +365,12 @@ input.button-add, input.button-remove {
 .item-price {
     color: #aaa5a5;;
 }
+.flexbox {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
 @media (max-width: 320px) {
     .author-image, .sample-image {
         width: 190px;
@@ -370,7 +382,10 @@ input.button-add, input.button-remove {
         font-size: 1em;
     }
     .wrapper-banner {
-        padding: 2.8em;
+        padding: 2.8em 1.5em;
+    }
+    .wrapper-banner-book {
+        padding: 2.8rem !important;
     }
     .wrapper-cart {
         padding: 1em;
@@ -382,8 +397,10 @@ input.button-add, input.button-remove {
         margin-bottom: 10px;
     }
     .custom-margin {
+        margin-right: 0rem;
+    }
+    .custom-paypal {
         margin-top:0.5rem;
-        margin-right: 1.45rem;
     }
 }
 
@@ -409,6 +426,12 @@ input.button-add, input.button-remove {
         float: none;
         margin: 0px auto 20px auto;
     }
+    .wrapper-banner {
+        padding: 2.8em 1.5em;
+    }
+    .wrapper-banner-book {
+        padding: 2.8rem !important;
+    }
     .wrapper-banner-content {
         font-size: 1em;
     }
@@ -422,8 +445,25 @@ input.button-add, input.button-remove {
         margin-bottom: 10px;
     }
     .custom-margin {
+        margin-right: 0rem;
+    }
+    .custom-paypal {
         margin-top:0.5rem;
-        margin-right: 1.45rem;
+    }
+}
+
+@media (min-width: 334px) {            /* hard-coded for layout of buttons in mobile view */
+    .custom-paypal {
+        margin-right: 0.5rem;
+    }
+    .custom-margin {
+        margin-right: 0.5rem;
+    }
+}
+
+@media (min-width: 350px) {             /* hard-coded for layout of buttons in mobile view */
+    .custom-paypal {
+        margin-top: 0.1rem;
     }
 }
 
@@ -432,8 +472,10 @@ input.button-add, input.button-remove {
         margin-right: 5px;
     }
     .custom-margin {
-        margin-top: 0.1rem;
         margin-right: 0.5rem;
+    }
+    .custom-paypal {
+        margin-top: 0.1rem;
     }
 }
 
@@ -474,9 +516,6 @@ input.button-add, input.button-remove {
     .wrapper-banner-content {
         font-size: 1.1em;
     }
-    .wrapper-banner {
-        padding: 3.5em;
-    }
     .wrapper-cart {
         padding: 2em;
     }
@@ -497,6 +536,12 @@ input.button-add, input.button-remove {
         float: right;
         margin-left: 10px;
         margin-bottom: 10px;
+    }
+    .wrapper-banner {
+        padding: 3.5em;
+    }
+    .wrapper-banner-book {
+        padding: 3.5em !important;
     }
     .sample-image {
         float: left;
@@ -570,6 +615,9 @@ input.button-add, input.button-remove {
     }
     .custom-margin {
         margin-right: 1rem;
+    }
+    .custom-paypal {
+        margin-top: 0px;
     }
     @supports (-webkit-appearance:none) {
         .wrapper-banner-sample, .wrapper-banner-meditate {

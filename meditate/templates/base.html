@@ -20,6 +20,7 @@
 
   <body>
     {% block shared_content %}
+    {% csrf_token %}
     <nav class="head">
       <div id="header" class="wrapper header-main">
         {% include "logo.html" %} 
