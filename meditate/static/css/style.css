@@ -9,6 +9,9 @@ body {
     margin: 0px;
     font-family: 'Lato', Arial, sans-serif;
 }
+.display-none{
+    display: none !important;
+}
 #page-wrapper {
     padding-top: 125px;
 }
@@ -140,6 +143,9 @@ body {
     padding-left: 30px;
     padding-right: 0px;
 }
+.form-group {
+    position: static !important;
+}
 ul.formlist {
     padding-left: 0px;
 }
@@ -245,7 +251,7 @@ textarea {
     color: #0275d8;
 }
 .content-footer {
-    height: 50px;
+    height: 35px;
 }
 .emphasize {
     color: #000;
@@ -271,7 +277,7 @@ textarea {
 .book-list {
     display: flex; 
     flex-wrap: wrap; 
-    justify-content: space-evenly;
+    justify-content: space-around;
 }
 .img-fluid {
     width: 100%;
@@ -320,7 +326,7 @@ textarea {
 }
 .continue-link a {
     font-size: 17px;
-    color: #a9a9a9; !important;
+    color: #a9a9a9 !important;
 }
 input.button-add {
     background: url(../img/up-arrow.png);
@@ -345,12 +351,26 @@ input.button-add, input.button-remove {
 .contents {
     display: none;
 }
-.xcomponent-outlet {
+.xcomponent-outlet-custom {
     position: static !important;
 }
-.xcomponent-outlet > iframe {
+.xcomponent-outlet-custom > iframe {
     position: static !important;
 }
+.checkout {
+    border-radius: 21px;
+    height: 29px;
+    line-height: 0.25 !important;
+}
+.item-price {
+    color: #aaa5a5;;
+}
+.flexbox {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
 @media (max-width: 320px) {
     .author-image, .sample-image {
         width: 190px;
@@ -362,7 +382,10 @@ input.button-add, input.button-remove {
         font-size: 1em;
     }
     .wrapper-banner {
-        padding: 2.8em;
+        padding: 2.8em 1.5em;
+    }
+    .wrapper-banner-book {
+        padding: 2.8rem !important;
     }
     .wrapper-cart {
         padding: 1em;
@@ -374,6 +397,9 @@ input.button-add, input.button-remove {
         margin-bottom: 10px;
     }
     .custom-margin {
+        margin-right: 0rem;
+    }
+    .custom-paypal {
         margin-top:0.5rem;
     }
 }
@@ -400,6 +426,12 @@ input.button-add, input.button-remove {
         float: none;
         margin: 0px auto 20px auto;
     }
+    .wrapper-banner {
+        padding: 2.8em 1.5em;
+    }
+    .wrapper-banner-book {
+        padding: 2.8rem !important;
+    }
     .wrapper-banner-content {
         font-size: 1em;
     }
@@ -413,16 +445,37 @@ input.button-add, input.button-remove {
         margin-bottom: 10px;
     }
     .custom-margin {
+        margin-right: 0rem;
+    }
+    .custom-paypal {
         margin-top:0.5rem;
     }
 }
 
-@media (min-width: 336px) {
-    .checkout {
-        margin-right: 0px;
+@media (min-width: 334px) {            /* hard-coded for layout of buttons in mobile view */
+    .custom-paypal {
+        margin-right: 0.5rem;
     }
     .custom-margin {
-        margin-top:0.25rem;
+        margin-right: 0.5rem;
+    }
+}
+
+@media (min-width: 350px) {             /* hard-coded for layout of buttons in mobile view */
+    .custom-paypal {
+        margin-top: 0.1rem;
+    }
+}
+
+@media (min-width: 360px) {
+    .checkout {
+        margin-right: 5px;
+    }
+    .custom-margin {
+        margin-right: 0.5rem;
+    }
+    .custom-paypal {
+        margin-top: 0.1rem;
     }
 }
 
@@ -463,9 +516,6 @@ input.button-add, input.button-remove {
     .wrapper-banner-content {
         font-size: 1.1em;
     }
-    .wrapper-banner {
-        padding: 3.5em;
-    }
     .wrapper-cart {
         padding: 2em;
     }
@@ -486,6 +536,12 @@ input.button-add, input.button-remove {
         float: right;
         margin-left: 10px;
         margin-bottom: 10px;
+    }
+    .wrapper-banner {
+        padding: 3.5em;
+    }
+    .wrapper-banner-book {
+        padding: 3.5em !important;
     }
     .sample-image {
         float: left;
@@ -554,11 +610,14 @@ input.button-add, input.button-remove {
         padding-right: 15px;
     }
     .checkout {
-        font-size: 1em;
+        font-size: 0.8em;
         margin-right: 0px;
     }
     .custom-margin {
-    margin-top: 0.5rem !important;
+        margin-right: 1rem;
+    }
+    .custom-paypal {
+        margin-top: 0px;
     }
     @supports (-webkit-appearance:none) {
         .wrapper-banner-sample, .wrapper-banner-meditate {

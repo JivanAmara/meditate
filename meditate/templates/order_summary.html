@@ -4,7 +4,16 @@
 
 {% block extrahead %}
     <title>Your Order</title>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
     <script type="text/javascript">
+        var haveAddress = false;
+        $(document).ready(function() {
+            var needAddress = addressRequired();
+            if (needAddress) {
+                $("#address").removeClass("display-none");
+            }
+        });
+
         var itemTotals = {};
         $(function() {
             {% for item in order.orderitem_set.all %}
@@ -69,6 +78,14 @@
                         if(responsedata.count === 0) {
                             //console.log('-->')
                             $(`#si_${saleItemId}`).css("display", "none");
+                            $(`#si_${saleItemId}`).removeClass("needsAddress");
+                            var needAddress = addressRequired();
+                            if (needAddress) {
+                                $("#address").removeClass("display-none");
+                            }
+                            else{
+                                $("#address").addClass("display-none");
+                            }
                         }
                         
                         itemTotals[saleItemId] = responsedata.count * responsedata.price;
@@ -96,8 +113,8 @@
             Object.keys(itemTotals).forEach(function(key) {
                 orderTotal += itemTotals[key]; // itemTotals is in dollars, convert to cents.
             });
-            orderTotal = orderTotal.toFixed(2)
-            return parseFloat(orderTotal);
+            //console.log(orderTotal)          // sometimes results in value error in javascript
+            return parseFloat(orderTotal.toFixed(2));   //to solve any error with value formatting
         }
 
         function UpdateOrderTotal() {
@@ -107,6 +124,106 @@
             totalText = '$' + total + ' (USD)';
             el.innerHTML = totalText;
         }
+
+        function setOrderAddress(callback, async=true) {
+            var addressUrl = '{% url "set_order_address" %}';
+            var csrf = Cookies.get("csrftoken");
+
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+            var phone = document.getElementById('phone').value;
+            var addr1 = document.getElementById('addr1').value;
+            var addr2 = document.getElementById('addr2').value;
+            var city = document.getElementById('city').value;
+            var state = document.getElementById('state').value;
+            var country = document.getElementById('country').value;
+            var zip = document.getElementById('zip').value;
+
+            var addrData = {
+                    'name': name, 'email': email, 'phone': phone, 'addr1': addr1, 'addr2': addr2,
+                    'city': city, 'state': state, 'country': country, 'zip': zip
+            };
+            
+            var addrDataWithCsrf = Object.assign({}, addrData);
+            addrDataWithCsrf.csrfmiddlewaretoken = csrf;
+
+            // Colors address fields red if they're invalid
+            function colorAddressFields(invalidInputs) {
+                $.each(invalidInputs, function(fieldId, invalidFlag) {
+                    console.log(fieldId, invalidFlag);
+                    console.log($(fieldId));
+                    labelId = '#lbl-' + fieldId;
+                    if (invalidFlag) {
+                        $(labelId).css('color', 'red');
+                    } else {
+                        $(labelId).css('color', 'black');
+                    }
+                });
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: addressUrl,
+                data: addrDataWithCsrf,
+                async: async,
+                success: function(respData, textStatus, jqXHR) {
+                    if (jqXHR.status == 201) {
+                        // This will uncolor any previously invalid highlighted
+                        colorAddressFields({});
+                        haveAddress = true;
+                        callback();
+                    } else if (jqXHR.status == 200) {
+                        colorAddressFields(respData.invalid);
+                        haveAddress = false;
+                        callback();
+                    } else {
+                        alert('Unexpected result status: ' + textStatus);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    var msg = `Unexpected problem (` + textStatus + `) ` + errorThrown;
+                    alert(msg); // TODO: Remove this.
+
+                    var logUrl = '{% url "log_javascript" "msgPlaceholder" %}';
+                    logUrl = logUrl.replace('msgPlaceholder', msg);
+                    $.ajax({
+                        type: 'GET',
+                        url: logUrl,
+                    });
+                    
+                    callback();
+                }
+            });
+        }
+        
+        function notifyAddressProblem() {
+            var msg = 'You need to provide a valid address before checking out.';
+            console.log(msg);
+//            alert(msg);
+        }
+
+        function addressRequired() {
+            var addressRequired = false;
+                                    
+            $(".cart-item").each(function(idx){
+                if ($(this).hasClass("needsAddress")) {
+                    addressRequired = true;
+                    return false;
+                }
+            });
+
+            return addressRequired;
+        }
+
+        function canCheckout() {
+            var needAddress = addressRequired();
+            if (needAddress && !haveAddress) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
     </script>
 {% endblock %} 
 
@@ -135,7 +252,7 @@
             <hr>             
             {% for item in order.orderitem_set.all %}
                 {% if item.count %}
-                    <div id="si_{{item.saleItem.id}}" class="row table-contents">
+                    <div id="si_{{item.saleItem.id}}" class="cart-item row table-contents {% if item.saleItem.needsAddress %}needsAddress{% endif %}">
                         <div class="col-md-2 col-sm-3 col-3 item-image text-center position">
                             <img class="cart-img" src='{% static item.saleItem.img %}'></img>
                         </div>
@@ -153,24 +270,82 @@
                             <input type='button' id="downButton" class='custom-button button-remove' onclick='RemoveFromCartLocal("{{item.saleItem.name}}", {{item.saleItem.id}})'>
                         </div>
                         <div class="col-md-2 col-sm-3 col-4 total text-center position">
-                                <span>${{item.saleItem.price}} * </span>
-                                <span id="sale_item_{{item.saleItem.id}}">{{item.count}}</span>
+                                <span class="item-price">${{item.saleItem.price}}</span> * 
+                                <span id="sale_item_{{item.saleItem.id}}" class="item-count">{{item.count}}</span>
                         </div>
                     </div>
                 {% endif %}
             {% endfor %}
 
             <hr style="border-top: dashed 1.5px; color: #a9a9a9;" />
+
             <div id='payment' class="float-right payment">
                 Subtotal &emsp; <span id='total'>$0.00</span>
             </div>
             <div class="clearfix"></div>
-            
-            <button id="customButton" class="btn btn-secondary float-right checkout">CHECKOUT W/ CARD</button>
-            <div class="float-right custom-margin">
-                <div id="paypal-button-container" class="mr-3"></div>
+
+            <div id='address' class="display-none">
+                Please note that your email and phone are optional, but at least one method of
+                contacting you is recommended in case of a problem with your order.
+                <form class="mt-2">
+                    <div class="row">
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label id="lbl-name" for="name">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label id="lbl-email" for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12 col-sm-12">
+                            <label id="lbl-addr1" for="addr1">Address 1</label>
+                            <input type="text" class="form-control" id="addr1" name="addr1" placeholder="1234 Main St.">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12 col-sm-12">
+                            <label id="lbl-addr2" for="addr2">Address 2</label>
+                            <input type="text" class="form-control" id="addr2" name="addr2" placeholder="Apartment, Studio, or floor">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label id="lbl-phone" for="phone">Phone</label>
+                            <input type="tel" class="form-control" id="phone" name="phone">
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label id="lbl-city" for="city">City</label>
+                            <input type="text" class="form-control" id="city" name="city">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label id="lbl-state" for="state">State</label>
+                            <input type="text" class="form-control" id="state" name="state">
+                        </div>
+                        <div class="form-group col-md-4 col-sm-6 col-6">
+                            <label id="lbl-country" for="country">Country</label>
+                            <input type="text" class="form-control" id="country" name="country">
+                        </div>
+                        <div class="form-group col-md-2 col-sm-6 col-6">
+                            <label id="lbl-zip" for="zip">Zip</label>
+                            <input type="text" class="form-control" id="zip" name="zip">
+                        </div>
+                    </div>
+                </form>
+                <br>
             </div>
-        
+            <div class="clearfix"></div>
+            <div class="flexbox">
+                <div class="custom-stripe">
+                    <button id="customStripeButton" class="btn btn-secondary checkout custom-margin"><i class="fa fa-credit-card" aria-hidden="true"></i>&nbsp;CHECKOUT W/ CARD</button>
+                </div>
+                <div class="custom-paypal">
+                    <div id="paypal-button-container"></div>
+                </div>
+            </div>
             <div class="clearfix"></div>
             <div class="text mt-4"><em>*I take your privacy very seriously.  Using these two highly-secure payment services,
                 my website never sees your payment details, only a notification that you've paid.  Even
@@ -183,7 +358,7 @@
             <h3 class="continue-link"><a href="/buy_book">Continue shopping</a></h3>
         </div>
         
-        <!------------------------------- STRIPE-SPECIFIC CODE --------------------------------------->
+        <!-- ----------------------------- STRIPE-SPECIFIC CODE ------------------------------------- -->
         <script src="https://checkout.stripe.com/checkout.js"></script>
         <script>
             function getCookie(name) {
@@ -209,7 +384,7 @@
             token: function(token) {
                 // You can access the token ID with `token.id`.
                 // Get the token ID to your server-side code for use.
-                var orderTotal = getOrderTotal() * 100; // Total in USD cents.
+                var orderTotal = parseFloat((getOrderTotal()*100).toFixed(0))       // Total in USD cents and fix any formatting error.
                 var url = '{% url "stripe_charge" %}';
                 var csrftoken = getCookie('csrftoken');
                 $.ajax({
@@ -234,15 +409,25 @@
               }
             });
 
-            document.getElementById('customButton').addEventListener('click', function(e) {
-            // Open Checkout with further options:
-            handler.open({
-                name: 'JivanAmara.net',
-                description: 'Your Order',
-                zipCode: true,
-                amount: getOrderTotal() * 100
-            });
-            e.preventDefault();
+            document.getElementById('customStripeButton').addEventListener('click', function(e) {
+
+                setOrderAddress(function(){
+                    if (!canCheckout()) {
+                        notifyAddressProblem();
+                        return;
+                    }
+
+                    // Open Checkout with further options:
+                    handler.open({
+                        name: 'JivanAmara.net',
+                        description: 'Your Order',
+                        zipCode: true,
+                        amount: parseFloat((getOrderTotal()*100).toFixed(0))
+                    });
+
+                    e.preventDefault();
+                });
+
             });
 
             // Close Checkout on page navigation:
@@ -251,7 +436,7 @@
             });
         </script>
 
-        <!------------------------------- PAYPAL-SPECIFIC CODE --------------------------------------->
+        <!-- ----------------------------- PAYPAL-SPECIFIC CODE ------------------------------------- -->
 
         <script src="https://www.paypalobjects.com/api/checkout.js"></script>
         <script>
@@ -263,7 +448,7 @@
                     url: url,
                     data: {'csrfmiddlewaretoken': csrftoken, 'paymentId': paymentId, 'amount': amount},
                     success: function(responseData){
-                        console.log('ajax success');
+                        //console.log('ajax success');
                         window.location = '{% url "order_complete" %}';
                     },
                     error: function( jqXHR, textStatus, errorThrown ) {
@@ -293,17 +478,28 @@
                 commit: true,
                 // payment() is called when the button is clicked
                 payment: function(data, actions) {
-                    // Create a payment object with the current order total.
-                    var p = {
-                        payment: {
-                            transactions: [
-                                { amount: { total: getOrderTotal(), currency: 'USD' } }
-                            ]
+                    var paymentObject = null;
+                    
+                    setOrderAddress(function(){
+                        if (!canCheckout()) {
+                            notifyAddressProblem();
+                            return;
                         }
-                    };
 
-                    // Make a call to the REST api to create the payment
-                    return actions.payment.create(p)
+                        // Create a payment object with the current order total.
+                        var p = {
+                            payment: {
+                                transactions: [
+                                    { amount: { total: getOrderTotal(), currency: 'USD' } }
+                                ]
+                            }
+                        };
+
+                        // Make a call to the REST api to create the payment
+                        paymentObject = actions.payment.create(p)
+                    }, false);
+                    
+                    return paymentObject
                 },
 
                 // onAuthorize() is called when the buyer approves the payment
