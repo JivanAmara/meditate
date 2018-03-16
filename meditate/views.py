@@ -60,8 +60,8 @@ def buy_book(request):
     items = []
     items.append(SaleItem.objects.get(name='eBook, PDF'))
     items.append(SaleItem.objects.get(name='Paperback'))
-    context = {'items': items, 'request': request}
-    resp = render_to_response('buy_book.html', context=context)
+    context = {'items': items}
+    resp = render(request, 'buy_book.html', context)
     return resp
 
 
@@ -69,9 +69,8 @@ def subscribe_mentoring(request):
     items = []
     items.append(SaleItem.objects.get(name='eBook, PDF'))
     items.append(SaleItem.objects.get(name='Paperback'))
-    context = {'items': items, 'request': request}
-    resp = render_to_response('subscribe_mentoring.html', context=context)
-    # resp = render(request, 'subscribe_mentoring.html')
+    context = {'items': items}
+    resp = render(request, 'subscribe_mentoring.html', context)
     return resp
 
 

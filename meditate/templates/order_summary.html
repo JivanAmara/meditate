@@ -228,6 +228,8 @@
 {% endblock %} 
 
 {% block content %}
+    {% csrf_token %}
+
     <div class="wrapper-cart">
         <h3 class="cart-heading">
             <font class="wrapper-banner-title sample-title">Shopping Cart</font>
