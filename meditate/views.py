@@ -24,13 +24,18 @@ from pip._vendor.requests.sessions import session
 stripe.api_key = os.environ.get('STRIPE_SECRET_KEY', '')
 if stripe.api_key == '':
     raise Exception('Environment variable STRIPE_SECRET_KEY not set.')
+STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY', '')
+if STRIPE_PUBLIC_KEY == '':
+    raise Exception('Environment variable STRIPE_PUBLIC_KEY not set.')
+
+PAYPAL_MODE = os.environ.get('PAYPAL_MODE', 'sandbox') # or 'production'
 
 
 logger = logging.getLogger(__name__)
 
 
 def get_session_id(request):
-    # Returns the current session id, creating a new one if necessary 
+    # Returns the current session id, creating a new one if necessary
     while request.session.session_key is None:
         request.session.save()
     return request.session.session_key
@@ -94,7 +99,7 @@ def add_order_item(request, saleItemName):
     except Exception as ex:
         logger.error('Problem adding item to order: {0}'.format(ex))
         resp = HttpResponse(status=500)
- 
+
     return resp
 
 
@@ -111,7 +116,7 @@ def remove_order_item(request, saleItemName):
     except Exception as ex:
         logger.error('Problem adding item to order: {0}'.format(ex))
         resp = HttpResponse(status=500)
- 
+
     return resp
 
 
@@ -122,7 +127,7 @@ def get_order_count(request, saleItemName=None):
         orderCount = 0
         itemPrice = None
 
-        # Count total of all items in order  
+        # Count total of all items in order
         if saleItemName is None:
             for item in order.orderitem_set.all():
                 orderCount += item.count
@@ -158,10 +163,10 @@ def set_order_address(request):
             'country': request.POST.get('country', None),
             'zip': request.POST.get('zip', None),
         }
-        
+
         required = ['name', 'addr1', 'city', 'state', 'country', 'zip']
         # map of field ids to a flag with True indicating an invalid value
-        invalid = { field: val == None or val == '' 
+        invalid = { field: val == None or val == ''
                     for field, val in a.items() if field in required }
 
         if any(invalid.values()):
@@ -201,7 +206,11 @@ def log_javascript(request, msg):
 def order_summary(request):
     sessionId = get_session_id(request)
     order, _ = Order.objects.get_or_create(sessionId=sessionId)
-    context = {"order": order}
+    context = {
+        "order": order,
+        "STRIPE_PUBLIC_KEY": STRIPE_PUBLIC_KEY,
+        "PAYPAL_MODE": PAYPAL_MODE,
+    }
     resp = render(request, 'order_summary.html', context)
     return resp
 

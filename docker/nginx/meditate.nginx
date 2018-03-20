@@ -1,0 +1,31 @@
+upstream app_server_meditate {
+    # For a TCP configuration (as opposed to socket-based):
+    server 127.0.0.1:8001 fail_timeout=0;
+}
+
+server {
+    listen [::]:80 default_server ipv6only=off;
+    server_name _;
+
+    client_max_body_size 4G;
+    keepalive_timeout 5;
+
+    location /static/ {
+        autoindex on;
+        alias /opt/meditate/static/;
+    }
+
+    location / {
+        # checks for static file, if not found proxy to app
+        try_files $uri @proxy_to_app;
+    }
+
+    location @proxy_to_app {
+        proxy_read_timeout  30;
+        proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header    Host $http_host;
+        proxy_redirect      off;
+
+        proxy_pass   http://app_server_meditate;
+    }
+}
