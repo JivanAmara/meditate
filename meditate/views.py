@@ -20,19 +20,32 @@ from django.views.decorators.http import require_POST
 from pip._vendor.requests.sessions import session
 
 
-# See your keys here: https://dashboard.stripe.com/account/apikeys
-stripe.api_key = os.environ.get('STRIPE_SECRET_KEY', '')
-if stripe.api_key == '':
-    raise Exception('Environment variable STRIPE_SECRET_KEY not set.')
-STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY', '')
-if STRIPE_PUBLIC_KEY == '':
-    raise Exception('Environment variable STRIPE_PUBLIC_KEY not set.')
-
-PAYPAL_MODE = os.environ.get('PAYPAL_MODE', 'sandbox') # or 'production'
-
-
 logger = logging.getLogger(__name__)
 
+
+STRIPE_SECRET_KEY = None
+STRIPE_PUBLIC_KEY = None
+PAYPAL_MODE = None
+
+
+def ensure_payment_envvars(func):
+    def wrapped_func(*args, **kwargs):
+        # See your stripe keys here: https://dashboard.stripe.com/account/apikeys
+        if stripe.api_key is None:
+            stripe.api_key = os.environ.get('STRIPE_SECRET_KEY', None)
+            if stripe.api_key is None:
+                raise Exception('Environment variable STRIPE_SECRET_KEY not set.')
+
+        if STRIPE_PUBLIC_KEY is None:
+            STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY', None)
+            if STRIPE_PUBLIC_KEY is None:
+                raise Exception('Environment variable STRIPE_PUBLIC_KEY not set.')
+
+        if PAYPAL_MODE is None:
+            PAYPAL_MODE = os.environ.get('PAYPAL_MODE', 'sandbox') # or 'production'
+        return func(*args, kwargs)
+
+    return wrapped_func
 
 def get_session_id(request):
     # Returns the current session id, creating a new one if necessary
@@ -203,6 +216,7 @@ def log_javascript(request, msg):
     return HttpResponse(status=200)
 
 
+@ensure_payment_envvars
 def order_summary(request):
     sessionId = get_session_id(request)
     order, _ = Order.objects.get_or_create(sessionId=sessionId)
@@ -223,6 +237,7 @@ def stripe_checkout(request, amount):
     return resp
 
 
+@ensure_payment_envvars
 @csrf_exempt
 def stripe_charge(request):
     sessionId = get_session_id(request)
@@ -246,8 +261,6 @@ def stripe_charge(request):
     except:
         amount = POST['amount']
         logger.info('Got amount from POST args')
-
-    stripe.api_key = os.environ.get('STRIPE_SECRET_KEY', '')
 
     # Create a charge: this will charge the user's card
     try:

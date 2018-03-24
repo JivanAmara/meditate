@@ -26,4 +26,4 @@ RUN cp docker/nginx/meditate.nginx /etc/nginx/sites-enabled/
 RUN cp -r docker/service/* /etc/service/
 
 # --- Run With:
-# docker run --name <> -e DJANGO_SECRET_KEY=<> -e STRIPE_SECRET_KEY=<> -e STRIPE_PUBLIC_KEY=<> -e PAYPAL_MODE=<sandbox/production> -p <host_port>:80 <image>
+# docker run --name <> -e DJANGO_SECRET_KEY=<> -e STRIPE_SECRET_KEY=<> -e STRIPE_PUBLIC_KEY=<> -e PAYPAL_MODE=<sandbox|production> -p <host_port>:80 -v </host/path/to/db/dir/>:/opt/meditate/database/ <image>

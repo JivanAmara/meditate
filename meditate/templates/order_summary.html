@@ -1,4 +1,4 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 {% load static %}
 <!-- Expects context params: "order", base.html expects "request" -->
 
@@ -21,7 +21,7 @@
             {% endfor %}
             UpdateOrderTotal();
         });
-            
+
         function AddToCartLocal(saleItemName, saleItemId) {
             // Adds an item to the cart & updates the count displayed in the order summary
             //  as well as the cart total items.
@@ -42,7 +42,7 @@
                         UpdateOrderTotal();
                     },
                     error: function( jqXHR, textStatus, errorThrown ) {
-                        var msg = `Unable to add "${saleItemName}" to cart`; 
+                        var msg = `Unable to add "${saleItemName}" to cart`;
                         alert(msg); // TODO: Remove this.
 
                         var logUrl = '{% url "log_javascript" "msgPlaceholder" %}';
@@ -57,7 +57,7 @@
             // This adds an item to the cart & updates the cart total.
             AddToCart(saleItemName, callback=afterAddToCart);
         }
-            
+
         function RemoveFromCartLocal(saleItemName, saleItemId) {
             // Removes an item from the cart & updates the count displayed in the order summary
             //  as well as the cart total items.
@@ -87,7 +87,7 @@
                                 $("#address").addClass("display-none");
                             }
                         }
-                        
+
                         itemTotals[saleItemId] = responsedata.count * responsedata.price;
                         UpdateOrderTotal();
                     },
@@ -118,7 +118,7 @@
         }
 
         function UpdateOrderTotal() {
-            // Returns the total price of the entire cart. 
+            // Returns the total price of the entire cart.
             total = getOrderTotal();
             var el = document.getElementById('total');
             totalText = '$' + total + ' (USD)';
@@ -143,7 +143,7 @@
                     'name': name, 'email': email, 'phone': phone, 'addr1': addr1, 'addr2': addr2,
                     'city': city, 'state': state, 'country': country, 'zip': zip
             };
-            
+
             var addrDataWithCsrf = Object.assign({}, addrData);
             addrDataWithCsrf.csrfmiddlewaretoken = csrf;
 
@@ -190,12 +190,12 @@
                         type: 'GET',
                         url: logUrl,
                     });
-                    
+
                     callback();
                 }
             });
         }
-        
+
         function notifyAddressProblem() {
             var msg = 'You need to provide a valid address before checking out.';
             console.log(msg);
@@ -204,7 +204,7 @@
 
         function addressRequired() {
             var addressRequired = false;
-                                    
+
             $(".cart-item").each(function(idx){
                 if ($(this).hasClass("needsAddress")) {
                     addressRequired = true;
@@ -225,7 +225,7 @@
         }
 
     </script>
-{% endblock %} 
+{% endblock %}
 
 {% block content %}
     {% csrf_token %}
@@ -251,7 +251,7 @@
                     TOTAL
                 </div>
             </div>
-            <hr>             
+            <hr>
             {% for item in order.orderitem_set.all %}
                 {% if item.count %}
                     <div id="si_{{item.saleItem.id}}" class="cart-item row table-contents {% if item.saleItem.needsAddress %}needsAddress{% endif %}">
@@ -272,7 +272,7 @@
                             <input type='button' id="downButton" class='custom-button button-remove' onclick='RemoveFromCartLocal("{{item.saleItem.name}}", {{item.saleItem.id}})'>
                         </div>
                         <div class="col-md-2 col-sm-3 col-4 total text-center position">
-                                <span class="item-price">${{item.saleItem.price}}</span> * 
+                                <span class="item-price">${{item.saleItem.price}}</span> *
                                 <span id="sale_item_{{item.saleItem.id}}" class="item-count">{{item.count}}</span>
                         </div>
                     </div>
@@ -354,12 +354,12 @@
                 if someone was able to hack my website, your financial details would not be compromised.</em>
             </div>
         </div>
-        
+
         <div id="emptyCart" class="empty-checkout-content">
             <h3>Your Shopping Cart is empty. Go to the buy page and add the books to your cart.</h3>
             <h3 class="continue-link"><a href="/buy_book">Continue shopping</a></h3>
         </div>
-        
+
         <!-- ----------------------------- STRIPE-SPECIFIC CODE ------------------------------------- -->
         <script src="https://checkout.stripe.com/checkout.js"></script>
         <script>
@@ -380,7 +380,7 @@
             }
 
             var handler = StripeCheckout.configure({
-            key: 'pk_test_AnHLc2bnR0joVD20uza73MI5',
+            key: '${STRIPE_PUBLIC_KEY}',
             image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
             locale: 'auto',
             token: function(token) {
@@ -468,7 +468,7 @@
             }
 
             paypal.Button.render({
-                env: 'sandbox', // sandbox | production
+                env: '${PAYPAL_MODE}', // sandbox | production
                 // PayPal Client IDs
                 // Create a PayPal app: https://developer.paypal.com/developer/applications/create
                 client: {
@@ -481,7 +481,7 @@
                 // payment() is called when the button is clicked
                 payment: function(data, actions) {
                     var paymentObject = null;
-                    
+
                     setOrderAddress(function(){
                         if (!canCheckout()) {
                             notifyAddressProblem();
@@ -500,7 +500,7 @@
                         // Make a call to the REST api to create the payment
                         paymentObject = actions.payment.create(p)
                     }, false);
-                    
+
                     return paymentObject
                 },
 
