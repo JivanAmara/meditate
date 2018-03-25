@@ -30,6 +30,7 @@ PAYPAL_MODE = None
 
 def ensure_payment_envvars(func):
     def wrapped_func(*args, **kwargs):
+        global STRIPE_SECRET_KEY, STRIPE_PUBLIC_KEY, PAYPAL_MODE
         # See your stripe keys here: https://dashboard.stripe.com/account/apikeys
         if stripe.api_key is None:
             stripe.api_key = os.environ.get('STRIPE_SECRET_KEY', None)
@@ -43,7 +44,7 @@ def ensure_payment_envvars(func):
 
         if PAYPAL_MODE is None:
             PAYPAL_MODE = os.environ.get('PAYPAL_MODE', 'sandbox') # or 'production'
-        return func(*args, kwargs)
+        return func(*args, **kwargs)
 
     return wrapped_func
 

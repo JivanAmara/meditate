@@ -7,7 +7,7 @@ server {
     listen [::]:80 default_server ipv6only=off;
     server_name _;
 
-    client_max_body_size 4G;
+    client_max_body_size 1G;
     keepalive_timeout 5;
 
     location /static/ {

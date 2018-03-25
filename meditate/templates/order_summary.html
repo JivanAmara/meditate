@@ -261,8 +261,8 @@
                         <div class="col-md-4 col-sm-6 col-5 description position">
                             <u>Meditation, Mind and Body ({{item.saleItem.name}})</u>
                             <br>
-                            <input type='button' id="upButton" class='custom-button button-add' onclick='AddToCartLocal("{{item.saleItem.name}}", {{item.saleItem.id}})'>&nbsp;
-                            <input type='button' id="downButton" class='custom-button button-remove' onclick='RemoveFromCartLocal("{{item.saleItem.name}}", {{item.saleItem.id}})'>
+                            <!-- <input type='button' id="upButton" class='custom-button button-add' onclick='AddToCartLocal("{{item.saleItem.name}}", {{item.saleItem.id}})'>&nbsp;
+                            <input type='button' id="downButton" class='custom-button button-remove' onclick='RemoveFromCartLocal("{{item.saleItem.name}}", {{item.saleItem.id}})'> -->
                         </div>
                         <div class="col-md-2 price text-center position">
                             ${{item.saleItem.price}}
@@ -380,7 +380,7 @@
             }
 
             var handler = StripeCheckout.configure({
-            key: '${STRIPE_PUBLIC_KEY}',
+            key: '{{STRIPE_PUBLIC_KEY}}',
             image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
             locale: 'auto',
             token: function(token) {
@@ -468,7 +468,7 @@
             }
 
             paypal.Button.render({
-                env: '${PAYPAL_MODE}', // sandbox | production
+                env: '{{PAYPAL_MODE}}', // sandbox | production
                 // PayPal Client IDs
                 // Create a PayPal app: https://developer.paypal.com/developer/applications/create
                 client: {
