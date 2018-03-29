@@ -1,0 +1,53 @@
+import os
+import email
+import logging
+import smtplib
+from meditate.models import Order
+from django.template.loader import render_to_string
+
+logger = logging.getLogger(__name__)
+
+MAIL_USER = os.environ.get('MAIL_USER')
+MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+
+
+def send_alert(report, send=True):
+    if MAIL_USER is None or MAIL_PASSWORD is None:
+        logger.error("MAIL_USER and/or MAIL_PASSWORD not set.  Skipping alert send.")
+        raise Exception('env vars MAIL_USER & MAIL_PASSWORD need to be set')
+
+    # s = smtplib.SMTP(host='smtp.gmail.com', port=587)
+    s = smtplib.SMTP('smtp.gmail.com:587')
+    s.ehlo()
+    s.starttls()
+    s.login(MAIL_USER, MAIL_PASSWORD)
+
+    msg = email.mime.multipart.MIMEMultipart()       # create a message
+
+    # setup the parameters of the message
+    msg['From']='jivan@jivanamara.net'
+    msg['To']='jivan@jivanamara.net'
+    msg['Subject']='Unprocessed Orders'
+
+    # add in the message body
+    msg.attach(email.mime.text.MIMEText(report, 'plain'))
+
+    # send the message via the server set up earlier.
+    if send:
+        s.send_message(msg)
+    del msg
+
+    return True
+
+
+def unprocessed_order_report():
+    unprocessed_orders = Order.objects.filter(processed=False).exclude(paymentId=None)
+    context = {"orders": unprocessed_orders}
+    report = render_to_string("order_report.txt", context)
+
+    report_lines = report.split('\n')
+    for i, l in enumerate(report_lines):
+        report_lines[i] = l.rstrip()
+    treport = '\n'.join(report_lines)
+
+    return treport

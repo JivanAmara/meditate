@@ -10,7 +10,7 @@ class OrderAddress(models.Model):
     city = models.CharField(max_length=40)
     state = models.CharField(max_length=2)
     country = models.CharField(max_length=30)
-    zip = models.CharField(max_length=7)
+    postal_code = models.CharField(max_length=7)
 
 
 class OrderItem(models.Model):
@@ -26,6 +26,7 @@ class Order(models.Model):
     paymentId = models.CharField(max_length=100, null=True, default=None)
     total = models.DecimalField(decimal_places=2, max_digits=5, default=0)
     address = models.OneToOneField('OrderAddress', null=True, blank=True, on_delete=models.PROTECT)
+    processed = models.BooleanField(default=False)
 
 
 class SaleItem(models.Model):

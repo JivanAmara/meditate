@@ -1,0 +1,25 @@
+Orders to process:
+---
+{% for o in orders %}
+ID: {{o.id}}
+Name:                 {{o.address.name}}
+PaymentMethod:        {{o.paymentProvider}}
+Total:                {{o.total}}
+{{o.address}}
+{% if o.address %}
+Address:              {{o.address.name}}
+                      {{o.address.email}}
+                      {{o.address.phone}}
+                      {{o.address.addr1}}
+                      {{o.address.addr2}}
+                      {{o.address.city}}
+                      {{o.address.state}}
+                      {{o.address.country}}
+                      {{o.address.zip}}
+{% endif %}
+
+Items:
+  {% for i in o.orderitem_set.all %}
+    ({{i.count}}) {{i.saleItem.name}}{% endfor %}
+---
+{% endfor %}
