@@ -21,7 +21,7 @@ Items:
 """
 
 class TestUnprocessedOrderReport(TestCase):
-    fixtures = ['test_fixture.json']
+    fixtures = ['tests/test_fixture.json']
 
     def test_report(self):
         r = unprocessed_order_report()
