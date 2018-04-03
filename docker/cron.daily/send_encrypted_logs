@@ -1,0 +1,3 @@
+#!/bin/bash
+source /opt/meditate/env_vars
+/opt/meditate/site/docker/scripts/send_encrypted_logs.py 2>&1 > /var/log/send_encrypted_logs.log

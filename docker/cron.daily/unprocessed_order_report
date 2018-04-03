@@ -1,0 +1,3 @@
+#!/bin/bash
+source /opt/meditate/env_vars
+/opt/meditate/site/docker/scripts/unprocessed_order_report.py 2>&1 > /var/log/unprocessed_order_report.log
