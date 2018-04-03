@@ -26,7 +26,7 @@ RUN /opt/meditate/virtualenv/bin/python3 manage.py collectstatic
 
 # --- Prepare initialization scripts to run & services to start on container start
 RUN gpg --import docker/pubkey.gpg.ascii
-RUN cp docker/cron.daily/* /etc/cron.daily
+RUN cp docker/cron.daily/* /etc/cron.daily/
 RUN cp docker/nginx/meditate.nginx /etc/nginx/sites-enabled/
 RUN cp docker/init/* /etc/my_init.d/
 RUN cp -r docker/service/* /etc/service/
