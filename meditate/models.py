@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils.text import slugify
 
 class OrderAddress(models.Model):
     name = models.CharField(max_length=40)
@@ -44,3 +44,17 @@ class Coupon(models.Model):
     items = models.ManyToManyField('SaleItem')
     dollarsOff = models.DecimalField(decimal_places=4, max_digits=10)
     percentOff = models.DecimalField(decimal_places=4, max_digits=7)
+
+
+class Reflection(models.Model):
+    title = models.CharField(max_length=100)
+    title_slug = models.CharField(default="", blank=True, max_length=100)
+    content = models.TextField()
+    pub_time = models.DateTimeField()
+
+    def __str__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        self.title_slug = slugify(self.title)
+        super(Reflection, self).save(*args, **kwargs)

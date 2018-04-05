@@ -9,13 +9,15 @@ import logging
 import os
 from pprint import pformat
 
+from django.contrib.syndication.views import Feed
 from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import render, render_to_response
 from django.template.context import RequestContext
 import stripe
 
-from meditate.models import SaleItem, Order, OrderItem, OrderAddress
+from meditate.models import SaleItem, Order, OrderItem, OrderAddress, Reflection
 from django.views.decorators.csrf import csrf_exempt
+from django import urls
 from django.views.decorators.http import require_POST
 from pip._vendor.requests.sessions import session
 
@@ -323,3 +325,31 @@ def order_complete(request):
     request.session.flush()
     resp = render(request, 'order_complete.html', context)
     return resp
+
+
+def reflections(request):
+    rs = Reflection.objects.all()
+    return render(request, 'reflections.html', {'reflections': rs})
+
+
+class ReflectionsFeed(Feed):
+    description_template = 'reflections_description.html'
+    title = "Meditation, Mind and Body - Reflections"
+    link = "/4/feed"
+    description = "Reflections arising from & about meditation."
+
+    def items(self):
+        return Reflection.objects.order_by('-pub_time')[:5]
+
+    def item_title(self, item):
+        return item.title
+
+    def item_description(self, item):
+        d = item.content[:500]
+        if len(item.content) > 500:
+            d += '...'
+        return d
+
+    # item_link is only needed if NewsItem has no get_absolute_url method.
+    def item_link(self, item):
+        return urls.reverse('reflections') + '#' + item.title
