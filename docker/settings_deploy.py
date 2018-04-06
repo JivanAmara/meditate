@@ -1,5 +1,7 @@
 from meditate.settings import *
 
+DEBUG=False
+
 DATABASES['default']['NAME'] = '/opt/meditate/database/db.sqlite3'
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '[::1]']
 ALLOW_HOST = os.environ.get('DJANGO_ALLOW_HOST', None)

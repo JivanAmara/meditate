@@ -11,8 +11,10 @@
     <link rel="stylesheet" href="{% static 'css/menu.css' %}">
     <script src="{% static 'js/base/jquery.min_3.2.1.js' %}"></script>
     <script src="{% static 'js/base/js.cookie.js' %}"></script>
-    <link href="https://fonts.googleapis.com/css?family=Karla|Lato|Oswald|Crimson+Text" rel="stylesheet">  
-    {% include "order_functions.js" %} 
+    <link href="https://fonts.googleapis.com/css?family=Karla|Lato|Oswald|Crimson+Text" rel="stylesheet">
+    {% include "favicon_snippet.html" %}
+
+    {% include "order_functions.js" %}
     {% block extrahead %}
     <!-- Put at least the page title here in derived templates: <title>here</title> -->
     {% endblock %}
@@ -22,8 +24,8 @@
     {% block shared_content %}
     <nav class="head">
       <div id="header" class="wrapper header-main">
-        {% include "logo.html" %} 
-        {% load menu %} {% generate_menu %} 
+        {% include "logo.html" %}
+        {% load menu %} {% generate_menu %}
         {% with menu=menus.main %}
           {% include "menu.html" %}
         {% endwith %}
@@ -32,7 +34,7 @@
     {% endblock %}
 
     <div id="page-wrapper" class="wrapper">
-      {% block content %} 
+      {% block content %}
         <!-- Encloses the main contents of the webpage -->
       {% endblock %}
       <!-- footer-wrap -->

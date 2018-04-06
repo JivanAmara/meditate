@@ -7,6 +7,8 @@ RUN rm /etc/nginx/sites-enabled/default
 RUN mkdir -p /opt/meditate/site
 RUN mkdir -p /opt/meditate/database
 RUN mkdir -p /opt/meditate/static
+RUN mkdir -p /opt/meditate/root_static  # This is where files found at "/" will reside
+
 RUN touch /var/log/gunicorn_meditate.log
 RUN chmod a+rw /var/log/gunicorn_meditate.log
 
@@ -23,6 +25,8 @@ ENV DJANGO_SETTINGS_MODULE=meditate.settings_deploy
 ENV DJANGO_SECRET_KEY=JustForDockerBuild
 RUN /opt/meditate/virtualenv/bin/pip3 install -r requirements.txt
 RUN /opt/meditate/virtualenv/bin/python3 manage.py collectstatic
+COPY meditate/static/favicon/* /opt/meditate/root_static/
+
 
 # --- Prepare initialization scripts to run & services to start on container start
 RUN gpg --import docker/pubkey.gpg.ascii

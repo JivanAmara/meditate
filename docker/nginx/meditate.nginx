@@ -6,6 +6,8 @@ upstream app_server_meditate {
 server {
     listen [::]:80 default_server ipv6only=off;
     server_name _;
+    # Really just for favicon.ico
+    root /opt/meditate/root_static;
 
     client_max_body_size 1G;
     keepalive_timeout 5;
