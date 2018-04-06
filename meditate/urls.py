@@ -42,6 +42,7 @@ urlpatterns = [
     path('paypal_charge', paypal_charge, name='paypal_charge'),
     path('order_complete', order_complete, name='order_complete'),
     path('reflections', reflections, name='reflections'),
+    path('reflections/<str:title_slug>', reflections, name='single_reflection'),
     # Match the url layout on Weebly so links to this feed aren't broken on switch to this site.
     path('4/feed', ReflectionsFeed(), name='reflections_feed'),
     path('admin/', admin.site.urls),

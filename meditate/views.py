@@ -327,8 +327,12 @@ def order_complete(request):
     return resp
 
 
-def reflections(request):
-    rs = Reflection.objects.all()
+def reflections(request, title_slug=None):
+    if title_slug is None:
+        rs = Reflection.objects.all().order_by('-pub_time')
+    else:
+        rs = Reflection.objects.filter(title_slug=title_slug).order_by('-pub_time')
+
     return render(request, 'reflections.html', {'reflections': rs})
 
 
@@ -352,4 +356,4 @@ class ReflectionsFeed(Feed):
 
     # item_link is only needed if NewsItem has no get_absolute_url method.
     def item_link(self, item):
-        return urls.reverse('reflections') + '#' + item.title
+        return urls.reverse('single_reflection', kwargs={"title_slug": item.title_slug})

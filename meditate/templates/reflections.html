@@ -6,26 +6,17 @@
 {% endblock %}
 
 {% block content %}
-    <!-- <div id="local-header" class="local-header">
-        <div class="inner-header">
-            <h2 class="header-head">
-                <font class="banner-title">Meditation,<br />Mind and Body</font>
-            </h2>
-            <div class="header-content">A 12-week self-study or mentored meditation course</div>
-        </div>
-    </div> -->
-
 		<div class="wrapper-banner">
         <h2>
-            <font class="wrapper-banner-title">Reflections</font>
+            <a href="{% url 'reflections' %}"><font class="wrapper-banner-title">Reflections</font></a>
         </h2>
 
         <div class="wrapper-banner-content">
 					{% for reflection in reflections %}
 					<div id="{{reflection.id}}" class="blog-post">
-					   <div class="blog-header">
+					  <div class="blog-header">
 					      <h2 class="blog-title">
-					         <a class="blog-link blog-title-link" href="{{reflection.link}}">{{reflection.title}}</a>
+					         <a class="blog-link blog-title-link" href="{% url 'single_reflection' reflection.title_slug %}">{{reflection.title}}</a>
 					      </h2>
 					      <p class="blog-date">
 					         <span class="date-text">{{reflection.pub_time}}</span>
@@ -37,13 +28,12 @@
 					      {{reflection.content|safe}}
 					   </div>
 					   <div class="blog-social">
-					      <div class="blog-social-item blog-fb-like">
-					         <fb:like href="{{reflection.link}}"
-					            width="90" layout="button_count" action="like" show_faces="false" share="false"></fb:like>
-					      </div>
-					      <div class="blog-social-item"><a class="twitter-share-button" href="{{reflection.url}}"
-					         data-text="The book﻿ &quot;Meditation, Mind and Body&quot; can be used for self-study or as part of a mentored 12-week meditation course. - Meditation, Mind and Body"
-					         data-count="horizontal"></a></div>
+					      <div class="blog-social-item">
+                  <a class="twitter-share-button"
+                    href="https://twitter.com/intent/tweet"
+    			          data-text="{{reflection.title}} {{ request.build_absolute_uri }}{{ object.get_absolute_url }}/{{reflection.title_slug}}"
+					          data-count="horizontal"></a>
+                </div>
 					      <div style="clear:both"></div>
 					   </div>
 					</div>
@@ -52,6 +42,4 @@
 					</div>
         </div>
     </div>
-
-		<script type='text/javascript' src="{% static 'js/home/twitterwidgets.js' %}"></script>
 {% endblock %}
