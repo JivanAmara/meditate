@@ -53,7 +53,7 @@ class Reflection(models.Model):
     pub_time = models.DateTimeField()
 
     def __str__(self):
-        return self.title
+        return "{} ({})".format(self.title, self.pub_time.strftime('%Y-%m-%d %H:%M'))
 
     def save(self, *args, **kwargs):
         self.title_slug = slugify(self.title)
