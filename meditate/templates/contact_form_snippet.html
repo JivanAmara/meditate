@@ -1,0 +1,51 @@
+<div>
+  <h3><b>Contact Jivan</b></h3>
+  <hr>
+  <form>
+    {% csrf_token %}
+
+    <label for="sender_name">Your Name</label>
+    <input id="sender_name" name="sender_name" type="text"></input>
+
+    <label for="sender_email">Your Email Addres</label>
+    <input id="sender_email" name="sender_address" type="text"></input>
+
+    <label for="subject">Subject</label>
+    <input id="subject" name="subject" type="text"></input>
+
+    <label for="message">Your Message</label>
+    <textarea style="height: 6em; width=100%;" id="message" name="message" wrap="soft"></textarea>
+
+    <button id="contact_send" onclick="send_message()">Send</button>
+  </form>
+</div>
+
+<script type='text/javascript'>
+function send_message() {
+  // this requires a csrf cookie to be set ({% csrf_token %} above)
+  var csrftoken = Cookies.get("csrftoken");
+  var sender_name = document.getElementById('sender_name').value;
+  var sender_email = document.getElementById('sender_email').value;
+  var subject = document.getElementById('subject').value;
+  var message = document.getElementById('message').value;
+
+  var msgData = {
+          'sender_name': sender_name, 'sender_email': sender_email,
+          'subject': subject, 'message': message,
+  };
+
+  var msgDataWithCsrf = Object.assign({}, msgData);
+  msgDataWithCsrf.csrfmiddlewaretoken = csrftoken;
+  $.ajax({
+    type: "POST",
+    url: "{% url 'contact_send_message' %}",
+    data: msgDataWithCsrf,
+    success: function(respData, textStatus, jqXHR) {
+      alert("Message Sent");
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      alert("Problem sending message: (" + textStatus + ") " + errorThrown);
+    }
+  });
+}
+</script>

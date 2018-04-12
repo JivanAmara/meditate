@@ -91,62 +91,7 @@
                         </div>
                     </div>
                     <div class="col-md-3 position contact-form">
-                        <div id="345812524595284492-sidebar" class="column-blog">
-                            <div class="blog-sidebar-separator">
-                                <ul id="345812524595284492-sidebar-list" class="columnlist-blog">
-                                    <p class="blog-feed-link">
-                                        <link href="" rel="alternate" type="application/rss+xml" title="RSS" />
-                                        <a class="blog-link rss-feed" href="/1/feed">
-                                            <img src="//cdn2.editmysite.com/images/old/bg_feed.gif" />RSS Feed
-                                        </a>
-                                    </p>
-
-                                    <div>
-                                        <form enctype="multipart/form-data" action="//www.weebly.com/weebly/apps/formSubmit.php" method="POST" id="form-483420069957214226">
-                                            <div id="483420069957214226-form-parent" class="wsite-form-container">
-                                                <ul class="formlist" id="483420069957214226-form-list">
-                                                    <h2 class="wsite-content-title">Contact Jivan<br /></h2>
-                                                    <em><label class="custom-label"><span class="form-required">*</span> Indicates required field</label></em>
-                                                    <div class="form-group">
-                                                        <label class="col-form-label" for="input-954231642903097320">Name<span class="form-required">*</span></label>
-                                                        <div class="row">
-                                                            <div class="col-6 position">
-                                                                <input id="input-954231642903097320" class="form-control" type="text" name="_u954231642903097320[first]" placeholder="First" required />
-                                                            </div>
-                                                            <div class="col-6 position">
-                                                                <input id="input-954231642903097320-1" class="form-control" type="text" name="_u954231642903097320[last]" placeholder="Last" required />
-                                                                <div id="instructions-954231642903097320" class="wsite-form-instructions"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label class="col-form-label" for="input-717964076967319692">Email <span class="form-required">*</span></label>
-                                                        <input id="input-717964076967319692" class="form-control position" type="email" name="_u717964076967319692" placeholder="you@example.com" required />
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label class="col-form-label" for="input-868599085175912398">Comment <span class="form-required">*</span></label>
-                                                        <textarea id="input-868599085175912398" class="form-control" name="_u868599085175912398" row="10" required></textarea>
-                                                    </div>
-                                                </ul>
-                                            </div>
-                                            <div style="display:none; visibility:hidden;">
-                                                <input type="text" name="wsite_subject" />
-                                            </div>
-                                            <div style="text-align:left; margin-top:10px; margin-bottom:0px;">
-                                                <input type="hidden" name="form_version" value="2" />
-                                                <input type="hidden" name="wsite_approved" id="wsite-approved" value="approved" />
-                                                <input type="hidden" name="ucfid" value="483420069957214226" />
-                                                <input type="hidden" name="recaptcha_token" />
-                                                <button type="submit" class="btn btn-outline-primary">Submit</button>
-                                            </div>
-                                        </form>
-                                        <div id="g-recaptcha-483420069957214226" class="recaptcha" data-size="invisible" data-recaptcha="0" data-sitekey="6Ldf5h8UAAAAAJFJhN6x2OfZqBvANPQcnPa8eb1C"></div>
-                                    </div>
-                                </ul>
-                            </div>
-                        </div>
+                      {% include 'contact_form_snippet.html' %}
                     </div>
                 </div>
             </div>

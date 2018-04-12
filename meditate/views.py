@@ -9,6 +9,7 @@ import logging
 import os
 from pprint import pformat
 
+from meditate.orders import send_alert
 from django.contrib.syndication.views import Feed
 from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import render, render_to_response
@@ -49,6 +50,7 @@ def ensure_payment_envvars(func):
         return func(*args, **kwargs)
 
     return wrapped_func
+
 
 def get_session_id(request):
     # Returns the current session id, creating a new one if necessary
@@ -212,6 +214,30 @@ def set_order_address(request):
         logger.error('add_order_address() problem: {0}'.format(ex))
         resp = HttpResponse(status=500)
         return resp
+
+
+@require_POST
+def contact_send_message(request):
+    msgData = {
+        'sender_name': request.POST.get('sender_name', None),
+        'sender_email': request.POST.get('sender_email', None),
+        'subject': request.POST.get('subject', None),
+        'message': request.POST.get('message', None),
+    }
+
+    if None in [msgData]:
+        errmsg = ", ".join(["{} required".format(fieldname) for fieldname in msgData if msgData[fieldname] is not None])
+        return HttpResponse(errmsg, status_code=400)
+
+    MAIL_USER = str(os.environ.get('MAIL_USER', ''))
+    MAIL_PASSWORD = str(os.environ.get('MAIL_PASSWORD', ''))
+    send_alert("From: {} ({})\n---\n{}".format(msgData['sender_name'], msgData['sender_email'], msgData['message']),
+        subject=msgData['subject'],
+        from_addr=msgData['sender_email'],
+        user=MAIL_USER,
+        password=MAIL_PASSWORD
+    )
+    return HttpResponse(status=200)
 
 
 def log_javascript(request, msg):

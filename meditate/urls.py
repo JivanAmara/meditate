@@ -18,7 +18,8 @@ from django.urls import path
 from meditate.views import (
     homepage, why_meditate, about_author, sample, buy_book, subscribe_mentoring,
     add_order_item, remove_order_item, log_javascript, get_order_count, order_summary,
-    stripe_charge, paypal_charge, order_complete, set_order_address, reflections, ReflectionsFeed
+    stripe_charge, paypal_charge, order_complete, set_order_address, contact_send_message,
+    reflections, ReflectionsFeed
 )
 
 from django.conf import settings
@@ -36,6 +37,7 @@ urlpatterns = [
     path('get_order_count/<str:saleItemName>', get_order_count, name='single_item_count'),
     path('get_order_count', get_order_count, name='all_item_count'),
     path('set_order_address', set_order_address, name='set_order_address'),
+    path('contact_send_message', contact_send_message, name='contact_send_message'),
     path('log_javascript/<str:msg>', log_javascript, name='log_javascript'),
     path('order_summary', order_summary, name='order_summary'),
     path('stripe_charge', stripe_charge, name='stripe_charge'),
