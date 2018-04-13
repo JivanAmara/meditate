@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from meditate.views import (
     homepage, why_meditate, about_author, sample, buy_book, subscribe_mentoring,
-    add_order_item, remove_order_item, log_javascript, get_order_count, order_summary,
+    add_order_item, remove_order_item, log_javascript, log_visit, get_order_count, order_summary,
     stripe_charge, paypal_charge, order_complete, set_order_address, contact_send_message,
     reflections, ReflectionsFeed
 )
@@ -39,6 +39,7 @@ urlpatterns = [
     path('set_order_address', set_order_address, name='set_order_address'),
     path('contact_send_message', contact_send_message, name='contact_send_message'),
     path('log_javascript/<str:msg>', log_javascript, name='log_javascript'),
+    path('log_visit/<str:page_name>', log_visit, name='log_visit'),
     path('order_summary', order_summary, name='order_summary'),
     path('stripe_charge', stripe_charge, name='stripe_charge'),
     path('paypal_charge', paypal_charge, name='paypal_charge'),

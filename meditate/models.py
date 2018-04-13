@@ -60,3 +60,10 @@ class Reflection(models.Model):
     def save(self, *args, **kwargs):
         self.title_slug = slugify(self.title)
         super(Reflection, self).save(*args, **kwargs)
+
+
+class Visit(models.Model):
+    ip4 = models.CharField(max_length=15)
+    ip6 = models.CharField(max_length=39)
+    timestamp = models.DateTimeField()
+    page = models.CharField(max_length=20)

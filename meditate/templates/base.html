@@ -51,5 +51,14 @@
       <!-- end footer-wrap -->
     </div>
     <script type='text/javascript' src="{% static 'js/base/twitterwidgets.js' %}"></script>
+
+    <!-- Log visit to page -->
+    <script type='text/javascript'>
+      $.ajax({
+        type: 'GET',
+        url: '{% url "log_visit" page_name %}',
+      });
+    </script>
   </body>
+
 </html>

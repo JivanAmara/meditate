@@ -7,6 +7,8 @@ import decimal
 import json
 import logging
 import os
+from datetime import datetime, timezone
+import re
 from pprint import pformat
 
 from meditate.orders import send_alert
@@ -16,7 +18,7 @@ from django.shortcuts import render, render_to_response
 from django.template.context import RequestContext
 import stripe
 
-from meditate.models import SaleItem, Order, OrderItem, OrderAddress, Reflection
+from meditate.models import SaleItem, Order, OrderItem, OrderAddress, Reflection, Visit
 from django.views.decorators.csrf import csrf_exempt
 from django import urls
 from django.views.decorators.http import require_POST
@@ -60,22 +62,22 @@ def get_session_id(request):
 
 
 def homepage(request):
-    resp = render(request, 'home.html')
+    resp = render(request, 'home.html', {'page_name': 'home'})
     return resp
 
 
 def sample(request):
-    resp = render(request, 'sample.html')
+    resp = render(request, 'sample.html', {'page_name': 'sample'})
     return resp
 
 
 def about_author(request):
-    resp = render(request, 'about_author.html')
+    resp = render(request, 'about_author.html', {'page_name': 'about_author'})
     return resp
 
 
 def why_meditate(request):
-    resp = render(request, 'why_meditate.html')
+    resp = render(request, 'why_meditate.html', {'page_name': 'why_meditate'})
     return resp
 
 
@@ -83,7 +85,7 @@ def buy_book(request):
     items = []
     items.append(SaleItem.objects.get(name='eBook, PDF'))
     items.append(SaleItem.objects.get(name='Paperback'))
-    context = {'items': items}
+    context = {'items': items, 'page_name': 'buy_book'}
     resp = render(request, 'buy_book.html', context)
     return resp
 
@@ -92,7 +94,7 @@ def subscribe_mentoring(request):
     items = []
     items.append(SaleItem.objects.get(name='Full Course Check-Ins (12 x 15minutes)'))
     items.append(SaleItem.objects.get(name='Single Session (30 minutes)'))
-    context = {'items': items}
+    context = {'items': items, 'page_name': 'subscribe_mentoring'}
     resp = render(request, 'subscribe_mentoring.html', context)
     return resp
 
@@ -240,6 +242,31 @@ def contact_send_message(request):
     return HttpResponse(status=200)
 
 
+ipv4_address = re.compile('^(?:(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$')
+ipv6_address = re.compile('^(?:(?:[0-9A-Fa-f]{1,4}:){6}(?:[0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|(?:(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|::(?:[0-9A-Fa-f]{1,4}:){5}(?:[0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|(?:(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(?:[0-9A-Fa-f]{1,4})?::(?:[0-9A-Fa-f]{1,4}:){4}(?:[0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|(?:(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(?:[0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4})?::(?:[0-9A-Fa-f]{1,4}:){3}(?:[0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|(?:(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(?:(?:[0-9A-Fa-f]{1,4}:){,2}[0-9A-Fa-f]{1,4})?::(?:[0-9A-Fa-f]{1,4}:){2}(?:[0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|(?:(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(?:(?:[0-9A-Fa-f]{1,4}:){,3}[0-9A-Fa-f]{1,4})?::[0-9A-Fa-f]{1,4}:(?:[0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|(?:(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(?:(?:[0-9A-Fa-f]{1,4}:){,4}[0-9A-Fa-f]{1,4})?::(?:[0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{1,4}|(?:(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(?:(?:[0-9A-Fa-f]{1,4}:){,5}[0-9A-Fa-f]{1,4})?::[0-9A-Fa-f]{1,4}|(?:(?:[0-9A-Fa-f]{1,4}:){,6}[0-9A-Fa-f]{1,4})?::)$')
+
+
+def log_visit(request, page_name):
+    IPv4_Len = (7, 15)
+
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+
+    ip6 = ""; ip4 = ""
+    if ipv4_address.fullmatch(ip):
+        ip4 = ip
+    elif ipv6_address.fullmatch(ip):
+        ip6 = ip
+    else:
+        logger.warn('mal-formed ip address "{}"'.format(ip))
+
+    v = Visit.objects.create(ip4=ip4, ip6=ip6, timestamp=datetime.now(timezone.utc), page=page_name)
+    return HttpResponse(status=200)
+
+
 def log_javascript(request, msg):
     logger.error(msg)
     return HttpResponse(status=200)
@@ -250,20 +277,45 @@ def order_summary(request):
     sessionId = get_session_id(request)
     order, _ = Order.objects.get_or_create(sessionId=sessionId)
     context = {
-        "order": order,
-        "STRIPE_PUBLIC_KEY": STRIPE_PUBLIC_KEY,
-        "PAYPAL_MODE": PAYPAL_MODE,
+        'page_name': 'order_summary',
+        'order': order,
+        'STRIPE_PUBLIC_KEY': STRIPE_PUBLIC_KEY,
+        'PAYPAL_MODE': PAYPAL_MODE,
     }
     resp = render(request, 'order_summary.html', context)
     return resp
 
 
-# TODO: Check if this is still in use.
-def stripe_checkout(request, amount):
-    context = RequestContext(request, {'amount': amount})
-    resp = render(request, 'stripe_checkout.html', context)
-#     resp = render_to_response('stripe_checkout.html', context)
-    return resp
+def reflections(request, title_slug=None):
+    if title_slug is None:
+        rs = Reflection.objects.all().order_by('-pub_time')
+    else:
+        rs = Reflection.objects.filter(title_slug=title_slug).order_by('-pub_time')
+
+    return render(request, 'reflections.html', {'reflections': rs, 'page_name': 'reflections'})
+
+
+class ReflectionsFeed(Feed):
+    description_template = 'reflections_description.html'
+    title = "Meditation, Mind and Body - Reflections"
+    link = "/4/feed"
+    description = "Reflections arising from & about meditation."
+
+    def items(self):
+        return Reflection.objects.order_by('-pub_time')[:5]
+
+    def item_title(self, item):
+        return item.title
+
+    def item_description(self, item):
+        d = item.content[:500]
+        if len(item.content) > 500:
+            d += '...'
+        return d
+
+    # item_link is only needed if NewsItem has no get_absolute_url method.
+    def item_link(self, item):
+        return urls.reverse('single_reflection', kwargs={"title_slug": item.title_slug})
 
 
 @ensure_payment_envvars
@@ -347,39 +399,7 @@ def paypal_charge(request):
 def order_complete(request):
     sessionId = get_session_id(request)
     order = Order.objects.get(sessionId=sessionId)
-    context = {'order_number': order.paymentId}
+    context = {'order_number': order.paymentId, 'page_name': 'order_complete'}
     request.session.flush()
     resp = render(request, 'order_complete.html', context)
     return resp
-
-
-def reflections(request, title_slug=None):
-    if title_slug is None:
-        rs = Reflection.objects.all().order_by('-pub_time')
-    else:
-        rs = Reflection.objects.filter(title_slug=title_slug).order_by('-pub_time')
-
-    return render(request, 'reflections.html', {'reflections': rs})
-
-
-class ReflectionsFeed(Feed):
-    description_template = 'reflections_description.html'
-    title = "Meditation, Mind and Body - Reflections"
-    link = "/4/feed"
-    description = "Reflections arising from & about meditation."
-
-    def items(self):
-        return Reflection.objects.order_by('-pub_time')[:5]
-
-    def item_title(self, item):
-        return item.title
-
-    def item_description(self, item):
-        d = item.content[:500]
-        if len(item.content) > 500:
-            d += '...'
-        return d
-
-    # item_link is only needed if NewsItem has no get_absolute_url method.
-    def item_link(self, item):
-        return urls.reverse('single_reflection', kwargs={"title_slug": item.title_slug})
