@@ -10,6 +10,10 @@
         <h2>
             <a href="{% url 'reflections' %}"><font class="wrapper-banner-title">Reflections</font></a>
         </h2>
+        <a href={% url 'reflections_feed' %}>
+          <img src="/static/img/rss-feed-icon.svg" style="height: 1em; padding-bottom: 0.25em">
+          RSS Feed
+        </a>
 
         <div class="wrapper-banner-content">
 					{% for reflection in reflections %}
@@ -33,6 +37,9 @@
                     href="https://twitter.com/intent/tweet"
     			          data-text="{{reflection.title}} {{ request.build_absolute_uri }}{{ object.get_absolute_url }}/{{reflection.title_slug}}"
 					          data-count="horizontal"></a>
+                  <a href={% url 'reflections_feed' %} style="height: 1em; padding-bottom: 0.25em;">
+                    <img src="/static/img/rss-feed-icon.svg" style="height: 1em; padding-bottom: 0.25em;">
+                    RSS Feed</a>
                 </div>
 					      <div style="clear:both"></div>
 					   </div>
