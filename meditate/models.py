@@ -35,8 +35,10 @@ class SaleItem(models.Model):
     name = models.CharField(max_length=80, unique=True)
     desc = models.CharField(max_length=500)
     img = models.CharField(max_length=100) # should be a filename in 'static/'
-    price = models.DecimalField(decimal_places=2, max_digits=4)
+    price = models.DecimalField(decimal_places=2, max_digits=5)
 
+    def __str__(self):
+        return self.name
 
 class Coupon(models.Model):
     deleted = models.BooleanField(default=False)

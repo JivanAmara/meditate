@@ -1,24 +1,18 @@
-{% extends "base.html" %} 
-{% load static %} 
+{% extends "base.html" %}
+{% load static %}
 
 {% block extrahead %}
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <link href="{% static 'mdb/css/mdb.min.css' %}" rel="stylesheet">
     <link href="{% static 'mdb/js/mdb.min.js' %}" rel="stylesheet">
     <title>Subscribe to Mentoring</title>
-{% endblock %} 
+{% endblock %}
 
 {% block content %}
     <div class="wrapper-banner wrapper-banner-book">
         <h2>
-            <font class="wrapper-banner-title sample-title">Buy the Book Here</font>
+            <font class="wrapper-banner-title sample-title">Subscribe to Mentoring Here</font>
         </h2>
-        <h3 class="buy-book-content">
-            <font>
-                You can buy a pdf or paperback version of the book here.<br> If you prefer <strong>Amazon Kindle</strong> you
-                can <a class="blog-link" href="#">click here to view the Kindle version on Amazon.</a>
-            </font>
-        </h3>
 
         <div class="book-list">
             {% for item in items %}

@@ -356,7 +356,8 @@
         </div>
 
         <div id="emptyCart" class="empty-checkout-content">
-            <h3>Your Shopping Cart is empty. Go to the buy page and add the books to your cart.</h3>
+            <h3>Your Shopping Cart is empty. Go to <a href="{% url 'buy_book' %}">Buy Book</a> or
+              <a href="{% url 'subscribe_mentoring' %}">Mentoring</a> to add items to your cart.</h3>
             <h3 class="continue-link"><a href="/buy_book">Continue shopping</a></h3>
         </div>
 
