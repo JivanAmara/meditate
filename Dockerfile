@@ -7,6 +7,7 @@ RUN rm /etc/nginx/sites-enabled/default
 RUN mkdir -p /opt/meditate/site
 RUN mkdir -p /opt/meditate/database
 RUN mkdir -p /opt/meditate/static
+RUN mkdir -p /opt/meditate/downloadable # This is where files that can be purchased will reside.
 RUN mkdir -p /opt/meditate/root_static  # This is where files found at "/" will reside
 
 RUN touch /var/log/gunicorn_meditate.log

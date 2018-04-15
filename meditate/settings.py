@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+from datetime import datetime, timedelta
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,9 +27,10 @@ SECRET_KEY = 'wb#(b7e(n02e^t62dx$a1(&b8-2_yoaxepichwa2ur9d9_)70q'
 DEBUG = True
 
 ALLOWED_HOSTS = ['192.168.88.251', 'localhost']
-
-
-# Application definition
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(os.path.dirname(__file__), 'static')
+MEDIA_ROOT = os.path.join(os.path.dirname(__file__), 'downloadable')
+VALID_DOWNLOAD_PERIOD = timedelta(days=7)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -119,9 +121,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
-
-STATIC_URL = '/static/'
-STATIC_ROOT = '/opt/meditate/static/'
 
 LOGGING = {
     'version': 1,

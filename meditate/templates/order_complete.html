@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block extrahead %}
     <title>Thank You For Your Order</title>
@@ -9,9 +10,30 @@
         <h3 class="cart-heading">
             <font class="wrapper-banner-title sample-title">Meditation, Mind and Body</font>
         </h3>
-        <div class="blog-content">
-            <h3 class="payment-success">Thanks for your payment, your order number is: {{order_number}}.</h3>
-            <h3 class="continue-link"><a href='/'>Return to homepage</a></h3>
+
+        <p>Thanks for your interest, your order number is: <i>{{order_number}}</i>.</p>
+
+        <div>
+          <p>
+            Downloadable items will appear as links below, they will be valid for one week.
+          </p>
+
+          <ul>
+          {% for i in order.orderitem_set.all %}
+            <li>
+            {% if i.saleItem.downloadable %}
+              ({{i.count}}) <a href="{{request.scheme}}://{{request.get_host}}{% static 'downloads/' %}{{order.downloadKey}}/{{i.saleItem.downloadable.name}}">{{i.saleItem.name}} (click to view/download)</a>
+            {% else %}
+              {{i.saleItem.name}}
+            {% endif %}
+            </li>
+          {% endfor %}
+
+          {% for i in downloadable_items %}
+            <div>You can download {{i.name}}
+          {% endfor %}
+
         </div>
+        <h3 class="continue-link"><a href='/'>Return to homepage</a></h3>
     </div>
 {% endblock %}

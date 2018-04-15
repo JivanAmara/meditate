@@ -4,6 +4,7 @@ Created on Dec 9, 2017
 @author: jivan
 '''
 import decimal
+import hashlib
 import json
 import logging
 import os
@@ -13,6 +14,7 @@ from pprint import pformat
 
 from meditate.orders import send_alert
 from django.contrib.syndication.views import Feed
+from django.conf import settings
 from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import render, render_to_response
 from django.template.context import RequestContext
@@ -31,8 +33,6 @@ logger = logging.getLogger(__name__)
 STRIPE_SECRET_KEY = None
 STRIPE_PUBLIC_KEY = None
 PAYPAL_MODE = None
-
-
 def ensure_payment_envvars(func):
     def wrapped_func(*args, **kwargs):
         global STRIPE_SECRET_KEY, STRIPE_PUBLIC_KEY, PAYPAL_MODE
@@ -96,6 +96,48 @@ def subscribe_mentoring(request):
     items.append(SaleItem.objects.get(name='Single Session (30 minutes)'))
     context = {'items': items, 'page_name': 'subscribe_mentoring'}
     resp = render(request, 'subscribe_mentoring.html', context)
+    return resp
+
+
+def set_up_download_links(order):
+    """ This makes symbolic links in <STATIC_ROOT>/downloads/<downloadKey>/ to items
+        in meditate/downloads for users to download files from.  Also removes old <downloadKey>
+        directories.
+        This allows nginx to handle serving the files, but still avoid wide-open access to the
+        files.
+    """
+    # Get any downloadable SaleItems included in this Order
+    downloadables = SaleItem.objects.filter(orderitem__order=order).exclude(downloadable=None)
+    for d in downloadables:
+        basename = os.path.basename(d.downloadable.name)
+        os.makedirs(os.path.join(settings.STATIC_ROOT, 'downloads', order.downloadKey))
+        symlink_loc = os.path.join(settings.STATIC_ROOT, 'downloads', order.downloadKey, basename)
+        symlink_target = os.path.join(settings.MEDIA_ROOT, d.downloadable.name)
+        os.symlink(symlink_target, symlink_loc)
+
+    download_key_dirs = [
+        name for name in os.listdir(os.path.join(settings.STATIC_ROOT, 'downloads'))
+            if os.path.isdir(os.path.join(settings.STATIC_ROOT, 'downloads', name))
+    ]
+
+    cutoff = datetime.utcnow() - settings.VALID_DOWNLOAD_PERIOD
+    old_orders = Order.objects.filter(paymentTimestamp__lt=cutoff, downloadKey__in=download_key_dirs)
+    for oo in old_orders:
+        shutil.rmtree(os.path.join(settings.STATIC_ROOT, 'downloads', oo.downloadKey))
+
+
+def order_complete(request):
+    sessionId = get_session_id(request)
+    order = Order.objects.get(sessionId=sessionId)
+    md5hasher = hashlib.md5()
+    md5hasher.update(sessionId.encode('utf8'))
+    key = md5hasher.hexdigest()[:12]
+    order.downloadKey = key
+    order.save()
+    set_up_download_links(order)
+    context = {'order_number': order.paymentId, 'order': order, 'page_name': 'order_complete'}
+    resp = render(request, 'order_complete.html', context)
+    request.session.flush()
     return resp
 
 
@@ -393,13 +435,3 @@ def paypal_charge(request):
     order.save()
     logger.info('PayPal Charge Recorded: {} - {}'.format(order.total, order.paymentId))
     return JsonResponse({}, status=200)
-
-
-@csrf_exempt
-def order_complete(request):
-    sessionId = get_session_id(request)
-    order = Order.objects.get(sessionId=sessionId)
-    context = {'order_number': order.paymentId, 'page_name': 'order_complete'}
-    request.session.flush()
-    resp = render(request, 'order_complete.html', context)
-    return resp

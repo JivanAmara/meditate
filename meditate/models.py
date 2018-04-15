@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
+from datetime import datetime, timezone
+from django.conf import settings
 
 class OrderAddress(models.Model):
     name = models.CharField(max_length=40)
@@ -22,8 +24,10 @@ class OrderItem(models.Model):
 
 class Order(models.Model):
     sessionId = models.CharField(max_length=100)
+    downloadKey = models.CharField(max_length=12, default="")
     paymentProvider = models.CharField(max_length=6, default='')
     paymentId = models.CharField(max_length=100, null=True, default=None)
+    paymentTimestamp = models.DateTimeField(default=lambda: datetime.now(timezone.utc))
     total = models.DecimalField(decimal_places=2, max_digits=5, default=0)
     address = models.OneToOneField('OrderAddress', null=True, blank=True, on_delete=models.PROTECT)
     processed = models.BooleanField(default=False)
@@ -36,6 +40,7 @@ class SaleItem(models.Model):
     desc = models.CharField(max_length=500)
     img = models.CharField(max_length=100) # should be a filename in 'static/'
     price = models.DecimalField(decimal_places=2, max_digits=5)
+    downloadable = models.FileField(null=True, blank=True, default=None)
 
     def __str__(self):
         return self.name

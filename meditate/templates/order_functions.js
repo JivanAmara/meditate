@@ -19,8 +19,6 @@
                 }
             },
             error: function( jqXHR, textStatus, errorThrown ) {
-                window.alert(jqXHR, textSTatus, errorThrown);  // TODO: Remove this.
-
                 var logUrl = '{% url "log_javascript" "msgPlaceholder" %}';
                 logUrl = logUrl.replace('msgPlaceholder', msg);
 
@@ -48,8 +46,6 @@
            },
            error: function( jqXHR, textStatus, errorThrown ) {
                     var msg = `Unable to add "${saleItemName}" to cart: ` + textStatus
-                    window.alert(msg); // TODO: Remove this.
-
                     var logUrl = '{% url "log_javascript" "msgPlaceholder" %}';
                     logUrl = logUrl.replace('msgPlaceholder', msg);
 
@@ -80,8 +76,6 @@
            },
            error: function( jqXHR, textStatus, errorThrown ) {
                var msg = `Unable to remove "${saleItemName}" to cart`;
-               alert(msg); // TODO: Remove this.
-
                var logUrl = '{% url "log_javascript" "msgPlaceholder" %}';
                logUrl = logUrl.replace('msgPlaceholder', msg);
 

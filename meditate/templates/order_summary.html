@@ -43,7 +43,6 @@
                     },
                     error: function( jqXHR, textStatus, errorThrown ) {
                         var msg = `Unable to add "${saleItemName}" to cart`;
-                        alert(msg); // TODO: Remove this.
 
                         var logUrl = '{% url "log_javascript" "msgPlaceholder" %}';
                         logUrl = logUrl.replace('msgPlaceholder', msg);
@@ -93,7 +92,6 @@
                     },
                     error: function( jqXHR, textStatus, errorThrown ) {
                         var msg = `Unable to add "${saleItemName}" to cart`;
-                        alert(msg); // TODO: Remove this.
 
                         var logUrl = '{% url "log_javascript" "msgPlaceholder" %}';
                         logUrl = logUrl.replace('msgPlaceholder', msg);
@@ -182,7 +180,6 @@
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     var msg = `Unexpected problem (` + textStatus + `) ` + errorThrown;
-                    alert(msg); // TODO: Remove this.
 
                     var logUrl = '{% url "log_javascript" "msgPlaceholder" %}';
                     logUrl = logUrl.replace('msgPlaceholder', msg);
@@ -399,7 +396,6 @@
                     },
                     error: function( jqXHR, textStatus, errorThrown ) {
                         var msg = "Problem w/ Stripe Charge: " + textStatus + "-" + errorThrown;
-                        window.alert(msg); // TODO: Remove
 
                         var logUrl = '{% url "log_javascript" "msgPlaceholder" %}';
                         logUrl = logUrl.replace('msgPlaceholder', msg);
@@ -456,7 +452,6 @@
                     },
                     error: function( jqXHR, textStatus, errorThrown ) {
                         var msg = "Something went wrong: " + textStatus + "-" + errorThrown;
-                        window.alert(msg);  // TODO: Remove
 
                         var logUrl = '{% url "log_javascript" "msgPlaceholder" %}';
                         logUrl = logUrl.replace('msgPlaceholder', msg);
