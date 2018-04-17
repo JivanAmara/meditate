@@ -1,7 +1,12 @@
+import os
+import grp
+import stat
+
 from django.db import models
 from django.utils.text import slugify
 from datetime import datetime, timezone
 from django.conf import settings
+from django.core.files.storage import FileSystemStorage
 
 class OrderAddress(models.Model):
     name = models.CharField(max_length=40)
@@ -27,10 +32,21 @@ class Order(models.Model):
     downloadKey = models.CharField(max_length=12, default="")
     paymentProvider = models.CharField(max_length=6, default='')
     paymentId = models.CharField(max_length=100, null=True, default=None)
-    paymentTimestamp = models.DateTimeField(default=lambda: datetime.now(timezone.utc))
+    paymentTimestamp = models.DateTimeField(blank=True, null=True)
     total = models.DecimalField(decimal_places=2, max_digits=5, default=0)
     address = models.OneToOneField('OrderAddress', null=True, blank=True, on_delete=models.PROTECT)
     processed = models.BooleanField(default=False)
+
+
+class OverwriteStorage(FileSystemStorage):
+    '''
+    Muda o comportamento padrão do Django e o faz sobrescrever arquivos de
+    mesmo nome que foram carregados pelo usuário ao invés de renomeá-los.
+    '''
+    def get_available_name(self, name, **kwargs):
+        if self.exists(name):
+            os.remove(os.path.join(settings.MEDIA_ROOT, name))
+        return name
 
 
 class SaleItem(models.Model):
@@ -40,10 +56,19 @@ class SaleItem(models.Model):
     desc = models.CharField(max_length=500)
     img = models.CharField(max_length=100) # should be a filename in 'static/'
     price = models.DecimalField(decimal_places=2, max_digits=5)
-    downloadable = models.FileField(null=True, blank=True, default=None)
+    downloadable = models.FileField(blank=True, default="", storage=OverwriteStorage())
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        super(SaleItem, self).save(*args, **kwargs)
+        if self.downloadable != "" and settings.STATIC_GROUP != "":
+            gid = grp.getgrnam(settings.STATIC_GROUP).gr_gid
+            path = os.path.join(settings.MEDIA_ROOT, self.downloadable.name)
+            os.chown(path, -1, gid)
+            os.chmod(path, stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP)
+
 
 class Coupon(models.Model):
     deleted = models.BooleanField(default=False)

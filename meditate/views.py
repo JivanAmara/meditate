@@ -107,10 +107,10 @@ def set_up_download_links(order):
         files.
     """
     # Get any downloadable SaleItems included in this Order
-    downloadables = SaleItem.objects.filter(orderitem__order=order).exclude(downloadable=None)
+    downloadables = SaleItem.objects.filter(orderitem__order=order).exclude(downloadable="")
     for d in downloadables:
         basename = os.path.basename(d.downloadable.name)
-        os.makedirs(os.path.join(settings.STATIC_ROOT, 'downloads', order.downloadKey))
+        os.makedirs(os.path.join(settings.STATIC_ROOT, 'downloads', order.downloadKey), exist_ok=True)
         symlink_loc = os.path.join(settings.STATIC_ROOT, 'downloads', order.downloadKey, basename)
         symlink_target = os.path.join(settings.MEDIA_ROOT, d.downloadable.name)
         os.symlink(symlink_target, symlink_loc)
@@ -120,7 +120,7 @@ def set_up_download_links(order):
             if os.path.isdir(os.path.join(settings.STATIC_ROOT, 'downloads', name))
     ]
 
-    cutoff = datetime.utcnow() - settings.VALID_DOWNLOAD_PERIOD
+    cutoff = datetime.now(timezone.utc) - settings.VALID_DOWNLOAD_PERIOD
     old_orders = Order.objects.filter(paymentTimestamp__lt=cutoff, downloadKey__in=download_key_dirs)
     for oo in old_orders:
         shutil.rmtree(os.path.join(settings.STATIC_ROOT, 'downloads', oo.downloadKey))
@@ -400,6 +400,7 @@ def stripe_charge(request):
         order.paymentId = charge.id
         order.total = decimal.Decimal(amount) / decimal.Decimal(100)
         order.paymentProvider = 'stripe'
+        order.paymentTimestamp = datetime.now(timezone.utc)
         order.save()
         logger.info('Stripe Charge object:\n{}'.format(msg))
     except stripe.error.CardError as e:
@@ -432,6 +433,7 @@ def paypal_charge(request):
     order.paymentId = request.POST['paymentId']
     order.total = request.POST['amount']
     order.paymentProvider = 'paypal'
+    order.paymentTimestamp = datetime.now(timezone.utc)
     order.save()
     logger.info('PayPal Charge Recorded: {} - {}'.format(order.total, order.paymentId))
     return JsonResponse({}, status=200)

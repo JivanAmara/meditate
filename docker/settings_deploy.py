@@ -6,8 +6,9 @@ DATABASES['default']['NAME'] = '/opt/meditate/database/db.sqlite3'
 
 STATIC_ROOT = '/opt/meditate/static/'
 MEDIA_ROOT = '/opt/meditate/downloadable/'
-VALID_DOWNLOAD_PERIOD = datetime.timedelta(days=7)
+VALID_DOWNLOAD_PERIOD = timedelta(days=7)
 
+STATIC_GROUP = 'www-data'
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '[::1]']
 ALLOW_HOST = os.environ.get('DJANGO_ALLOW_HOST', None)
 

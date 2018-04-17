@@ -27,6 +27,7 @@ SECRET_KEY = 'wb#(b7e(n02e^t62dx$a1(&b8-2_yoaxepichwa2ur9d9_)70q'
 DEBUG = True
 
 ALLOWED_HOSTS = ['192.168.88.251', 'localhost']
+STATIC_GROUP = os.environ.get('USER', '')
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(os.path.dirname(__file__), 'static')
 MEDIA_ROOT = os.path.join(os.path.dirname(__file__), 'downloadable')
