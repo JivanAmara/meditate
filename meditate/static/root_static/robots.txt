@@ -1,0 +1,4 @@
+User-Agent: *
+Disallow: /log_visit
+Disallow: /get_order_count
+Disallow: /static

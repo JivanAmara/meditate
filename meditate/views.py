@@ -8,11 +8,17 @@ import hashlib
 import json
 import logging
 import os
-from datetime import datetime, timezone
+import tempfile
+from collections import defaultdict
+from datetime import datetime, timezone, timedelta
 import re
 from pprint import pformat
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+import numpy as np
 
 from meditate.orders import send_alert
+from django.contrib.auth.decorators import login_required
 from django.contrib.syndication.views import Feed
 from django.conf import settings
 from django.http.response import HttpResponse, JsonResponse
@@ -25,7 +31,6 @@ from django.views.decorators.csrf import csrf_exempt
 from django import urls
 from django.views.decorators.http import require_POST
 from pip._vendor.requests.sessions import session
-
 
 logger = logging.getLogger(__name__)
 
@@ -437,3 +442,75 @@ def paypal_charge(request):
     order.save()
     logger.info('PayPal Charge Recorded: {} - {}'.format(order.total, order.paymentId))
     return JsonResponse({}, status=200)
+
+
+@login_required
+def visit_charts(request):
+    plot_filename = 'stats.png'
+
+    start_date = datetime.now(timezone.utc) - timedelta(30)
+    # This will be of the form [ [ip, timestamp, page], ... ]
+    visits_by_date = []
+    for v in Visit.objects.filter(timestamp__gt=start_date).order_by('timestamp'):
+        ip = v.ip6 if v.ip6 != "" else v.ip4
+        visits_by_date.append([ip, v.timestamp.date(), v.page])
+
+    # --- Count up page visits
+    page_visit_count_by_date = defaultdict(int)
+    page_visit_count_by_page = defaultdict(int)
+    for _, date, page in visits_by_date:
+        page_visit_count_by_date[date] += 1
+        page_visit_count_by_page[page] += 1
+    date_pcount = []
+    for date, visit_count in page_visit_count_by_date.items():
+        date_pcount.append([date, visit_count])
+    date_pcount.sort(key=lambda d: d[0])
+
+    page_vcount = []
+    for page, visit_count in page_visit_count_by_page.items():
+        page_vcount.append([page, visit_count])
+    page_vcount.sort(key=lambda d: d[1], reverse=True)
+
+    # --- Count up unique visitors
+    visitor_count_by_date = defaultdict(int)
+    seen_ips = []
+    for ip, date, _ in visits_by_date:
+        if ip in seen_ips:
+            continue
+        seen_ips.append(ip)
+        visitor_count_by_date[date] += 1
+    date_vcount = []
+    for date, vcount in visitor_count_by_date.items():
+        date_vcount.append([date, vcount])
+    date_vcount.sort(key=lambda d: d[0])
+
+    plt.subplots_adjust(bottom=0.1)
+    plt.figure(figsize=(6,12))
+    ax1 = plt.subplot(311)
+    plt.title('Page visits by date')
+    # format the ticks
+    ax1.xaxis.set_major_locator(mdates.DayLocator())
+    ax1.xaxis.set_major_formatter(mdates.DateFormatter('%m-%d'))
+    # ax.xaxis.set_minor_locator(mdates.DayLocator())
+    ax1.plot([i[0] for i in date_pcount], [i[1] for i in date_pcount], "-o")
+
+    ax2 = plt.subplot(312)
+    plt.title('Unique visitors by date')
+    ax2.xaxis.set_major_locator(mdates.DayLocator())
+    ax2.xaxis.set_major_formatter(mdates.DateFormatter('%m-%d'))
+    ax2.plot([i[0] for i in date_vcount], [i[1] for i in date_vcount], "-o")
+
+    ax3 = plt.subplot(313)
+    plt.title('Visit counts by page')
+    plt.xticks(rotation=90)
+    ax3.plot([i[0] for i in page_vcount], [i[1] for i in page_vcount], "-o")
+
+    symlink_target = os.path.join('/tmp', plot_filename)
+    symlink_tmp = tempfile.mktemp()
+    symlink_loc = os.path.join(settings.STATIC_ROOT, 'plots', plot_filename)
+    plt.savefig(symlink_target)
+
+    os.symlink(symlink_target, symlink_tmp)
+    os.replace(symlink_tmp, symlink_loc)
+
+    return HttpResponse('<img src="{}">'.format(os.path.join(settings.STATIC_URL, 'plots', plot_filename)))

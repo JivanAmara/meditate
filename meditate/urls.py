@@ -19,7 +19,7 @@ from meditate.views import (
     homepage, why_meditate, about_author, sample, buy_book, subscribe_mentoring,
     add_order_item, remove_order_item, log_javascript, log_visit, get_order_count, order_summary,
     stripe_charge, paypal_charge, order_complete, set_order_address, contact_send_message,
-    reflections, ReflectionsFeed
+    reflections, ReflectionsFeed, visit_charts
 )
 
 from django.conf import settings
@@ -48,5 +48,6 @@ urlpatterns = [
     path('reflections/<str:title_slug>', reflections, name='single_reflection'),
     # Match the url layout on Weebly so links to this feed aren't broken on switch to this site.
     path('4/feed', ReflectionsFeed(), name='reflections_feed'),
+    path('visit_charts', visit_charts, name='visit_charts'),
     path('admin/', admin.site.urls),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

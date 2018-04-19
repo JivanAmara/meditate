@@ -4,14 +4,15 @@ FROM phusion/baseimage
 RUN apt-get update
 RUN apt-get install -y python3 nginx virtualenv gnupg
 RUN rm /etc/nginx/sites-enabled/default
+COPY docker/nginx/nginx.conf /etc/nginx/nginx.conf
 RUN mkdir -p /opt/meditate/site
 RUN mkdir -p /opt/meditate/database
 RUN mkdir -p /opt/meditate/static
 RUN mkdir -p /opt/meditate/downloadable # This is where files that can be purchased will reside.
 RUN mkdir -p /opt/meditate/root_static  # This is where files found at "/" will reside
-
 RUN touch /var/log/gunicorn_meditate.log
 RUN chmod a+rw /var/log/gunicorn_meditate.log
+
 
 # --- Set up python code
 RUN virtualenv -p python3 /opt/meditate/virtualenv
@@ -27,6 +28,7 @@ ENV DJANGO_SECRET_KEY=JustForDockerBuild
 RUN /opt/meditate/virtualenv/bin/pip3 install -r requirements.txt
 RUN /opt/meditate/virtualenv/bin/python3 manage.py collectstatic
 COPY meditate/static/favicon/* /opt/meditate/root_static/
+COPY meditate/static/root_static/* /opt/meditate/root_static/
 
 
 # --- Prepare initialization scripts to run & services to start on container start
@@ -35,6 +37,7 @@ RUN cp docker/cron.daily/* /etc/cron.daily/
 RUN cp docker/nginx/meditate.nginx /etc/nginx/sites-enabled/
 RUN cp docker/init/* /etc/my_init.d/
 RUN cp -r docker/service/* /etc/service/
+
 
 # --- Run With:
 # docker run --name <> -e DJANGO_ALLOW_HOST=<> -e DJANGO_SECRET_KEY=<> -e STRIPE_SECRET_KEY=<> -e STRIPE_PUBLIC_KEY=<> -e PAYPAL_MODE=<sandbox|production> -e MAIL_USER=<> -e MAIL_PASSWORD=<> -p <host_port>:80 -v </host/path/to/db/dir/>:/opt/meditate/database/ <image>

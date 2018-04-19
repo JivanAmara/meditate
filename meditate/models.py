@@ -97,3 +97,6 @@ class Visit(models.Model):
     ip6 = models.CharField(max_length=39)
     timestamp = models.DateTimeField()
     page = models.CharField(max_length=20)
+
+    def __str__(self):
+        return "({}) ipv4: '{}' - ipv6: '{}' page: '{}'".format(self.timestamp, self.ip4, self.ip6, self.page)
