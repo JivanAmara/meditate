@@ -13,6 +13,8 @@ from collections import defaultdict
 from datetime import datetime, timezone, timedelta
 import re
 from pprint import pformat
+import matplotlib as mpl
+mpl.use('Agg')  # This is to eliminate the assumption that there's an X server running.
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import numpy as np
@@ -508,7 +510,12 @@ def visit_charts(request):
     symlink_target = os.path.join('/tmp', plot_filename)
     symlink_tmp = tempfile.mktemp()
     symlink_loc = os.path.join(settings.STATIC_ROOT, 'plots', plot_filename)
+
     plt.savefig(symlink_target)
+
+    gid = grp.getgrnam(settings.STATIC_GROUP).gr_gid
+    os.chown(symlink_target, -1, gid)
+    os.chmod(symlink_target, stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP)
 
     os.symlink(symlink_target, symlink_tmp)
     os.replace(symlink_tmp, symlink_loc)
