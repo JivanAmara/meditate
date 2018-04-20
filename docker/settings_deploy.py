@@ -16,3 +16,6 @@ if ALLOW_HOST is not None:
     ALLOWED_HOSTS.append(ALLOW_HOST)
 
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', None)
+
+LOGGING['handlers']['file']['level'] = 'DEBUG'
+LOGGING['handlers']['file']['filename'] = '/var/log/meditate.log'
