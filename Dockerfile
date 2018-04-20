@@ -2,7 +2,8 @@ FROM phusion/baseimage
 
 # --- Get necessary system packages & set up directories
 RUN apt-get update
-RUN apt-get install -y python3 nginx virtualenv gnupg
+# looks like python3-tk is needed for matplotlib
+RUN apt-get install -y python3 nginx virtualenv gnupg python3-tk
 RUN rm /etc/nginx/sites-enabled/default
 COPY docker/nginx/nginx.conf /etc/nginx/nginx.conf
 RUN mkdir -p /opt/meditate/site
