@@ -49,6 +49,6 @@ urlpatterns = [
     # Match the url layout on Weebly so links to this feed aren't broken on switch to this site.
     path('4/feed', ReflectionsFeed(), name='reflections_feed'),
     path('1/feed', ReflectionsFeed()),   # This is where weebly had the homepage-as-a-blog feed mapped to.
-    path('visit_charts', visit_charts, name='visit_charts'),
+    path('visit_charts/<int:days_back>', visit_charts, name='visit_charts'),
     path('admin/', admin.site.urls),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

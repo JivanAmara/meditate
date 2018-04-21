@@ -454,10 +454,10 @@ def paypal_charge(request):
 
 
 @login_required
-def visit_charts(request):
+def visit_charts(request, days_back=30):
     plot_filename = 'stats.png'
 
-    start_date = datetime.now(timezone.utc) - timedelta(30)
+    start_date = datetime.now(timezone.utc) - timedelta(days_back)
     # This will be of the form [ [ip, timestamp, page], ... ]
     visits_by_date = []
     for v in Visit.objects.filter(timestamp__gt=start_date).order_by('timestamp'):
@@ -482,11 +482,11 @@ def visit_charts(request):
 
     # --- Count up unique visitors
     visitor_count_by_date = defaultdict(int)
-    seen_ips = []
+    seen_ips = defaultdict(list)
     for ip, date, _ in visits_by_date:
-        if ip in seen_ips:
+        if ip in seen_ips[date]:
             continue
-        seen_ips.append(ip)
+        seen_ips[date].append(ip)
         visitor_count_by_date[date] += 1
     date_vcount = []
     for date, vcount in visitor_count_by_date.items():
