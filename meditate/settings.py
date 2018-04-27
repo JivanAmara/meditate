@@ -126,11 +126,18 @@ USE_TZ = True
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'standard': {
+            'format' : "(%(asctime)s) %(levelname)s: %(module)s %(message)s",
+            'datefmt' : "%Y-%m-%d_%H:%M:%S",
+        },
+    },
     'handlers': {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'filename': 'meditate.log',
+            'formatter': 'standard',
         },
     },
     'loggers': {

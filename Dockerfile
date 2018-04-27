@@ -41,4 +41,4 @@ RUN cp -r docker/service/* /etc/service/
 
 
 # --- Run With:
-# docker run --name <> -e DJANGO_ALLOW_HOST=<> -e DJANGO_SECRET_KEY=<> -e STRIPE_SECRET_KEY=<> -e STRIPE_PUBLIC_KEY=<> -e PAYPAL_MODE=<sandbox|production> -e MAIL_USER=<> -e MAIL_PASSWORD=<> -p <host_port>:80 -v </host/path/to/db/dir/>:/opt/meditate/database/ <image>
+# docker run --name <> -e DJANGO_ALLOW_HOST=<> -e DJANGO_ALLOW_HOST_IP=<> -e DJANGO_SECRET_KEY=<> -e STRIPE_SECRET_KEY=<> -e STRIPE_PUBLIC_KEY=<> -e PAYPAL_MODE=<sandbox|production> -e MAIL_USER=<> -e MAIL_PASSWORD=<> -p <host_port>:80 -v </host/path/to/db/dir/>:/opt/meditate/database/ <image>

@@ -27,11 +27,25 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', homepage),
+    # Map blog url that Weebly had for homepage.
+    path('the-book-meditation-mind-and-body-can-be-used-for-self-study-or-as-part-of-a-mentored-12-week-meditation-course', homepage),
+
     path('why_meditate', why_meditate),
     path('sample/', sample),
     path('about_author/', about_author),
+
     path('buy_book', buy_book, name='buy_book'),
+    # Map urls published in book
+    path('buy-book', buy_book),
+    path('buy-book.html', buy_book),
+    path('download-book.html', buy_book),
+
     path('subscribe', subscribe_mentoring, name='subscribe_mentoring'),
+    # Map urls published in book
+    path('subscribe-to-mentoring', subscribe_mentoring),
+    path('subscribe-to-mentoring.html', subscribe_mentoring),
+
+
     path('add_order_item/<str:saleItemName>', add_order_item, name='add_order_item'),
     path('remove_order_item/<str:saleItemName>', remove_order_item, name='remove_order_item'),
     path('get_order_count/<str:saleItemName>', get_order_count, name='single_item_count'),
