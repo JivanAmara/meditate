@@ -493,10 +493,10 @@ def visit_charts(request, days_back=30):
         date_vcount.append([date, vcount])
     date_vcount.sort(key=lambda d: d[0])
 
-    plt.subplots_adjust(bottom=0.1)
     plt.figure(figsize=(6,12))
     ax1 = plt.subplot(311)
     plt.title('Page visits by date')
+    plt.xticks(rotation=90)
     # format the ticks
     ax1.xaxis.set_major_locator(mdates.DayLocator())
     ax1.xaxis.set_major_formatter(mdates.DateFormatter('%m-%d'))
@@ -505,6 +505,7 @@ def visit_charts(request, days_back=30):
 
     ax2 = plt.subplot(312)
     plt.title('Unique visitors by date')
+    plt.xticks(rotation=90)
     ax2.xaxis.set_major_locator(mdates.DayLocator())
     ax2.xaxis.set_major_formatter(mdates.DateFormatter('%m-%d'))
     ax2.plot([i[0] for i in date_vcount], [i[1] for i in date_vcount], "-o")
@@ -513,6 +514,8 @@ def visit_charts(request, days_back=30):
     plt.title('Visit counts by page')
     plt.xticks(rotation=90)
     ax3.plot([i[0] for i in page_vcount], [i[1] for i in page_vcount], "-o")
+
+    plt.tight_layout()
 
     symlink_target = os.path.join('/tmp', plot_filename)
     symlink_tmp = tempfile.mktemp()
