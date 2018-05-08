@@ -54,7 +54,7 @@ class SaleItem(models.Model):
     deleted = models.BooleanField(default=False)
     name = models.CharField(max_length=80, unique=True)
     desc = models.CharField(max_length=500)
-    sitype = models.CharField(max_length=20, choices=[('book', 'book'), ('mentorying', 'mentoring')])
+    sitype = models.CharField(max_length=20, choices=[('book', 'book'), ('mentoring', 'mentoring')])
     img = models.CharField(max_length=100) # should be a filename in 'static/'
     price = models.DecimalField(decimal_places=2, max_digits=5)
     downloadable = models.FileField(blank=True, default="", storage=OverwriteStorage())
