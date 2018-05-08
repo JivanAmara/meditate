@@ -91,18 +91,14 @@ def why_meditate(request):
 
 
 def buy_book(request):
-    items = []
-    items.append(SaleItem.objects.get(name='eBook, PDF'))
-    items.append(SaleItem.objects.get(name='Paperback'))
+    items = SaleItem.objects.filter(sitype='book').order_by('name')
     context = {'items': items, 'page_name': 'buy_book'}
     resp = render(request, 'buy_book.html', context)
     return resp
 
 
 def subscribe_mentoring(request):
-    items = []
-    items.append(SaleItem.objects.get(name='Full Course Check-Ins (12 x 15minutes)'))
-    items.append(SaleItem.objects.get(name='Single Session (30 minutes)'))
+    items = SaleItem.objects.filter(sitype='mentoring').order_by('name')
     context = {'items': items, 'page_name': 'subscribe_mentoring'}
     resp = render(request, 'subscribe_mentoring.html', context)
     return resp
