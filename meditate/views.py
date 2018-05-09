@@ -133,7 +133,7 @@ def set_up_download_links(order):
 
 def order_complete(request):
     sessionId = get_session_id(request)
-    logger.Info('order_complete() hit w/ sessionId "{}"'.format(sessionId))
+    logger.info('order_complete() hit w/ sessionId "{}"'.format(sessionId))
     order = Order.objects.get(sessionId=sessionId)
     md5hasher = hashlib.md5()
     md5hasher.update(sessionId.encode('utf8'))
@@ -370,7 +370,7 @@ class ReflectionsFeed(Feed):
 @csrf_exempt
 def stripe_charge(request):
     sessionId = get_session_id(request)
-    logger.Info('stripe_charge() hit w/ sessionId: "{}"'.format(sessionId))
+    logger.info('stripe_charge() hit w/ sessionId: "{}"'.format(sessionId))
     order = Order.objects.get(sessionId=sessionId)
     success = False
     error_msg = ''
@@ -436,7 +436,7 @@ def stripe_charge(request):
 @csrf_exempt
 def paypal_charge(request):
     sessionId = get_session_id(request)
-    logger.Info('paypal_charge() hit w/ sessionId: "{}"'.format(sessionId))
+    logger.info('paypal_charge() hit w/ sessionId: "{}"'.format(sessionId))
     order, _ = Order.objects.get_or_create(sessionId=sessionId)
     order.paymentId = request.POST.get('paymentId')
     order.total = request.POST.get('amount')
