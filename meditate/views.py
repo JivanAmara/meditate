@@ -177,8 +177,12 @@ def remove_order_item(request, saleItemName):
         saleItem = SaleItem.objects.get(name=saleItemName)
         order, _ = Order.objects.get_or_create(sessionId=sessionId)
         item, _ = OrderItem.objects.get_or_create(order=order, saleItem=saleItem)
-        item.count = item.count - 1 if item.count > 0 else 0
-        item.save()
+        if item.count <= 1:
+            item.delete()
+        else:
+            item.count = item.count - 1
+            item.save()
+
         jsonText = json.dumps({'count': item.count, 'price': saleItem.price}, cls=DecimalEncoder)
         resp = HttpResponse(jsonText, content_type="application/json")
     except Exception as ex:
