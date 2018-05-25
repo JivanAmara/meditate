@@ -128,7 +128,7 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'standard': {
-            'format' : "(%(asctime)s) %(levelname)s: %(module)s %(message)s",
+            'format' : "(%(asctime)s) %(levelname)s: %(module)s:%(lineno)d %(message)s",
             'datefmt' : "%Y-%m-%d_%H:%M:%S",
         },
     },
@@ -141,15 +141,20 @@ LOGGING = {
         },
     },
     'loggers': {
-        'django': {
+        '': {
             'handlers': ['file'],
             'level': 'DEBUG',
             'propagate': True,
         },
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
         'django.template': {
             'handlers': ['file'],
             'level': 'INFO',
-            'propagate': True,
+            'propagate': False,
         },
     },
 }

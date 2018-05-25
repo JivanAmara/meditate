@@ -179,11 +179,13 @@ def remove_order_item(request, saleItemName):
         item, _ = OrderItem.objects.get_or_create(order=order, saleItem=saleItem)
         if item.count <= 1:
             item.delete()
+            icount = 0
         else:
             item.count = item.count - 1
             item.save()
+            icount = item.count
 
-        jsonText = json.dumps({'count': item.count, 'price': saleItem.price}, cls=DecimalEncoder)
+        jsonText = json.dumps({'count': icount, 'price': saleItem.price}, cls=DecimalEncoder)
         resp = HttpResponse(jsonText, content_type="application/json")
     except Exception as ex:
         logger.error('Problem adding item to order: {0}'.format(ex))
@@ -205,9 +207,15 @@ def get_order_count(request, saleItemName=None):
                 orderCount += item.count
         # Just count the named item
         else:
-            oi = OrderItem.objects.get(order__sessionId=sessionId, saleItem__name=saleItemName)
-            orderCount = oi.count
-            itemPrice = oi.saleItem.price
+            ois = OrderItem.objects.filter(order__sessionId=sessionId, saleItem__name=saleItemName)
+            if ois.count() == 0:
+                orderCount = 0
+                itemPrice = 0
+            else:
+                if ois.count() > 1:
+                    logger.error("Got more than one record for sessionId '{}' saleItem '{}'".format(sessionId, saleItemName))
+                orderCount = ois[0].count
+                itemPrice = ois[0].saleItem.price
 
         jsonText = json.dumps({'count': orderCount, 'price': itemPrice}, cls=DecimalEncoder)
         resp = HttpResponse(jsonText, content_type="application/json")
